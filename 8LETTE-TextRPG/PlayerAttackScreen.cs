@@ -19,6 +19,8 @@
             Console.WriteLine("[내 정보]");
             Console.WriteLine("Lv.1  Chad (전사) ");
             Console.WriteLine("HP 100/100 ");
+
+            Console.WriteLine();
         }
 
         private void ShowAttackResult()
@@ -32,25 +34,26 @@
             //플레이어가 공격한 몬스터의 체력과 상태를 출력
             Console.WriteLine("Lv.3 공허충");
             Console.WriteLine("HP 10 -> Dead");
+
+            Console.WriteLine();
         }
 
         public override void Show()
         {
             Console.Clear();
 
-            PrintTitle("전투!!\n");
+            PrintTitle("전투!!");
 
             if (!isAttacked)
             {
                 ShowAttackList();
+                PrintNumAndString(0, "취소");
             }
             else
             {
                 ShowAttackResult();
+                PrintNumAndString(0, "다음");
             }
-            Console.WriteLine();
-
-            Console.WriteLine("0. {0}\n", !isAttacked ? "취소" : "다음");
 
             PrintUserInstruction();
         }
@@ -64,7 +67,7 @@
                 else 
                 {
                     isAttacked = false;
-                    return MonsterBattle.Instance;
+                    return MonsterAttackScreen.Instance;
                 }
             }
             else if (int.TryParse(input, out int num) && 1 <= num && num <= 3/*&& 몬스터 살아있을 때*/)
@@ -74,7 +77,7 @@
             }
             else
             {
-                isAttacked = false;
+                isRetry = true;
             }
 
             return this;

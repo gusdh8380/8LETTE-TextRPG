@@ -1,26 +1,29 @@
-﻿using System;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
-	internal class MonsterBattle : Screen
+	internal class MonsterAttackScreen : Screen
 	{
-		public static readonly MonsterBattle Instance = new MonsterBattle();
-		private MonsterBattle() { }
+		public static readonly MonsterAttackScreen Instance = new MonsterAttackScreen();
+		private MonsterAttackScreen() { }
 
         public override void Show()
 		{
 			Console.Clear();
 
-			PrintTitle("Battle!!\n");
+			PrintTitle("Battle!!");
+
 			//몬스터 정보
 			Console.WriteLine("Lv. 2 미니언 의 공격!");
-			Console.WriteLine("Chad 을(를) 맞췄습니다. [데미지 : 6]\n"); //캐릭터 이름, 몬스터 데미지 정보
-			Console.WriteLine("Lv.1 Chad"); //캐릭터 이름,레벨
+			Console.WriteLine("Chad 을(를) 맞췄습니다. [데미지 : 6]"); //캐릭터 이름, 몬스터 데미지 정보
+            Console.WriteLine();
+
+            //캐릭터 정보
+            Console.WriteLine("Lv.1 Chad"); //캐릭터 이름,레벨
 			Console.WriteLine("HP 100 -> 94"); // 캐릭터 hp, 받은 데미지 계산
+			Console.WriteLine();
 
-			Console.WriteLine("\n0.다음");
-			PrintUserInstruction();
+			PrintNumAndString(0, "다음");
 
+            PrintUserInstruction();
         }
 
 		public override Screen? Next()

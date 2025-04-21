@@ -8,6 +8,8 @@
             Console.WriteLine("Lv.2 미니언  HP 15");
             Console.WriteLine("Lv.5 대포미니언 HP 25");
             Console.WriteLine("LV.3 공허충 HP 10");
+
+            Console.WriteLine();
         }
 
         private void ShowPlayerInfo()
@@ -16,6 +18,8 @@
             Console.WriteLine("[내 정보]");
             Console.WriteLine("Lv.1  Chad (전사) ");
             Console.WriteLine("HP 100/100 ");
+
+            Console.WriteLine();
         }
 
         public override void Show()
@@ -23,14 +27,12 @@
             Console.Clear();
 
             PrintTitle("전투!!");
-            Console.WriteLine();
 
             ShowMonsterInfo();
-            Console.WriteLine();
+            
             ShowPlayerInfo();
-            Console.WriteLine();
 
-            Console.WriteLine("1. 공격\n");
+            PrintNumAndString(1, "공격");
 
             PrintUserInstruction();
         }

@@ -14,14 +14,12 @@ namespace _8LETTE_TextRPG
             PrintTitle(" 마을\n");
 
             Console.WriteLine(" 스파르타 마을에 오신 여러분 환영합니다.");
-            Console.WriteLine(" 이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
+            Console.WriteLine(" 이제 전투를 시작할 수 있습니다.");
 
             Console.WriteLine("\n 1. 상태 보기");
-            Console.WriteLine(" 2. 인벤토리");
-            Console.WriteLine(" 3. 상점");
-            Console.WriteLine(" 4. 던전입장");
-            Console.WriteLine(" 5. 휴식하기");
-            Console.WriteLine(" 0. 게임 종료\n");
+            Console.WriteLine(" 2. 전투 시작");
+            Console.WriteLine();
+
             
 
             PrintUserInstruction();
@@ -32,9 +30,19 @@ namespace _8LETTE_TextRPG
             string input = Console.ReadLine();
             switch (input)
             {
+
                 case "0":
                     GameOver();
                     return null;
+
+                case "1":
+                    return StatusScreen.instance; // StatusScreen으로 이동
+
+                case "2":
+                    //Console.WriteLine()
+                    //isRetry = true;
+                    //return this;
+
                 default:
                     isRetry = true;
                     return this;

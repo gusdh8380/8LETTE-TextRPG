@@ -72,7 +72,7 @@
                 //몬스터에게 플레이어의 공격력에 해당하는 데미지를 가함
                     isAttacked = true;
                 }
-            }
+            
             else
             {
                 isRetry = true;

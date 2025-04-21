@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Screen? current = new ActionSelectScreen();
+            Screen? current = TownScreen.instance; // 시작 화면을 TownScreen으로 설정
             while (current != null)
             {
                 current.Show();

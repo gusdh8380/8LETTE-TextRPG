@@ -20,6 +20,7 @@ namespace _8LETTE_TextRPG
             Console.WriteLine(" 4. 던전입장");
             Console.WriteLine(" 5. 휴식하기");
             Console.WriteLine(" 0. 게임 종료\n");
+            
 
             PrintUserInstruction();
         }
@@ -29,7 +30,7 @@ namespace _8LETTE_TextRPG
             string input = Console.ReadLine();
             switch (input)
             {
-                case "1": 
+                case "1":
                 default:
                     isRetry = true;
                     return this;

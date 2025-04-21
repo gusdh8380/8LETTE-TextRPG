@@ -76,6 +76,11 @@
         //플레이어 레벨업 시 능력치 수치 추가 메소드
         public void IncreaseStats() { BaseAttack += 0.5f; BaseDefense += 1f; }
 
+        public void OnDamaged(float dmg)
+        {
+            Health -= dmg;
+            // 로직 추가
+        }
     }
 
     public class Job

@@ -73,7 +73,5 @@ namespace _8LETTE_TextRPG
         {
             base.AttackTo(victim);
         }
-
-
     }
 }

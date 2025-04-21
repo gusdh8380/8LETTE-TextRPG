@@ -121,7 +121,14 @@ namespace _8LETTE_TextRPG
 
         public virtual void AttackTo(Player victim)
         {
+            Random r = new Random();
+            float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
+            //Todo : 방어력에 따른 데미지 감소 로직
+            float damage = Attack + r.Next(-(int)varirance, (int)varirance);
+            damage = Math.Max(1, damage);
+
+            victim.OnDamaged(damage);
         }
 
         protected virtual void Death()

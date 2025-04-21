@@ -5,8 +5,9 @@ namespace _8LETTE_TextRPG
 	internal class MonsterBattle : Screen
 	{
 		public static readonly MonsterBattle Instance = new MonsterBattle();
+		private MonsterBattle() { }
 
-		public override void Show()
+        public override void Show()
 		{
 			Console.Clear();
 
@@ -21,18 +22,18 @@ namespace _8LETTE_TextRPG
 			PrintUserInstruction();
 
         }
+
 		public override Screen? Next()
 		{
             string input = Console.ReadLine();
             switch (input)
             {
                 case "0":
-					return null;		//다시 플레이어 페이즈로 넘어가야 함
+					return new ActionSelectScreen();		//다시 플레이어 페이즈로 넘어가야 함
                 default:
                     isRetry = true;
                     return this;
             }
         }
-
 	}
 }

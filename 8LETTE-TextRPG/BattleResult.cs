@@ -5,12 +5,12 @@ namespace _8LETTE_TextRPG
     internal class BattleResult : Screen
     {
         public static readonly BattleResult Instance = new BattleResult();
-       
-        
+        private int hp = 1;
+
         //결과 텍스트 색깔 값
         public void ResultColor(string result)
         {
-            if (player.Hp <= 0)
+            if (hp <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result);
@@ -30,7 +30,7 @@ namespace _8LETTE_TextRPG
 
             PrintTitle("Battle!! - Result");
             //플레이어 체력 정보
-            if (player.Hp <= 0)
+            if (hp <= 0)
             {
                 ResultColor("\nYou Lose");
                 Console.WriteLine("\nLv.1 Chad");       //플레이어 체력/이름 정보
@@ -56,7 +56,7 @@ namespace _8LETTE_TextRPG
             switch (input)
             {
                 case "0":
-                    return TownScreen.instance;        //다시 플레이어 페이즈로 넘어가야 함
+                    return TownScreen.instance;
                 default:
                     isRetry = true;
                     return this;

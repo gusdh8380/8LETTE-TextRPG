@@ -4,12 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Screen? current = TownScreen.instance; // 시작 화면을 TownScreen으로 설정
+            Screen? current = TownScreen.instance;
+
             while (current != null)
             {
                 current.Show();
                 current = current.Next();
-                
             }
         }
     }

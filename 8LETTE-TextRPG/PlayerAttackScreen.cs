@@ -64,7 +64,7 @@
                 else 
                 {
                     isAttacked = false;
-                    return null; //적 공격 페이즈 스크린으로 넘어감
+                    return MonsterBattle.Instance;
                 }
             }
             else if (int.TryParse(input, out int num) && 1 <= num && num <= 3/*&& 몬스터 살아있을 때*/)

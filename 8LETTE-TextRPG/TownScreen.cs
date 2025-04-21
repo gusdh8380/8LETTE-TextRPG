@@ -31,6 +31,7 @@ namespace _8LETTE_TextRPG
             switch (input)
             {
                 case "1":
+                    return BattleResult.Instance;
                 default:
                     isRetry = true;
                     return this;

@@ -11,6 +11,7 @@ namespace _8LETTE_TextRPG
             {
                 current.Show();
                 current = current.Next();
+                
             }
         }
     }

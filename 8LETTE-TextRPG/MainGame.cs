@@ -9,6 +9,7 @@
             {
                 current.Show();
                 current = current.Next();
+                
             }
         }
     }

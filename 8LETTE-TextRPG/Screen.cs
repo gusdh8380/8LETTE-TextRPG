@@ -14,9 +14,9 @@
         public void PrintUserInstruction()
         {
             if (!isRetry)
-                Console.Write(" 원하시는 행동을 입력해주세요 : ");
+                Console.Write("원하시는 행동을 입력해주세요 : ");
             else
-                Console.Write(" 잘못된 입력입니다! 다시 입력해주세요 : ");
+                Console.Write("잘못된 입력입니다! 다시 입력해주세요 : ");
 
             isRetry = false;
         }
@@ -26,10 +26,10 @@
             Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
             Console.Write(new String(' ', Console.BufferWidth));
             Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 2);
-            Console.WriteLine(" 체력이 0이 되어 사망하였습니다....\n");
+            Console.WriteLine("체력이 0이 되어 사망하였습니다....\n");
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" 게임 오버");
+            Console.WriteLine("게임 오버");
             Console.ResetColor();
         }
 

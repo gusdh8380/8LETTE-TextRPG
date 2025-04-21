@@ -3,12 +3,12 @@
     internal class BattleResultScreen : Screen
     {
         public static readonly BattleResultScreen Instance = new BattleResultScreen();
-        private int hp = 1; //플레이어의 체력 받아와야 함
+        private int testHP = 1; //지금은 테스트용
 
         //전투의 결과를 출력
         public void BattleResult()
         {
-            if (hp <= 0)
+            if (testHP <= 0) //여기서 플레이어의 체력 받아와야 함
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You Lose");
@@ -23,7 +23,8 @@
                 Console.ResetColor();
                 Console.WriteLine();
 
-                Console.WriteLine("던전에서 몬스터 3마리를 잡았습니다.\n");  //몬스터 몇 마리 잡았는지 정보
+                //몬스터 몇 마리 잡았는지 정보
+                Console.WriteLine("던전에서 몬스터 3마리를 잡았습니다.\n");
             }
         }
 
@@ -31,7 +32,7 @@
         {
             Console.Clear();
 
-            PrintTitle("Battle!! - Result");
+            PrintTitle("전투 결과");
 
             BattleResult();
 
@@ -43,6 +44,12 @@
 
         public override Screen? Next()
         {
+            if (testHP <= 0) 
+            {
+                GameOver();
+                return null;
+            }
+
             string input = Console.ReadLine();
             switch (input)
             {

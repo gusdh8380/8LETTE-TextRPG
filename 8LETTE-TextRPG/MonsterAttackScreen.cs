@@ -9,7 +9,7 @@
 		{
 			Console.Clear();
 
-			PrintTitle("Battle!!");
+			PrintTitle("전투!!");
 
 			//몬스터 정보
 			Console.WriteLine("Lv. 2 미니언 의 공격!");
@@ -32,7 +32,11 @@
             switch (input)
             {
                 case "0":
-					return new ActionSelectScreen();		//다시 플레이어 페이즈로 넘어가야 함
+                    //만약 플레이어의 체력이 0이라면
+                    //return BattleResultScreen.instance;
+
+                    //아니면, 아래 반환
+                    return new ActionSelectScreen();
                 default:
                     isRetry = true;
                     return this;

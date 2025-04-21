@@ -67,6 +67,10 @@
                 else 
                 {
                     isAttacked = false;
+                    //만약 몬스터가 모두 죽었다면
+                    //return BattleResultScreen.instance;
+
+                    //아니면, 아래 반환
                     return MonsterAttackScreen.Instance;
                 }
             }

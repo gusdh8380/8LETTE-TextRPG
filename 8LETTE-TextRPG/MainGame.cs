@@ -1,12 +1,10 @@
-﻿using System.Numerics;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     internal class MainGame
     {
         static void Main(string[] args)
         {
-            Screen? current = TownScreen.instance;
+            Screen? current = new ActionSelectScreen();
             while (current != null)
             {
                 current.Show();

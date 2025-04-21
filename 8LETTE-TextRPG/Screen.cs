@@ -20,8 +20,8 @@
 
         public void PrintUserInstruction()
         {
-            if (!isRetry)   Console.WriteLine("\n원하시는 행동을 입력해주세요. ");
-            else            Console.WriteLine("\n잘못된 입력입니다! 다시 입력해주세요 : ");
+            if (!isRetry)   Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            else            Console.WriteLine("\n잘못된 입력입니다! 다시 입력해주세요.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(">> ");
             Console.ResetColor();

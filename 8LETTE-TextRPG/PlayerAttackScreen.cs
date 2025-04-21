@@ -68,9 +68,10 @@
                 }
             }
             else if (int.TryParse(input, out int num) && 1 <= num && num <= 3/*&& 몬스터 살아있을 때*/)
-            {
+                {
                 //몬스터에게 플레이어의 공격력에 해당하는 데미지를 가함
-                isAttacked = true;
+                    isAttacked = true;
+                }
             }
             else
             {

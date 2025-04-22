@@ -23,6 +23,7 @@ namespace _8LETTE_TextRPG
         /// </summary>
         private readonly List<Item> _items = new List<Item>();
 
+
         public void AddItem(Item item) => _items.Add(item);
         /// <summary>
         /// 아이템 리스트 가져오기

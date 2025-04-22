@@ -40,6 +40,7 @@ namespace _8LETTE_TextRPG
 
         //인벤토리
         public Inventory Inventory { get; private set; }
+
         //레벨
 
         public Player() { }
@@ -55,6 +56,8 @@ namespace _8LETTE_TextRPG
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
+            Inventory.AddItem(new Item("브론즈 소드", 5f, 0f, "초보자용 검", 100f, 0));
+            Inventory.AddItem(new Item("실버 소드", 6f, 0f, "초보자용 검", 100f, 0));
         }
 
         //몬스터 공격 메소드

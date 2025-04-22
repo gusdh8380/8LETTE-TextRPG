@@ -35,7 +35,7 @@
 
         public override void Show()
         {
-            Console.Clear();
+
 
             PrintTitle("전투 결과");
 

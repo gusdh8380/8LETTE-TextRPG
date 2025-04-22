@@ -2,8 +2,7 @@
 {
     internal class TownScreen : Screen
     {
-        public static readonly TownScreen instance = new TownScreen();
-        private TownScreen() { }
+        public static readonly TownScreen Instance = new TownScreen();
 
         public override void Show()
         {
@@ -16,9 +15,10 @@
 
             PrintNumAndString(1, "상태 보기");
             PrintNumAndString(2, "전투 시작");
-            PrintNumAndString(3, "퀘스트"); //퀘스트 선택지 추가
-            PrintNumAndString(4, "진행중인 퀘스트"); //퀘스트 진행상황 추가(구현X)
-            PrintNumAndString(5, "완료된 퀘스트"); //완료된 퀘스트 추가(구현X)
+            PrintNumAndString(3, "퀘스트");
+            //PrintNumAndString(4, "진행중인 퀘스트");
+            //PrintNumAndString(5, "완료된 퀘스트");
+            PrintNumAndString(4, "상점");
             PrintNumAndString(0, "게임 종료");
 
             PrintUserInstruction();
@@ -26,15 +26,20 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             switch (input)
             {
-                case "0": return null;
-                case "1": return StatusScreen.instance;
+                case "0":
+                    return null;
+                case "1":
+                    return StatusScreen.Instance;
                 case "2":
-                    MonsterSpawner.instance.InitMonsters(player);
-                    return ActionSelectScreen.instance;
-                case "3": return QuestScreen. instance; // case 3번 추가
+                    MonsterSpawner.Instance.InitMonsters();
+                    return ActionSelectScreen.Instance;
+                case "3":
+                    return QuestScreen.instance;
+                case "4":
+                    return ShopScreen.instance;
                 default:
                     isRetry = true;
                     return this;

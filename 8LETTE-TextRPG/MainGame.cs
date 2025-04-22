@@ -4,43 +4,48 @@ namespace _8LETTE_TextRPG
     {
         static void Main(string[] args)
         {
-            //ÀÌ¸§ ÀÔ·Â
-            Console.WriteLine("ÀÌ¸§À» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+            //ì´ë¦„ ì…ë ¥
+            Console.WriteLine("ì´ë¦„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write("\n>> ");
             Console.ResetColor();
-            string userName = Console.ReadLine() ?? "8LETTE";
-            userName = userName == "" ? "8LETTE" : userName;
+            string? userName = Console.ReadLine();
+            userName = string.IsNullOrEmpty(userName) ? "8LETTE" : userName;
 
-            //Á÷¾÷ ¼±ÅÃ
+            //ì§ì—… ì„ íƒ
             List<Job> jobs = Job.GetJobs();
             Job selectedJob;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Á÷¾÷À» ¼±ÅÃÇØÁÖ¼¼¿ä.");
+                Console.WriteLine("ì§ì—…ì„ ì„ íƒí•´ì£¼ì„¸ìš”.");
+
                 for (int i = 0; i < jobs.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {jobs[i].Name}");
                 }
+
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write("\n>> ");
                 Console.ResetColor();
 
-                if (int.TryParse(Console.ReadLine(), out int num) &&
-                    1 <= num && num <= jobs.Count)
+                if (int.TryParse(Console.ReadLine(), out int num))
                 {
+                    if (num < 1 || num > jobs.Count)
+                    {
+                        continue;
+                    }
+
                     selectedJob = jobs[num - 1];
                     break;
                 }
             }
 
-            Player player = new Player(userName, selectedJob);
+            new Player(userName, selectedJob);
 
-            Screen? current = TownScreen.instance;
+            Screen? current = TownScreen.Instance;
             while (current != null)
             {
-                current.player = player;
                 current.Show();
                 current = current.Next();
             }

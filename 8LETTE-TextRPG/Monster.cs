@@ -33,9 +33,9 @@ namespace _8LETTE_TextRPG
                 {
                     _hp = MaxHp;
                 }
-                else if (value <= 0)
+                else if (value <= 0f)
                 {
-                    _hp = 0;
+                    _hp = 0f;
                     Death();
                 }
                 else
@@ -48,7 +48,7 @@ namespace _8LETTE_TextRPG
         public float Attack { get; protected set; }
         public bool IsDead => CurState == State.Dead;
 
-        protected State CurState
+        public State CurState
         {
             get
             {
@@ -60,7 +60,7 @@ namespace _8LETTE_TextRPG
             }
         }
 
-        protected State InvalidState => State.Invalid;
+        public State InvalidState => State.Invalid;
 
         private State _curState;
         private State _prevState;
@@ -119,8 +119,13 @@ namespace _8LETTE_TextRPG
             Hp -= dmg;
         }
 
-        public virtual void AttackTo(Player victim)
+        public virtual void AttackTo(Player target)
         {
+            if (target.IsDead)
+            {
+                return;
+            }
+
             Random r = new Random();
             float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
@@ -128,15 +133,15 @@ namespace _8LETTE_TextRPG
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
 
+            target.OnDamaged(damage);
+
             //몬스터 정보 출력
             Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
-            Console.WriteLine($"{victim.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+            Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
 
             //캐릭터 정보 출력
-            Console.WriteLine($"Lv.{victim.Level} {victim.Name}");
-            Console.WriteLine($"HP {victim.Health} -> {victim.Health - damage}\n");
-
-            victim.OnDamaged(damage);
+            Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
+            Console.WriteLine($"HP {target.Health + damage} -> {target.Health}\n");
         }
 
         protected virtual void Death()

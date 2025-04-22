@@ -22,12 +22,9 @@
                 Console.ResetColor();
                 Console.WriteLine();
 
-                //몬스터 몇 마리 잡았는지 정보
                 Console.WriteLine($"던전에서 몬스터 {MonsterSpawner.Instance.MonsterCount}마리를 잡았습니다.\n");
 
-                //플레이어 레벨 / 이름
                 Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name}");
-                //플레이어 전 체력 -> 현 체력
                 Console.WriteLine($"HP {MonsterSpawner.Instance.PreviousHP} -> {Player.Instance.Health}");
             }
         }

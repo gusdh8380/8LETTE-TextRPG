@@ -32,7 +32,7 @@
                     return StatusScreen.Instance;
                 case "2":
                     MonsterSpawner.Instance.InitMonsters();
-                    return ActionSelectScreen.instance;
+                    return ActionSelectScreen.Instance;
                 case "4":
                     return ShopScreen.instance;
                 default:

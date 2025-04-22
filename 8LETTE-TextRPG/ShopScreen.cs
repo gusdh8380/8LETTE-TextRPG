@@ -5,7 +5,7 @@ namespace _8LETTE_TextRPG
     internal class ShopScreen : Screen
     {
         private Shop shop;
-        private List<Item> items;
+        private Item[] items;
 
         private enum ShopState { choice, buy, sell }
         private ShopState state;
@@ -71,7 +71,7 @@ namespace _8LETTE_TextRPG
             switch (state)
             {
                 case ShopState.choice:
-                    if (input == "0") return TownScreen.instance;
+                    if (input == "0") return TownScreen.Instance;
                     else if (input == "1") state = ShopState.buy;
                     else if (input == "2") state = ShopState.sell;
                     else isRetry = true;
@@ -81,7 +81,7 @@ namespace _8LETTE_TextRPG
                     items = shop.GetAllItems();
 
                     if (input == "0") state = ShopState.choice;
-                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Count)
+                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Length)
                     {
                         itemNum = num - 1;
                         isShopping = true;
@@ -93,7 +93,7 @@ namespace _8LETTE_TextRPG
                     items = Player.Instance.Inventory.GetAllItems();
 
                     if (input == "0") state = ShopState.choice;
-                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Count)
+                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Length)
                     {
                         itemNum = num - 1;
                         isShopping = true;

@@ -31,6 +31,12 @@
             isRetry = false;
         }
 
+        public void PrintAnyKeyInstruction()
+        {
+            Console.WriteLine("\n다음으로 넘어가려면 아무 키나 눌러주세요.");
+            isRetry = false;
+        }
+
         public void GameOver()
         {
             Console.WriteLine("\n체력이 0이 되어 사망하였습니다....\n");

@@ -21,14 +21,10 @@
 
         public int Levels { get; set; }
 
-
-        //몬스터 레퍼런스
-        public Monster? Monster { get; set; }
-
         //인벤토리
         //레벨
 
-
+        public Player() { }
         public Player(string name, Job job)
         {
             Name = name;
@@ -41,19 +37,10 @@
             //인벤토리, 레벨, 몬스터 생성자 추가가
         }
 
-        public Player() { }
-
+        //몬스터 공격 메소드
+        //공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
         public void Attack(Monster target)
         {
-            //몬스터 공격 메소드
-            //Todo : 공격한 몬스터 객체를 파라미터로 받아와서
-            // 해당 몬스터의 체력 감소 로직 작성
-            if (target.IsDead) //몬스터가 죽었다면
-            {
-                Console.WriteLine("이미죽음");
-                return;
-            }
-
             Random r = new Random();
             float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
 
@@ -67,13 +54,11 @@
             target.OnDamaged(damage);
 
             Console.WriteLine($"{Name}의 공격!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
 
             if (target.IsDead)
             {
                 Console.WriteLine($"{target.Name}을(를) 처치했습니다!");
-                //적을 잡으면 킬카운트 증가
-                BattleData.KillCountInThisBattle++;
             }
         }
 
@@ -95,7 +80,6 @@
         public float BaseDefense { get; }
         public float BaseHealth { get; }
 
-
         //직업 클래스 : 임시 작성 
         public Job(string name, float baseAttack, float baseDefense, float baseHealth)
         {
@@ -108,14 +92,13 @@
         public static List<Job> GetJobs()
         {
             return new List<Job>
-        {
-            new Job("빨간 ", 12f, 5f, 100f),
-            new Job("파란 ", 8f, 10f, 120f),
-            new Job("초록 ", 10f, 7f, 110f),
-            new Job("노란 ", 15f, 3f, 90f),
-            new Job("검정 ", 9f, 6f, 130f)
-        };
+            {
+                new Job("빨간 ", 12f, 5f, 100f),
+                new Job("파란 ", 8f, 10f, 120f),
+                new Job("초록 ", 10f, 7f, 110f),
+                new Job("노란 ", 15f, 3f, 90f),
+                new Job("검정 ", 9f, 6f, 130f)
+            };
         }
-
     }
 }

@@ -144,7 +144,7 @@ namespace _8LETTE_TextRPG
             if (target.IsDead)
             {
                 Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                GainExp(5); //빠른 디버깅을 위해 경험치를 5로 구현
+                GainExp(target.Level);
                 //만일 몬스터 별로 경험치가 다르게 구현해서
                 //속성을 추가해서 파라미터로 받아오게 하면
                 //Gain(target.Exp);

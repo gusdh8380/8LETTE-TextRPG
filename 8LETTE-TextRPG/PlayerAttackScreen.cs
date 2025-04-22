@@ -2,38 +2,21 @@
 {
     internal class PlayerAttackScreen : Screen
     {
+        public static readonly PlayerAttackScreen instance = new PlayerAttackScreen();
+        private PlayerAttackScreen() { }
+
         private bool isAttacked = false;
+        private int userInput = -1;
 
         private void ShowAttackList()
         {
             //몬스터 객체를 불러와서 입력 번호와 정보를 출력
-            Console.WriteLine("1 Lv.2 미니언  HP 15");
-            Console.WriteLine("2 Lv.5 대포미니언 HP 25");
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine("3 LV.3 공허충 HP 10");
-            Console.ResetColor();
-
-            Console.WriteLine();
+            MonsterSpawner.instance.ShowMonsterInfo(true);
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
-            Console.WriteLine("Lv.1  Chad (전사) ");
-            Console.WriteLine("HP 100/100 ");
-
-            Console.WriteLine();
-        }
-
-        private void ShowAttackResult()
-        {
-            //플레이어가 공격한 몬스터와 데미지를 출력
-            Console.WriteLine("Chad 의 공격!");
-            Console.WriteLine("Lv.3 공허충 을(를) 맞췄습니다. [데미지 : 10]");
-
-            Console.WriteLine();
-
-            //플레이어가 공격한 몬스터의 체력과 상태를 출력
-            Console.WriteLine("Lv.3 공허충");
-            Console.WriteLine("HP 10 -> Dead");
+            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job.Name}) ");
+            Console.WriteLine($"HP {player.Health}/{player.Job.BaseHealth} ");
 
             Console.WriteLine();
         }
@@ -48,35 +31,40 @@
             {
                 ShowAttackList();
                 PrintNumAndString(0, "취소");
+
+                PrintUserInstruction();
             }
             else
             {
-                ShowAttackResult();
-                PrintNumAndString(0, "다음");
-            }
+                player.Attack(MonsterSpawner.instance.monsters[userInput]);
 
-            PrintUserInstruction();
+                Console.WriteLine();
+                PrintAnyKeyInstruction();
+            }
         }
 
         public override Screen? Next()
         {
             string input = Console.ReadLine();
+            if (isAttacked)
+            {
+                isAttacked = false;
+                //만약 몬스터가 모두 죽었다면, 전투 결과 화면으로 이동
+                if (MonsterSpawner.instance.isAllDead()) return BattleResultScreen.instance;
+
+                //아니면, 몬스터 공격 화면으로 이동
+                return MonsterAttackScreen.Instance;
+            }
+
             if(input == "0")
             {
-                if (!isAttacked) return new ActionSelectScreen();
-                else 
-                {
-                    isAttacked = false;
-                    //만약 몬스터가 모두 죽었다면
-                    //return BattleResultScreen.instance;
-
-                    //아니면, 아래 반환
-                    return MonsterAttackScreen.Instance;
-                }
+                return ActionSelectScreen.instance;
             }
-            else if (int.TryParse(input, out int num) && 1 <= num && num <= 3/*&& 몬스터 살아있을 때*/)
+            else if (int.TryParse(input, out int num) && 
+                1 <= num && num <= MonsterSpawner.instance.monsters.Count &&
+                !MonsterSpawner.instance.monsters[num - 1].IsDead)
             {
-                //몬스터에게 플레이어의 공격력에 해당하는 데미지를 가함
+                userInput = num - 1;
                 isAttacked = true;
             }
             else

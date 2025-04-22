@@ -33,7 +33,7 @@ namespace _8LETTE_TextRPG
                 {
                     _hp = MaxHp;
                 }
-                else if (value < 0)
+                else if (value <= 0)
                 {
                     _hp = 0;
                     Death();
@@ -127,6 +127,14 @@ namespace _8LETTE_TextRPG
             //Todo : 방어력에 따른 데미지 감소 로직
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
+
+            //몬스터 정보 출력
+            Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
+            Console.WriteLine($"{victim.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
+            //캐릭터 정보 출력
+            Console.WriteLine($"Lv.{victim.Level} {victim.Name}");
+            Console.WriteLine($"HP {victim.Health} -> {victim.Health - damage}\n");
 
             victim.OnDamaged(damage);
         }

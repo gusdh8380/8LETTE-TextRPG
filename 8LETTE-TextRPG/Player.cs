@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace _8LETTE_TextRPG
 {
 
     /// <summary>
@@ -11,6 +13,21 @@
     /// </summary>
     public class Player
     {
+        /// <summary>
+        /// 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
+        /// </summary>
+        private static Player? _instance;
+
+        /// <summary>
+        /// 플레이어 인스턴스
+        /// </summary>
+        [NotNull]
+        public static Player Instance
+        {
+            get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
+            private set =>_instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+        }
+
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -31,6 +48,7 @@
 
         public Player(string name, Job job)
         {
+            Instance = this;
             Name = name;
             Job = job;
             Level = 1;

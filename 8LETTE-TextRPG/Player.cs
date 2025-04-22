@@ -28,7 +28,7 @@
         //인벤토리
         //레벨
 
-
+        public Player() { }
         public Player(string name, Job job)
         {
             Name = name;
@@ -65,7 +65,7 @@
             target.OnDamaged(damage);
 
             Console.WriteLine($"{Name}의 공격!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
 
             if (target.IsDead)
             {
@@ -91,7 +91,6 @@
         public float BaseDefense { get; }
         public float BaseHealth { get; }
 
-
         //직업 클래스 : 임시 작성 
         public Job(string name, float baseAttack, float baseDefense, float baseHealth)
         {
@@ -104,14 +103,13 @@
         public static List<Job> GetJobs()
         {
             return new List<Job>
-        {
-            new Job("빨간 ", 12f, 5f, 100f),
-            new Job("파란 ", 8f, 10f, 120f),
-            new Job("초록 ", 10f, 7f, 110f),
-            new Job("노란 ", 15f, 3f, 90f),
-            new Job("검정 ", 9f, 6f, 130f)
-        };
+            {
+                new Job("빨간 ", 12f, 5f, 100f),
+                new Job("파란 ", 8f, 10f, 120f),
+                new Job("초록 ", 10f, 7f, 110f),
+                new Job("노란 ", 15f, 3f, 90f),
+                new Job("검정 ", 9f, 6f, 130f)
+            };
         }
-
     }
 }

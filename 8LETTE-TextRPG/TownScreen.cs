@@ -28,7 +28,9 @@
             {
                 case "0": return null;
                 case "1": return StatusScreen.instance;
-                case "2": return new ActionSelectScreen();
+                case "2":
+                    MonsterSpawner.instance.InitMonsters();
+                    return ActionSelectScreen.instance;
                 default:
                     isRetry = true;
                     return this;

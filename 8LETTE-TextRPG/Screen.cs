@@ -2,6 +2,8 @@
 {
     internal abstract class Screen
     {
+        public Player player;
+
         protected bool isRetry = false;
 
         public void PrintTitle(string title)
@@ -26,6 +28,12 @@
             Console.Write(">> ");
             Console.ResetColor();
 
+            isRetry = false;
+        }
+
+        public void PrintAnyKeyInstruction()
+        {
+            Console.WriteLine("\n다음으로 넘어가려면 아무 키나 눌러주세요.");
             isRetry = false;
         }
 

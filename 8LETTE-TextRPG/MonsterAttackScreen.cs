@@ -36,7 +36,7 @@
                     //return BattleResultScreen.instance;
 
                     //아니면, 아래 반환
-                    return new ActionSelectScreen();
+                    return ActionSelectScreen.instance;
                 default:
                     isRetry = true;
                     return this;

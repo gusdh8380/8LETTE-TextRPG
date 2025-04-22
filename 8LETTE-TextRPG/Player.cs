@@ -10,7 +10,8 @@
     /// Player player = new Player(name, selectedJob);플레이어 객체 생성
     /// </summary>
     public class Player
-    {
+    {   
+        public static Player Instance { get; private set; }
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -37,6 +38,7 @@
 
         public Player(string name, Job job)
         {
+            Instance = this;
             Name = name;
             Job = job;
             Level = 1;

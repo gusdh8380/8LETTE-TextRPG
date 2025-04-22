@@ -93,6 +93,7 @@ namespace _8LETTE_TextRPG
         public void Use()
         {
             Player.Instance.Health += Hp;
+            Player.Instance.Inventory.DeleteItem(this);
         }
     }
 }

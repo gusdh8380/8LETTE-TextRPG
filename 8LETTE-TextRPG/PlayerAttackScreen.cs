@@ -17,6 +17,7 @@
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name})");
             Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
 
+
             Console.WriteLine();
         }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     class Shop
     {
@@ -24,14 +18,39 @@ namespace _8LETTE_TextRPG
             }
         }
 
+        public void ShowItems(bool isNum = false)
+        {
+            Console.WriteLine("[상점 목록]");
+            foreach (Item item in _items)
+            {
+                string atk = item.Attack > 0 ? $"공격력 +{item.Attack} " : "";
+                string def = item.Defense > 0 ? $"방어력 +{item.Defense} " : "";
+                string sold = !_itemPurchasedDict[item.Id] ? item.Price.ToString() + " G" : "구매완료";
+
+                Console.Write("- {0}", isNum ? (_items.IndexOf(item) + 1).ToString() + " " : "");
+                Console.WriteLine($"{item.Name} | {atk}{def}| {item.Description} | {sold}");
+            }
+        }
+
         public void BuyItem(Item item)
         {
-            _itemPurchasedDict[item.Id] = true;
+            if (_itemPurchasedDict[item.Id])
+            {
+                Console.WriteLine($"{item.Name}은(는) 이미 구매한 항목입니다.");
+                return;
+            }
+            if (Player.Instance.Gold < item.Price)
+            {
+                Console.WriteLine($"{item.Name}은(는) 돈이 부족하여 살 수 없습니다.");
+                return;
+            }
 
+            _itemPurchasedDict[item.Id] = true;
+            
             Player.Instance.Gold -= item.Price;
             Player.Instance.Inventory.AddItem(item);
 
-            Console.WriteLine($"{item.Name}을(를) 구매했습니다. 남은 골드: {Player.Instance.Gold}G");
+            Console.WriteLine($"{item.Name}을(를) 구매했습니다.");
         }
 
         /// <summary>
@@ -50,7 +69,7 @@ namespace _8LETTE_TextRPG
             Player.Instance.Inventory.DeleteItem(playerItem);
             Player.Instance.Gold += (float)Math.Round(playerItem.Price * 0.85);
 
-            Console.WriteLine($"{playerItem.Name}을(를) 판매했습니다. 남은 골드: {Player.Instance.Gold}G");
+            Console.WriteLine($"{playerItem.Name}을(를) 판매했습니다.");
         }
     }
 }

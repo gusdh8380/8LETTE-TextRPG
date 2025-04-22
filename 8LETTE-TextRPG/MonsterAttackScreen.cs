@@ -1,12 +1,12 @@
 ﻿namespace _8LETTE_TextRPG
 {
-	internal class MonsterAttackScreen : Screen
+  internal class MonsterAttackScreen : Screen
 	{
-		public static readonly MonsterAttackScreen Instance = new MonsterAttackScreen();
+    public static readonly MonsterAttackScreen Instance = new MonsterAttackScreen();
 
-        public override void Show()
+    public override void Show()
 		{
-			Console.Clear();
+      Console.Clear();
 
 			PrintTitle("전투!!");
 
@@ -14,20 +14,20 @@
 
 			if (!Player.Instance.IsDead)
 			{
-                PrintAnyKeyInstruction();
-            }
-        }
+        PrintAnyKeyInstruction();
+      }
+    }
 
 		public override Screen? Next()
 		{
-            Console.ReadKey();
-
+      Console.ReadKey();
+            
 			if (Player.Instance.IsDead)
-			{
-				return BattleResultScreen.Instance;
+      {
+        return BattleResultScreen.Instance;
 			}
 
-            return ActionSelectScreen.Instance;
-        }
-	}
+        return ActionSelectScreen.Instance;
+    }
+  }
 }

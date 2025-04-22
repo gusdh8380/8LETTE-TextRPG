@@ -128,6 +128,14 @@ namespace _8LETTE_TextRPG
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
 
+            //몬스터 정보 출력
+            Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
+            Console.WriteLine($"{victim.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
+            //캐릭터 정보 출력
+            Console.WriteLine($"Lv.{victim.Level} {victim.Name}");
+            Console.WriteLine($"HP {victim.Health} -> {victim.Health - damage}\n");
+
             victim.OnDamaged(damage);
         }
 

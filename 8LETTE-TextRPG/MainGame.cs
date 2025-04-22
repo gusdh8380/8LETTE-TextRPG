@@ -7,7 +7,7 @@ namespace _8LETTE_TextRPG
             //이름 입력
             Console.WriteLine("이름을 입력해주세요.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(">> ");
+            Console.Write("\n>> ");
             Console.ResetColor();
             string userName = Console.ReadLine() ?? "8LETTE";
             userName = userName == "" ? "8LETTE" : userName;
@@ -24,7 +24,7 @@ namespace _8LETTE_TextRPG
                     Console.WriteLine($"{i + 1}. {jobs[i].Name}");
                 }
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write(">> ");
+                Console.Write("\n>> ");
                 Console.ResetColor();
 
                 if (int.TryParse(Console.ReadLine(), out int num) &&

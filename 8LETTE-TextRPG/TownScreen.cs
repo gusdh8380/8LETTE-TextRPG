@@ -29,7 +29,7 @@
                 case "0": return null;
                 case "1": return StatusScreen.instance;
                 case "2":
-                    MonsterSpawner.instance.InitMonsters();
+                    MonsterSpawner.instance.InitMonsters(player);
                     return ActionSelectScreen.instance;
                 default:
                     isRetry = true;

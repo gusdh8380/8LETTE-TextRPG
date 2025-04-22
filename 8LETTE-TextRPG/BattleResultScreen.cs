@@ -8,7 +8,7 @@
         //전투의 결과를 출력
         public void BattleResult()
         {
-            if (player.Health <= 0) //여기서 플레이어의 체력 받아와야 함
+            if (Player.Instance.Health <= 0) //여기서 플레이어의 체력 받아와야 함
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You Lose");
@@ -28,9 +28,9 @@
             }
 
             //플레이어 레벨 / 이름
-            Console.WriteLine($"Lv.{player.Level} {player.Name}");
+            Console.WriteLine($"Lv.{Player.Instance.Level} {Player.Instance.Name}");
             //플레이어 전 체력 -> 현 체력
-            Console.WriteLine($"{MonsterSpawner.instance.PreviousHP} -> {player.Health}");
+            Console.WriteLine($"{MonsterSpawner.instance.PreviousHP} -> {Player.Instance.Health}");
         }
 
         public override void Show()
@@ -47,7 +47,7 @@
 
         public override Screen? Next()
         {
-            if (player.Health <= 0) 
+            if (Player.Instance.Health <= 0) 
             {
                 GameOver();
                 return null;

@@ -40,7 +40,6 @@ namespace _8LETTE_TextRPG
             Screen? current = TownScreen.instance;
             while (current != null)
             {
-                current.player = player;
                 current.Show();
                 current = current.Next();
             }

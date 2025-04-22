@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     //인벤토리 클래스
     // 가장 기본적인 기능만 구현하였습니다.
@@ -70,5 +64,23 @@ namespace _8LETTE_TextRPG
             }
         }
 
+        public void ShowPlayerItems()
+        {
+            Console.WriteLine("[판매 목록]");
+            if(_items.Count == 0)
+            {
+                Console.WriteLine("현재 가지고 있는 아이템이 없습니다.");
+                return;
+            }
+
+            foreach (Item item in _items)
+            {
+                string atk = item.Attack > 0 ? $"공격력 +{item.Attack} " : "";
+                string def = item.Defense > 0 ? $"방어력 +{item.Defense} " : "";
+
+                Console.Write("- {0}", (_items.IndexOf(item) + 1).ToString() + " ");
+                Console.WriteLine($"{item.Name} | {atk}{def}| {item.Description} | {(float)Math.Round(item.Price * 0.85)} G");
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@
 
 			PrintTitle("전투!!");
 
-			MonsterSpawner.instance.AttackPlayer(player);
+			MonsterSpawner.instance.AttackPlayer(Player.Instance);
 
             PrintAnyKeyInstruction();
         }
@@ -20,7 +20,7 @@
 		{
             Console.ReadKey();
 
-            if (player.Health <= 0) return BattleResultScreen.instance;
+            if (Player.Instance.Health <= 0) return BattleResultScreen.instance;
             return ActionSelectScreen.instance;
         }
 	}

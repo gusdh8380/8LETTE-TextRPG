@@ -15,8 +15,8 @@
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
-            Console.WriteLine($"Lv.{player.Level} {player.Name} ({player.Job.Name}) ");
-            Console.WriteLine($"HP {player.Health}/{player.Job.BaseHealth} ");
+            Console.WriteLine($"Lv.{Player.Instance.Level} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
+            Console.WriteLine($"HP {Player.Instance.Health}/{Player.Instance.Job.BaseHealth} ");
 
             Console.WriteLine();
         }
@@ -36,7 +36,7 @@
             }
             else
             {
-                player.Attack(MonsterSpawner.instance.monsters[userInput]);
+                Player.Instance.Attack(MonsterSpawner.instance.monsters[userInput]);
 
                 Console.WriteLine();
                 PrintAnyKeyInstruction();

@@ -2,8 +2,6 @@
 {
     internal abstract class Screen
     {
-        public Player player;
-
         protected bool isRetry = false;
 
         public void PrintTitle(string title) 

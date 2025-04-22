@@ -37,9 +37,9 @@
                     MonsterSpawner.Instance.InitMonsters();
                     return ActionSelectScreen.Instance;
                 case "3":
-                    return QuestScreen.instance;
+                    return QuestScreen.Instance;
                 case "4":
-                    return ShopScreen.instance;
+                    return ShopScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

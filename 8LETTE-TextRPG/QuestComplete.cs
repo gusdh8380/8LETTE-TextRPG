@@ -37,13 +37,13 @@ namespace _8LETTE_TextRPG
                     Console.WriteLine($"\n'{title}' 퀘스트의 보상을 받았습니다!");
                     Console.WriteLine("아무 키나 누르면 마을로 돌아갑니다...");
                     Console.ReadKey();
-                    return TownScreen.instance;
+                    return TownScreen.Instance;
                 }
                 else if (input == "2")
                 {
                     Console.WriteLine("\n퀘스트 목록으로 돌아갑니다...");
                     Console.ReadKey();
-                    return QuestScreen.instance;
+                    return QuestScreen.Instance;
                 }
                 else 
                 {

@@ -8,7 +8,7 @@ namespace _8LETTE_TextRPG
 {
     internal class QuestScreen : Screen
     {
-        public static readonly QuestScreen instance = new QuestScreen();
+        public static readonly QuestScreen Instance = new QuestScreen();
         private QuestScreen() { }
 
         private Screen ShowQuestDetail(string title, string description, string progress, string reward)
@@ -36,14 +36,14 @@ namespace _8LETTE_TextRPG
                     Console.WriteLine($"\n'{title}' 퀘스트를 수락했습니다! 퀘스트 목록으로 돌아갑니다.");
                     Console.WriteLine("아무 키나 누르면 계속...");
                     Console.ReadKey();
-                    return QuestScreen.instance;
+                    return QuestScreen.Instance;
                 }
                 else if (input == "2")
                 {
                     Console.WriteLine("\n퀘스트를 거절했습니다. 퀘스트 목록으로 돌아갑니다.");
                     Console.WriteLine("아무 키나 누르면 계속...");
                     Console.ReadKey();
-                    return QuestScreen.instance;
+                    return QuestScreen.Instance;
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace _8LETTE_TextRPG
                         "-보상-\n 500G"
                         );
                 case "0":
-                    return TownScreen.instance;
+                    return TownScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

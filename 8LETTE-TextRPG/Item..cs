@@ -16,6 +16,8 @@ namespace _8LETTE_TextRPG
         public float Price { get; }
         public int Type { get; }
         
+        //장착 중인 것을 확인하기 위해 필요할 것 같음
+        public bool IsEquipped { get; set; }
 
         public Item(string name, float atk, float def, string desc, float price, int type)
         {

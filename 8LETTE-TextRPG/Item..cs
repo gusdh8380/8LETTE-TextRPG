@@ -8,7 +8,7 @@ namespace _8LETTE_TextRPG
 {
     public class Item
     {
-        public string id {  get; set; }
+        public string Id {  get; set; }
         public string Name { get; }
         public float Attack { get; }
         public float Defense { get; }
@@ -20,6 +20,7 @@ namespace _8LETTE_TextRPG
         public Item(string name, float atk, float def, string desc, float price, int type)
         {
             Name = name; Attack = atk; Defense = def; Description = desc; Price = price; Type = type;
+            Id = Guid.NewGuid().ToString();
         }
 
         //public string StatString()

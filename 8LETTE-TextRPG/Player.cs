@@ -11,7 +11,7 @@
     /// </summary>
     public class Player
     {   
-        public static Player Instance { get; private set; }
+       // public static Player? _Instance { get; private set; }
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -38,7 +38,7 @@
 
         public Player(string name, Job job)
         {
-            Instance = this;
+            //Instance = this;
             Name = name;
             Job = job;
             Level = 1;

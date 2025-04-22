@@ -21,10 +21,6 @@
 
         public int Levels { get; set; }
 
-
-        //몬스터 레퍼런스
-        public Monster? Monster { get; set; }
-
         //인벤토리
         //레벨
 
@@ -41,17 +37,10 @@
             //인벤토리, 레벨, 몬스터 생성자 추가가
         }
 
+        //몬스터 공격 메소드
+        //공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
         public void Attack(Monster target)
         {
-            //몬스터 공격 메소드
-            //Todo : 공격한 몬스터 객체를 파라미터로 받아와서
-            // 해당 몬스터의 체력 감소 로직 작성
-            if (target.IsDead) //몬스터가 죽었다면
-            {
-                Console.WriteLine("이미죽음");
-                return;
-            }
-
             Random r = new Random();
             float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
 

@@ -21,11 +21,17 @@
 
         public int Levels { get; set; }
 
+        //인벤토리 타입 참조 속성 추가
+        public Inventory Inventory { get; set; }
+
+        //장착한 아이템에 따라 능력치 보정
+        public float GetAttack() => BaseAttack + Inventory.EquippedAttackBonus();
+        public float GetDefense() => BaseDefense + Inventory.EquippedDefenseBonus();
 
         //몬스터 레퍼런스
         public Monster? Monster { get; set; }
 
-        //인벤토리
+       
         //레벨
 
 

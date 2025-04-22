@@ -28,7 +28,7 @@ namespace _8LETTE_TextRPG
         /// 아이템 리스트 가져오기
         /// </summary>
         /// <returns></returns>
-        public List<Item> GetAllItems() => _items;
+        public Item[] GetAllItems() => _items.ToArray();
         public void DeleteItem(Item item) => _items.Remove(item);
 
         public float EquippedAttackBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.Attack);

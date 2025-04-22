@@ -2,8 +2,7 @@
 {
     internal class TownScreen : Screen
     {
-        public static readonly TownScreen instance = new TownScreen();
-        private TownScreen() { }
+        public static readonly TownScreen Instance = new TownScreen();
 
         public override void Show()
         {
@@ -23,14 +22,16 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             switch (input)
             {
-                case "0": return null;
-                case "1": return StatusScreen.instance;
+                case "0":
+                    return null;
+                case "1":
+                    return StatusScreen.Instance;
                 case "2":
-                    MonsterSpawner.instance.InitMonsters(player);
-                    return ActionSelectScreen.instance;
+                    MonsterSpawner.Instance.InitMonsters();
+                    return ActionSelectScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

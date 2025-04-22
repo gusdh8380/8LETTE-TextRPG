@@ -15,6 +15,7 @@ namespace _8LETTE_TextRPG
         public string Description { get; }
         public float Price { get; }
         public int Type { get; }
+        public bool IsEquipped { get; set; }
 
 
         public Item(string name, float atk, float def, string desc, float price, int type)

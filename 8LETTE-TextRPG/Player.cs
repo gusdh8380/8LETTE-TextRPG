@@ -43,6 +43,7 @@ namespace _8LETTE_TextRPG
         public Monster? Monster { get; set; }
 
         //인벤토리
+        public Inventory Inventory { get; private set; }
         //레벨
 
 
@@ -56,7 +57,8 @@ namespace _8LETTE_TextRPG
             BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
             Gold = 1500f;
-            //인벤토리, 레벨, 몬스터 생성자 추가가
+            //인벤토리, 레벨, 몬스터 생성자 추가
+            Inventory = new Inventory();
         }
 
         public void Attack(Monster target)

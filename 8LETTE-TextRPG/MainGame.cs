@@ -4,8 +4,6 @@ namespace _8LETTE_TextRPG
     {
         static void Main(string[] args)
         {
-            Monster infLoopMonster = new InfLoop();
-
             Screen? current = TownScreen.instance;
 
             while (current != null)

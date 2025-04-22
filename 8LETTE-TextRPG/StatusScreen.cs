@@ -14,12 +14,12 @@
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
             // 플레이어 정보
-            Console.WriteLine("Lv. 1");
-            Console.WriteLine("Chad (전사)");
-            Console.WriteLine("공격력 : 10");
-            Console.WriteLine("방어력 : 5");
-            Console.WriteLine("체  력 : 100");
-            Console.WriteLine("골  드 : 1500 G");
+            Console.WriteLine($"Lv. {player.Level}");
+            Console.WriteLine($"{player.Name} ({player.Job.Name})");
+            Console.WriteLine($"공격력 : {player.BaseAttack}");
+            Console.WriteLine($"방어력 : {player.BaseDefense}");
+            Console.WriteLine($"체  력 : {player.Health}");
+            Console.WriteLine($"골  드 : {player.Gold}");
 
             Console.WriteLine();
             PrintNumAndString(0, "나가기");

@@ -2,13 +2,13 @@
 {
     internal class BattleResultScreen : Screen
     {
-        public static readonly BattleResultScreen Instance = new BattleResultScreen();
-        private int testHP = 1; //지금은 테스트용
+        public static readonly BattleResultScreen instance = new BattleResultScreen();
+        private BattleResultScreen() { }
 
         //전투의 결과를 출력
         public void BattleResult()
         {
-            if (testHP <= 0) //여기서 플레이어의 체력 받아와야 함
+            if (player.Health <= 0) //여기서 플레이어의 체력 받아와야 함
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You Lose");
@@ -24,8 +24,13 @@
                 Console.WriteLine();
 
                 //몬스터 몇 마리 잡았는지 정보
-                Console.WriteLine("던전에서 몬스터 3마리를 잡았습니다.\n");
+                Console.WriteLine($"던전에서 몬스터 {MonsterSpawner.instance.MonsterNum}마리를 잡았습니다.\n");
             }
+
+            //플레이어 레벨 / 이름
+            Console.WriteLine($"Lv.{player.Level} {player.Name}");
+            //플레이어 전 체력 -> 현 체력
+            Console.WriteLine($"{MonsterSpawner.instance.PreviousHP} -> {player.Health}");
         }
 
         public override void Show()
@@ -36,28 +41,20 @@
 
             BattleResult();
 
-            Console.WriteLine("Lv.1 Chad");     //플레이어 레벨 / 이름 정보
-            Console.WriteLine("HP 100 -> 74");  //플레이어 전 체력 -> 현 체력
-
-            PrintUserInstruction();
+            Console.WriteLine();
+            PrintAnyKeyInstruction();
         }
 
         public override Screen? Next()
         {
-            if (testHP <= 0) 
+            if (player.Health <= 0) 
             {
                 GameOver();
                 return null;
             }
 
-            string input = Console.ReadLine();
-            switch (input)
-            {
-                case "0": return TownScreen.instance;
-                default:
-                    isRetry = true;
-                    return this;
-            }
+            Console.ReadKey();
+            return TownScreen.instance;
         }
     }
 }

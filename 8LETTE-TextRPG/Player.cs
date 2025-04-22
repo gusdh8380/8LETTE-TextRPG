@@ -41,6 +41,8 @@
             //인벤토리, 레벨, 몬스터 생성자 추가가
         }
 
+        public Player() { }
+
         public void Attack(Monster target)
         {
             //몬스터 공격 메소드
@@ -70,6 +72,8 @@
             if (target.IsDead)
             {
                 Console.WriteLine($"{target.Name}을(를) 처치했습니다!");
+                //적을 잡으면 킬카운트 증가
+                BattleData.KillCountInThisBattle++;
             }
         }
 

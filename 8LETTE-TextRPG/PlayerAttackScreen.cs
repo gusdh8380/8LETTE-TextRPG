@@ -6,6 +6,11 @@
 
         private void ShowAttackList()
         {
+            //전투 이전 체력 저장
+            BattleData.PlayerHpBeforeBattle = MainGame.player.Health;
+            //킬카운트 초기화
+            BattleData.KillCountInThisBattle = 0;
+
             //몬스터 객체를 불러와서 입력 번호와 정보를 출력
             Console.WriteLine("1 Lv.2 미니언  HP 15");
             Console.WriteLine("2 Lv.5 대포미니언 HP 25");
@@ -71,7 +76,7 @@
                     //return BattleResultScreen.instance;
 
                     //아니면, 아래 반환
-                    return MonsterAttackScreen.Instance;
+                    //return MonsterAttackScreen.Instance;
                 }
             }
             else if (int.TryParse(input, out int num) && 1 <= num && num <= 3/*&& 몬스터 살아있을 때*/)

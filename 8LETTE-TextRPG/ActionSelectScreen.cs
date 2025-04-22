@@ -44,6 +44,8 @@
             {
                 case "1":
                     return new PlayerAttackScreen();
+                case "2":
+                    return new MonsterAttackScreen(MainGame.player);
                 default:
                     isRetry = true;
                     return this;

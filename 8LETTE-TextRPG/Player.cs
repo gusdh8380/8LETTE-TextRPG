@@ -25,7 +25,7 @@ namespace _8LETTE_TextRPG
         public static Player Instance
         {
             get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
-            private set =>_instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+            private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
         }
 
         public string Name { get; }

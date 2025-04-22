@@ -44,7 +44,7 @@ namespace _8LETTE_TextRPG
             //}
 
             //Player.Instance.Inventory.RemoveItem(item);
-            Player.Instance.Gold += (long)Math.Round(item.Price * 0.85);
+            Player.Instance.Gold += (float)Math.Round(item.Price * 0.85);
 
             Console.WriteLine($"{item.Name}을(를) 판매했습니다. 남은 골드: {Player.Instance.Gold}G");
         }

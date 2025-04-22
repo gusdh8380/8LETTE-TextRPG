@@ -2,64 +2,75 @@
 {
     internal class MonsterSpawner
     {
-        public List<Monster> monsters;
-        public int MonsterNum {  get; private set; }
+        private List<Monster> _monsters = new List<Monster>();
+        public Monster[] GetAllMonsters() => _monsters.ToArray();
+        public int MonsterCount {  get; private set; }
         public float PreviousHP { get; private set; }
 
-        public static readonly MonsterSpawner instance = new MonsterSpawner() { monsters = new List<Monster>() };
-        private MonsterSpawner() { }
+        public static readonly MonsterSpawner Instance = new MonsterSpawner();
 
-        public void InitMonsters(Player player)
+        public void InitMonsters()
         {
-            PreviousHP = player.Health;
+            PreviousHP = Player.Instance.Health;
 
             Random random = new Random();
 
             //1 ~ 4 마리의 몬스터 생성
-            MonsterNum = random.Next(1, 5);
+            MonsterCount = random.Next(1, 5);
 
             //랜덤한 몬스터 생성
-            monsters.Clear();
-            for (int i = 0; i < MonsterNum; i++)
+            _monsters.Clear();
+            for (int i = 0; i < MonsterCount; i++)
             {
-                monsters.Add(new InfLoop());
+                _monsters.Add(new InfLoop());
             }
         }
 
         //몬스터 객체를 불러와서 정보를 출력
         public void ShowMonsterInfo(bool isNum = false)
         {
-            for (int i = 0; i < MonsterNum; i++)
+            for (int i = 0; i < MonsterCount; i++)
             {
-                if(monsters[i].IsDead) Console.ForegroundColor = ConsoleColor.DarkGray;
-                if(isNum) Console.Write($"{i + 1} ");
-                Console.WriteLine($"Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
+                if (_monsters[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+
+                if (isNum)
+                {
+                    Console.Write($"{i + 1} ");
+                }
+
+                Console.WriteLine($"Lv.{_monsters[i].Level} {_monsters[i].Name} HP {_monsters[i].Hp}/{_monsters[i].MaxHp}");
                 Console.ResetColor();
             }
             Console.WriteLine();
         }
 
         //살아있는 모든 몬스터가 플레이어를 공격
-        public void AttackPlayer(Player player)
+        public void AttackPlayer()
         {
-            for (int i = 0; i < MonsterNum; i++) 
+            for (int i = 0; i < MonsterCount; i++) 
             {
-                if (monsters[i].IsDead) continue;
+                if (_monsters[i].IsDead)
+                {
+                    continue;
+                }
 
-                monsters[i].AttackTo(player);
+                _monsters[i].CurState = Monster.State.Attack;
             }
         }
 
         //모든 몬스터가 죽었는지 검사
-        public bool isAllDead()
+        public bool IsAllDead()
         {
-            int cnt = MonsterNum;
-            for (int i = 0; i < MonsterNum; i++)
+            int cnt = MonsterCount;
+            for (int i = 0; i < MonsterCount; i++)
             {
-                if (monsters[i].IsDead) cnt--;
+                if (_monsters[i].IsDead) cnt--;
             }
 
-            if(cnt == 0) return true;
+            if (cnt == 0) return true;
             return false;
         }
     }

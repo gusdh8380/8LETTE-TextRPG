@@ -2,15 +2,15 @@
 {
     internal class ActionSelectScreen : Screen
     {
-        public static readonly ActionSelectScreen instance = new ActionSelectScreen();
-        private ActionSelectScreen() { }
+        public static readonly ActionSelectScreen Instance = new ActionSelectScreen();
 
         private void ShowPlayerInfo()
         {
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
-            Console.WriteLine($"Lv.{Player.Instance.Level} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
-            Console.WriteLine($"HP {Player.Instance.Health}/{Player.Instance.Job.BaseHealth} ");
+
+            Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ");
 
             Console.WriteLine();
         }
@@ -21,7 +21,7 @@
 
             PrintTitle("전투!!");
 
-            MonsterSpawner.instance.ShowMonsterInfo();
+            MonsterSpawner.Instance.ShowMonsterInfo();
             
             ShowPlayerInfo();
 
@@ -32,11 +32,11 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             switch (input)
             {
                 case "1":
-                    return PlayerAttackScreen.instance;
+                    return PlayerAttackScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

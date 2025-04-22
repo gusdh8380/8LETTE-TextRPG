@@ -2,13 +2,12 @@
 {
     internal class BattleResultScreen : Screen
     {
-        public static readonly BattleResultScreen instance = new BattleResultScreen();
-        private BattleResultScreen() { }
+        public static readonly BattleResultScreen Instance = new BattleResultScreen();
 
         //전투의 결과를 출력
         public void BattleResult()
         {
-            if (Player.Instance.Health <= 0) //여기서 플레이어의 체력 받아와야 함
+            if (Player.Instance.IsDead)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("You Lose");
@@ -24,13 +23,13 @@
                 Console.WriteLine();
 
                 //몬스터 몇 마리 잡았는지 정보
-                Console.WriteLine($"던전에서 몬스터 {MonsterSpawner.instance.MonsterNum}마리를 잡았습니다.\n");
-            }
+                Console.WriteLine($"던전에서 몬스터 {MonsterSpawner.Instance.MonsterCount}마리를 잡았습니다.\n");
 
-            //플레이어 레벨 / 이름
-            Console.WriteLine($"Lv.{Player.Instance.Level} {Player.Instance.Name}");
-            //플레이어 전 체력 -> 현 체력
-            Console.WriteLine($"{MonsterSpawner.instance.PreviousHP} -> {Player.Instance.Health}");
+                //플레이어 레벨 / 이름
+                Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name}");
+                //플레이어 전 체력 -> 현 체력
+                Console.WriteLine($"HP {MonsterSpawner.Instance.PreviousHP} -> {Player.Instance.Health}");
+            }
         }
 
         public override void Show()
@@ -47,14 +46,14 @@
 
         public override Screen? Next()
         {
-            if (Player.Instance.Health <= 0) 
+            if (Player.Instance.IsDead)
             {
                 GameOver();
                 return null;
             }
 
             Console.ReadKey();
-            return TownScreen.instance;
+            return TownScreen.Instance;
         }
     }
 }

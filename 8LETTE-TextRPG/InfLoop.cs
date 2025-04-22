@@ -21,9 +21,7 @@
 
             AddState(State.Attack, new StateElem
             {
-                Entered = new Action(AttackEntered),
-                Doing = new Action(AttackDoing),
-                Exited = new Action(AttackExited)
+                Doing = new Action(AttackDoing)
             });
 
             AddState(State.Dead, new StateElem
@@ -37,19 +35,9 @@
 
         }
 
-        private void AttackEntered()
-        {
-
-        }
-
         private void AttackDoing()
         {
-
-        }
-
-        private void AttackExited()
-        {
-
+            AttackTo(Player.Instance);
         }
 
         private void OnDeath()

@@ -2,8 +2,7 @@
 {
     internal class StatusScreen : Screen
     {
-        public static readonly StatusScreen instance = new StatusScreen();
-        private StatusScreen() { }
+        public static readonly StatusScreen Instance = new StatusScreen();
 
         public override void Show()
         {
@@ -14,12 +13,12 @@
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
             // 플레이어 정보
-            Console.WriteLine($"Lv. {Player.Instance.Level}");
+            Console.WriteLine($"Lv. {Player.Instance.Level.CurrentLevel}");
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
             Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
             Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
-            Console.WriteLine($"체  력 : {Player.Instance.Health}");
-            Console.WriteLine($"골  드 : {Player.Instance.Gold}");
+            Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
+            Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 
             Console.WriteLine();
             PrintNumAndString(0, "나가기");
@@ -29,10 +28,10 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             if (input == "0")
             {
-                return TownScreen.instance;
+                return TownScreen.Instance;
             }
             else
             {

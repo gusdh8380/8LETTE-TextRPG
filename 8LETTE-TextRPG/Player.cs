@@ -21,7 +21,6 @@
 
         public int Levels { get; set; }
 
-
         //몬스터 레퍼런스
         public Monster? Monster { get; set; }
 

@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace _8LETTE_TextRPG
 {
 
     /// <summary>
@@ -10,8 +12,22 @@
     /// Player player = new Player(name, selectedJob);플레이어 객체 생성
     /// </summary>
     public class Player
-    {   
-       // public static Player? _Instance { get; private set; }
+    {
+        /// <summary>
+        /// 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
+        /// </summary>
+        private static Player? _instance;
+
+        /// <summary>
+        /// 플레이어 인스턴스
+        /// </summary>
+        [NotNull]
+        public static Player Instance
+        {
+            get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
+            private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+        }
+
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -22,23 +38,14 @@
 
         public int Levels { get; set; }
 
-        //인벤토리 타입 참조 속성 추가
-        public Inventory Inventory { get; set; }
-
-        //장착한 아이템에 따라 능력치 보정
-        public float GetAttack() => BaseAttack + Inventory.EquippedAttackBonus();
-        public float GetDefense() => BaseDefense + Inventory.EquippedDefenseBonus();
-
-        //몬스터 레퍼런스
-        public Monster? Monster { get; set; }
-
-       
+        //인벤토리
+        public Inventory Inventory { get; private set; }
         //레벨
 
-
+        public Player() { }
         public Player(string name, Job job)
         {
-            //Instance = this;
+            Instance = this;
             Name = name;
             Job = job;
             Level = 1;
@@ -46,20 +53,14 @@
             BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
             Gold = 1500f;
-            //인벤토리, 레벨, 몬스터 생성자 추가가
+            //인벤토리, 레벨, 몬스터 생성자 추가
+            Inventory = new Inventory();
         }
 
+        //몬스터 공격 메소드
+        //공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
         public void Attack(Monster target)
         {
-            //몬스터 공격 메소드
-            //Todo : 공격한 몬스터 객체를 파라미터로 받아와서
-            // 해당 몬스터의 체력 감소 로직 작성
-            if (target.IsDead) //몬스터가 죽었다면
-            {
-                Console.WriteLine("이미죽음");
-                return;
-            }
-
             Random r = new Random();
             float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
 
@@ -73,11 +74,11 @@
             target.OnDamaged(damage);
 
             Console.WriteLine($"{Name}의 공격!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
 
             if (target.IsDead)
             {
-                Console.WriteLine($"{target.Name}을(를) 처치했습니다!");
+                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
             }
         }
 
@@ -88,6 +89,7 @@
         {
             Health -= dmg;
             // 로직 추가
+            if(Health < 0) { Health = 0; }
         }
     }
 
@@ -98,7 +100,6 @@
         public float BaseAttack { get; }
         public float BaseDefense { get; }
         public float BaseHealth { get; }
-
 
         //직업 클래스 : 임시 작성 
         public Job(string name, float baseAttack, float baseDefense, float baseHealth)
@@ -112,14 +113,13 @@
         public static List<Job> GetJobs()
         {
             return new List<Job>
-        {
-            new Job("빨간 ", 12f, 5f, 100f),
-            new Job("파란 ", 8f, 10f, 120f),
-            new Job("초록 ", 10f, 7f, 110f),
-            new Job("노란 ", 15f, 3f, 90f),
-            new Job("검정 ", 9f, 6f, 130f)
-        };
+            {
+                new Job("빨간 ", 12f, 5f, 100f),
+                new Job("파란 ", 8f, 10f, 120f),
+                new Job("초록 ", 10f, 7f, 110f),
+                new Job("노란 ", 15f, 3f, 90f),
+                new Job("검정 ", 9f, 6f, 130f)
+            };
         }
-
     }
 }

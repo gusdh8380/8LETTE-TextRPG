@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace _8LETTE_TextRPG
 {
 
     /// <summary>
@@ -11,6 +13,21 @@
     /// </summary>
     public class Player
     {
+        /// <summary>
+        /// 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
+        /// </summary>
+        private static Player? _instance;
+
+        /// <summary>
+        /// 플레이어 인스턴스
+        /// </summary>
+        [NotNull]
+        public static Player Instance
+        {
+            get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
+            private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+        }
+
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -22,11 +39,13 @@
         public int Levels { get; set; }
 
         //인벤토리
+        public Inventory Inventory { get; private set; }
         //레벨
 
         public Player() { }
         public Player(string name, Job job)
         {
+            Instance = this;
             Name = name;
             Job = job;
             Level = 1;
@@ -34,7 +53,8 @@
             BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
             Gold = 1500f;
-            //인벤토리, 레벨, 몬스터 생성자 추가가
+            //인벤토리, 레벨, 몬스터 생성자 추가
+            Inventory = new Inventory();
         }
 
         //몬스터 공격 메소드

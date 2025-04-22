@@ -69,6 +69,7 @@
         {
             Health -= dmg;
             // 로직 추가
+            if(Health < 0) { Health = 0; }
         }
     }
 

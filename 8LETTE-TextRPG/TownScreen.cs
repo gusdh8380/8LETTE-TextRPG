@@ -15,6 +15,9 @@
 
             PrintNumAndString(1, "상태 보기");
             PrintNumAndString(2, "전투 시작");
+            PrintNumAndString(3, "퀘스트");
+            //PrintNumAndString(4, "진행중인 퀘스트");
+            //PrintNumAndString(5, "완료된 퀘스트");
             PrintNumAndString(4, "상점");
             PrintNumAndString(0, "게임 종료");
 
@@ -33,6 +36,8 @@
                 case "2":
                     MonsterSpawner.Instance.InitMonsters();
                     return ActionSelectScreen.Instance;
+                case "3":
+                    return QuestScreen.instance;
                 case "4":
                     return ShopScreen.instance;
                 default:

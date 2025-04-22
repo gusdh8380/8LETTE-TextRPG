@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     internal class PlayerAttackScreen : Screen
     {
@@ -14,8 +12,6 @@ namespace _8LETTE_TextRPG
         {
             //몬스터 객체를 불러와서 입력 번호와 정보를 출력
             MonsterSpawner.instance.ShowMonsterInfo(true);
-
-            Console.WriteLine();
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");

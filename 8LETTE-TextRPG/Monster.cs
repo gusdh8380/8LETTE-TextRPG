@@ -33,7 +33,7 @@ namespace _8LETTE_TextRPG
                 {
                     _hp = MaxHp;
                 }
-                else if (value < 0)
+                else if (value <= 0)
                 {
                     _hp = 0;
                     Death();

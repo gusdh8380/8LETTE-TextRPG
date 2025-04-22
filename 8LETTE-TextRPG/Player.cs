@@ -58,7 +58,7 @@
 
             if (target.IsDead)
             {
-                Console.WriteLine($"{target.Name}을(를) 처치했습니다!");
+                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
             }
         }
 

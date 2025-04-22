@@ -41,33 +41,15 @@ namespace _8LETTE_TextRPG
         /// <summary>
         /// 장착 메소드
         /// </summary>
-        /// <param name="selectedItem"></param>
-        public void Equip(Item selectedItem)
+        /// <param name="equipableItem"></param>
+        public void Equip(IEquipable equipableItem)
         {
-            if (selectedItem.IsEquipped)
-            {
-                selectedItem.IsEquipped = false;
-            }
-            else
-            {
-                // 같은 타입 해제
-                foreach (var item in _items)
-                {
-                    if (item.Type == item.Type && item.IsEquipped)
-                    {
-                        item.IsEquipped = false;
-                    }
-                }
-                selectedItem.IsEquipped = true;
-            }
+            equipableItem.Equip();
         }
 
-        public void Unequip(Item item)
+        public void Unequip(IEquipable equipableItem)
         {
-            if (item.IsEquipped)
-            {
-                item.IsEquipped = false;
-            }
+            equipableItem.Unequip();
         }
 
     }

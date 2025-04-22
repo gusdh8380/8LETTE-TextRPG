@@ -81,6 +81,9 @@ namespace _8LETTE_TextRPG
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
             /*

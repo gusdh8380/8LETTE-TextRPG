@@ -18,10 +18,10 @@ namespace _8LETTE_TextRPG
 
     public class Inventory
     {
-        public readonly Player _player;
+        
         public readonly List<Item> _items = new List<Item> ();
 
-        public Inventory(Player player) => _player = player;
+      
         public void AddItem(Item item) => _items.Add(item);
         public List<Item> GetAllItems() => _items;
         public void DeleteItem(Item item) => _items.Remove(item);
@@ -33,27 +33,28 @@ namespace _8LETTE_TextRPG
         //장착 메소드
         //입력된 수를 파라미터로 받아서 처리하도록 구현함
         //잘못된 입력에 대해서는 구현하지 않았습니다.
-        public void Equip(int index)
-        {
-            var selected = _items[index];
 
+        //파라미터를 Item으로 받도록 재수정
+        public void Equip(Item selected)
+        {
             if (selected.IsEquipped)
             {
                 selected.IsEquipped = false;
             }
             else
             {
-                // 같은 타입 해제
                 foreach (var item in _items)
                 {
                     if (item.Type == selected.Type && item.IsEquipped)
                         item.IsEquipped = false;
                 }
                 selected.IsEquipped = true;
-            }         
+            }
+
+          
         }
         // 장착 해제
-        
+
         public void Unequip(int index)
         {
             var item = _items[index];

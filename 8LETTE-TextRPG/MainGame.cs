@@ -4,7 +4,13 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Screen? current = TownScreen.instance;
+
+            while (current != null)
+            {
+                current.Show();
+                current = current.Next();
+            }
         }
     }
 }

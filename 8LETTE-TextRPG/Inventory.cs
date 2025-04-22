@@ -55,13 +55,11 @@ namespace _8LETTE_TextRPG
         }
         // 장착 해제
 
-        public void Unequip(int index)
+        public void Unequip(Item selected)
         {
-            var item = _items[index];
-
-            if (item.IsEquipped)
+            if (selected.IsEquipped)
             {
-                item.IsEquipped = false;             
+                selected.IsEquipped = false;             
             }
         }
 

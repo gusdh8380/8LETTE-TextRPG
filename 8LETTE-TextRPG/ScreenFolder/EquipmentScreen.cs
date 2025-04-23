@@ -1,8 +1,10 @@
-﻿namespace _8LETTE_TextRPG
+﻿using _8LETTE_TextRPG.ItemFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
-    internal class UseItemScreen : Screen
+    internal class EquipmentScreen : Screen
     {
-        public static readonly UseItemScreen Instance = new UseItemScreen();
+        public static readonly EquipmentScreen Instance = new EquipmentScreen();
 
         private Item? _selectedItem = null;
 
@@ -10,18 +12,18 @@
         {
             Console.Clear();
 
-            PrintTitle("인벤토리 - 아이템 사용");
+            PrintTitle("인벤토리 - 장착 관리");
 
-            Console.WriteLine("보유 중인 아이템을 사용할 수 있습니다.");
+            Console.WriteLine("보유 중인 아이템을 장착할 수 있습니다.");
             Console.WriteLine();
 
             Console.WriteLine("[아이템 목록]");
-            Player.Instance.Inventory.ShowPlayerItems(Inventory.PrintState.Usable);
+            Player.Instance.Inventory.ShowPlayerItems(Inventory.PrintState.Equipment);
             Console.WriteLine();
 
             if (_selectedItem != null)
             {
-                Console.WriteLine($"{_selectedItem.Name}을(를) 사용했습니다.");
+                Console.WriteLine($"{_selectedItem.Name}을(를) {(_selectedItem.IsEquipped ? "장착" : "해제")}했습니다.");
                 Console.WriteLine();
             }
 
@@ -35,22 +37,32 @@
             string? input = Console.ReadLine();
             if (input == "0")
             {
+                _selectedItem = null;
                 return InventoryScreen.Instance;
             }
             else if (int.TryParse(input, out int num))
             {
-                Item[] items = Player.Instance.Inventory.GetAllItems(ItemType.Usable);
+                Item[] items = Player.Instance.Inventory.GetAllItems(ItemType.Equipment);
                 if (num < 1 || num > items.Length)
                 {
+                    _selectedItem = null;
                     _isRetry = true;
                     return this;
                 }
 
                 _selectedItem = items[num - 1];
-                _selectedItem.Use();
+                if (!_selectedItem.IsEquipped)
+                {
+                    Player.Instance.Inventory.Equip(_selectedItem);
+                }
+                else
+                {
+                    Player.Instance.Inventory.Unequip(_selectedItem);
+                }
             }
             else
             {
+                _selectedItem = null;
                 _isRetry = true;
             }
 

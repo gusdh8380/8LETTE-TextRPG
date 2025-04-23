@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using _8LETTE_TextRPG.ItemFolder;
+
+namespace _8LETTE_TextRPG
 {
     //인벤토리 클래스
     // 가장 기본적인 기능만 구현하였습니다.

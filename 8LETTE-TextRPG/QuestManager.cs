@@ -1,4 +1,6 @@
-﻿using System;
+﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.MonsterFolder;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ItemFolder
 {
-    public enum MonsterType
+    public interface IUsable
     {
-        InfLoop,
-        // 여기에 몬스터 종류 추가
+        void Use();
     }
 }

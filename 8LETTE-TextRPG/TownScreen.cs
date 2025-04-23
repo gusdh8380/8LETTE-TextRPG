@@ -37,7 +37,7 @@
                     MonsterSpawner.Instance.InitMonsters();
                     return ActionSelectScreen.Instance;
                 case "3":
-                    return InventoryScreen.instance;
+                    return InventoryScreen.Instance;
                 case "4":
                     return ShopScreen.Instance;
                 case "5":

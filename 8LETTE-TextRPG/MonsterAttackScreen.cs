@@ -8,14 +8,11 @@
         {
             Console.Clear();
 
-            PrintTitle("전투!!");
+            PrintTitle("전투!! - 몬스터의 공격");
 
             MonsterSpawner.Instance.AttackPlayer();
 
-            if (!Player.Instance.IsDead)
-            {
-                PrintAnyKeyInstruction();
-            }
+            PrintAnyKeyInstruction();
         }
 
         public override Screen? Next()

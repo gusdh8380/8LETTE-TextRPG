@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace _8LETTE_TextRPG.MonsterFolder
 {
     public abstract class Monster
@@ -174,7 +167,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
         protected virtual void Death()
         {
             CurState = State.Dead;
-            QuestManager.Instance.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
+            QuestManager.Instance?.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }
     }
 }

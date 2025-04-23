@@ -6,10 +6,36 @@
 
         private void PrintBonusStatus()
         {
+            Console.WriteLine();
+
+            float hpBounus = Player.Instance.Inventory.EquippedHpBonus();
+            if (hpBounus != 0f)
+            {
+                if (hpBounus > 0f)
+                {
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} (+{hpBounus})");
+                }
+                else
+                {
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} ({hpBounus})");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+            }
+
             float atkBounus = Player.Instance.Inventory.EquippedAttackBonus();
             if (atkBounus != 0f)
             {
-                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} (+{atkBounus})");
+                if (atkBounus > 0f)
+                {
+                    Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} (+{atkBounus})");
+                }
+                else
+                {
+                    Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} ({atkBounus})");
+                }
             }
             else
             {
@@ -19,22 +45,55 @@
             float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
             if (defBounus != 0f)
             {
-                Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} (+{defBounus})");
+                if (defBounus > 0f)
+                {
+                    Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} (+{defBounus})");
+                }
+                else
+                {
+                    Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} ({defBounus})");
+                }
             }
             else
             {
                 Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
             }
 
-            float hpBounus = Player.Instance.Inventory.EquippedHpBonus();
-            if (hpBounus != 0f)
+            float criticalBonus = Player.Instance.Inventory.EquippedCriticalBonus();
+            if (criticalBonus != 0f)
             {
-                Console.WriteLine($"체  력 : {Player.Instance.Health} (+{hpBounus}) / {Player.Instance.MaxHealth} (+{hpBounus})");
+                if (criticalBonus > 0f)
+                {
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} (+{criticalBonus}) %");
+                }
+                else
+                {
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} ({criticalBonus}) %");
+                }
             }
             else
             {
-                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} %");
             }
+
+            float evasionBonus = Player.Instance.Inventory.EquippedEvasionBonus();
+            if (evasionBonus != 0f)
+            {
+                if (evasionBonus > 0f)
+                {
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} (+{evasionBonus}) %");
+                }
+                else
+                {
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} ({evasionBonus}) %");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} %");
+            }
+
+            Console.WriteLine();
         }
 
         public override void Show()
@@ -48,7 +107,9 @@
             // 플레이어 정보
             Console.WriteLine($"Lv. {Player.Instance.Level.CurrentLevel}");
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
+
             PrintBonusStatus();
+
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 
             Console.WriteLine();

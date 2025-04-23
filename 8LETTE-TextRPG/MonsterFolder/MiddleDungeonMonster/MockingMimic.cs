@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class InfLoop : Monster
+    class MockingMimic : Monster
     {
-        public InfLoop()
+        public MockingMimic()
         {
-            Type = MonsterType.InfLoop;
-            Name = "무한루프";
-            Level = 3;
-            MaxHp = 20f;
+            Name = "모킹 미믹";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 10f;
-            Defense = 5f;
+            Attack = 28f;
+            Defense = 14f;
         }
 
         protected override void DefineStates()

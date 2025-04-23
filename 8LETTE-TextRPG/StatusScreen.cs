@@ -4,6 +4,39 @@
     {
         public static readonly StatusScreen Instance = new StatusScreen();
 
+        private void PrintBonusStatus()
+        {
+            float atkBounus = Player.Instance.Inventory.EquippedAttackBonus();
+            if (atkBounus != 0f)
+            {
+                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} (+{atkBounus})");
+            }
+            else
+            {
+                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
+            }
+
+            float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
+            if (defBounus != 0f)
+            {
+                Console.WriteLine($"공격력 : {Player.Instance.BaseDefense} (+{defBounus})");
+            }
+            else
+            {
+                Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
+            }
+
+            float hpBounus = Player.Instance.Inventory.EquippedHpBonus();
+            if (hpBounus != 0f)
+            {
+                Console.WriteLine($"체  력 : {Player.Instance.Health} (+{hpBounus}) / {Player.Instance.MaxHealth} (+{hpBounus})");
+            }
+            else
+            {
+                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+            }
+        }
+
         public override void Show()
         {
             Console.Clear();
@@ -15,9 +48,7 @@
             // 플레이어 정보
             Console.WriteLine($"Lv. {Player.Instance.Level.CurrentLevel}");
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
-            Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
-            Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
-            Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
+            PrintBonusStatus();
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 
             Console.WriteLine();
@@ -37,7 +68,7 @@
             {
                 isRetry = true;
             }
-            
+
             return this;
         }
     }

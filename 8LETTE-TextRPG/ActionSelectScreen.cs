@@ -9,7 +9,7 @@
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
-            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth} ");
 
             Console.WriteLine();
         }

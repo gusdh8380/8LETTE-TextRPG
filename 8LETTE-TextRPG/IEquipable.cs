@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _8LETTE_TextRPG
+{
+    public interface IEquipable
+    {
+        float EquipAtkInc { get; set; }
+        float EquipDefInc { get; set; }
+        float EquipHpInc { get; set; }
+        EquipmentType EquipmentType { get; set; }
+        bool IsEquipped { get; set; }
+
+        void Equip();
+        void Unequip();
+    }
+}

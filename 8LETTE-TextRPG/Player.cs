@@ -29,11 +29,13 @@ namespace _8LETTE_TextRPG
             private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
         }
 
+
         public string Name { get; }
         public Job Job { get; }
         public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
+        public float MaxHealth { get; set; }
         private float _health;
         public float Health
         {
@@ -43,9 +45,9 @@ namespace _8LETTE_TextRPG
             }
             set
             {
-                if (value > Job.BaseHealth)
+                if (value > MaxHealth)
                 {
-                    _health = Job.BaseHealth;
+                    _health = MaxHealth;
                 }
                 else if (value <= 0)
                 {
@@ -66,6 +68,9 @@ namespace _8LETTE_TextRPG
 
         //인벤토리
         public Inventory Inventory { get; private set; }
+
+        public Dictionary<EquipmentType, string> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
+
         //레벨
 
         public Player(string name, Job job)
@@ -77,10 +82,26 @@ namespace _8LETTE_TextRPG
 
             BaseAttack = job.BaseAttack;
             BaseDefense = job.BaseDefense;
-            Health = job.BaseHealth;
+            MaxHealth = job.BaseHealth;
+            Health = MaxHealth;
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            //test용: 낡은 키보드 공격템
+            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, EquipmentType.Hand, atk: 10));
+
+            EquippedItems = new Dictionary<EquipmentType, string>
+            {
+                { EquipmentType.Hand, string.Empty },
+                { EquipmentType.Head, string.Empty },
+                { EquipmentType.Body, string.Empty },
+                { EquipmentType.Legs, string.Empty },
+                { EquipmentType.Foots, string.Empty },
+                { EquipmentType.Item, string.Empty }
+            };
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
             /*
@@ -141,7 +162,7 @@ namespace _8LETTE_TextRPG
             if (target.IsDead)
             {
                 Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                GainExp(5); //빠른 디버깅을 위해 경험치를 5로 구현
+                GainExp(target.Level);
                 //만일 몬스터 별로 경험치가 다르게 구현해서
                 //속성을 추가해서 파라미터로 받아오게 하면
                 //Gain(target.Exp);

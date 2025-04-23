@@ -15,6 +15,9 @@
 
             PrintNumAndString(1, "상태 보기");
             PrintNumAndString(2, "전투 시작");
+            PrintNumAndString(3, "인벤토리");
+            PrintNumAndString(4, "상점");
+            PrintNumAndString(5, "퀘스트");
             PrintNumAndString(0, "게임 종료");
 
             PrintUserInstruction();
@@ -32,6 +35,12 @@
                 case "2":
                     MonsterSpawner.Instance.InitMonsters();
                     return ActionSelectScreen.Instance;
+                case "3":
+                    return InventoryScreen.Instance;
+                case "4":
+                    return ShopScreen.Instance;
+                case "5":
+                    return QuestScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

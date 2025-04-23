@@ -32,7 +32,7 @@ namespace _8LETTE_TextRPG
 
         public string Name { get; }
         public Job Job { get; }
-        public int Level { get; set; }
+        public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
         private float _health;
@@ -105,9 +105,11 @@ namespace _8LETTE_TextRPG
 
         }
 
-        //몬스터 공격 메소드
-        //공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
-        public void Attack(Monster target)
+        /// <summary>
+        /// 몬스터 공격 메소드. 공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
+        /// </summary>
+        /// <param name="target"></param>
+        public void AttackTo(Monster target)
         {
             Random r = new Random();
             float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
@@ -115,6 +117,8 @@ namespace _8LETTE_TextRPG
             //몬스터에게 피해를 입힐 데미지 계산
             //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
             //현재는 방어력 무시
+
+
             float damage = BaseAttack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);//최소 데미지 보장
 

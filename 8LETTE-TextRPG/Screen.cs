@@ -2,8 +2,6 @@
 {
     internal abstract class Screen
     {
-        public Player player;
-
         protected bool isRetry = false;
 
         public void PrintTitle(string title) 
@@ -22,8 +20,15 @@
 
         public void PrintUserInstruction()
         {
-            if (!isRetry)   Console.WriteLine("\n원하시는 행동을 입력해주세요.");
-            else            Console.WriteLine("\n잘못된 입력입니다! 다시 입력해주세요.");
+            if (!isRetry)
+            {
+                Console.WriteLine("\n원하시는 행동을 입력해주세요.");
+            }
+            else
+            {
+                Console.WriteLine("\n잘못된 입력입니다! 다시 입력해주세요.");
+            }
+
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(">> ");
             Console.ResetColor();
@@ -33,7 +38,7 @@
 
         public void PrintAnyKeyInstruction()
         {
-            Console.WriteLine("다음으로 넘어가려면 아무 키나 눌러주세요.");
+            Console.WriteLine("\n다음으로 넘어가려면 아무 키나 눌러주세요.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(">> ");
             Console.ResetColor();

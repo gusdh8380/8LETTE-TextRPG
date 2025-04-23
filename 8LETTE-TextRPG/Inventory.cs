@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     //인벤토리 클래스
     // 가장 기본적인 기능만 구현하였습니다.
@@ -29,7 +23,7 @@ namespace _8LETTE_TextRPG
         /// 아이템 리스트 가져오기
         /// </summary>
         /// <returns></returns>
-        public List<Item> GetAllItems() => _items;
+        public Item[] GetAllItems() => _items.ToArray();
         public void DeleteItem(Item item) => _items.Remove(item);
 
         public float EquippedAttackBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.Attack);
@@ -42,34 +36,34 @@ namespace _8LETTE_TextRPG
         /// <summary>
         /// 장착 메소드
         /// </summary>
-        /// <param name="selectedItem"></param>
-        public void Equip(Item selectedItem)
+        /// <param name="equipableItem"></param>
+        public void Equip(IEquipable equipableItem)
         {
-            if (selectedItem.IsEquipped)
-            {
-                selectedItem.IsEquipped = false;
-            }
-            else
-            {
-                // 같은 타입 해제
-                foreach (var item in _items)
-                {
-                    if (item.Type == item.Type && item.IsEquipped)
-                    {
-                        item.IsEquipped = false;
-                    }
-                }
-                selectedItem.IsEquipped = true;
-            }
+            equipableItem.Equip();
         }
 
-        public void Unequip(Item item)
+        public void Unequip(IEquipable equipableItem)
         {
-            if (item.IsEquipped)
-            {
-                item.IsEquipped = false;
-            }
+            equipableItem.Unequip();
         }
 
+        public void ShowPlayerItems()
+        {
+            Console.WriteLine("[판매 목록]");
+            if(_items.Count == 0)
+            {
+                Console.WriteLine("현재 가지고 있는 아이템이 없습니다.");
+                return;
+            }
+
+            foreach (Item item in _items)
+            {
+                string atk = item.Attack > 0 ? $"공격력 +{item.Attack} " : "";
+                string def = item.Defense > 0 ? $"방어력 +{item.Defense} " : "";
+
+                Console.Write("- {0}", (_items.IndexOf(item) + 1).ToString() + " ");
+                Console.WriteLine($"{item.Name} | {atk}{def}| {item.Description} | {(float)Math.Round(item.Price * 0.85)} G");
+            }
+        }
     }
 }

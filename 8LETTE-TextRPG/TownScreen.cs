@@ -2,7 +2,7 @@
 {
     internal class TownScreen : Screen
     {
-        public static readonly TownScreen instance = new TownScreen();
+        public static readonly TownScreen Instance = new TownScreen();
 
         public override void Show()
         {
@@ -26,7 +26,7 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             switch (input)
             {
                 case "0":

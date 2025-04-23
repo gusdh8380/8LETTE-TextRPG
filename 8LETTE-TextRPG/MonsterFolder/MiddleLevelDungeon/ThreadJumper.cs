@@ -1,15 +1,16 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder
 {
-    class InfLoop : Monster
+
+    public class ThreadJumper : Monster
     {
-        public InfLoop()
+        public ThreadJumper()
         {
-            Name = "무한루프";
-            Level = 3;
-            MaxHp = 20f;
+            Name = "쓰레드 점퍼";
+            Level = 8;
+            MaxHp = 120f;
             Hp = MaxHp;
-            Attack = 10f;
-            Defense = 5f;
+            Attack = 24f;
+            Defense = 12f;
         }
 
         protected override void DefineStates()

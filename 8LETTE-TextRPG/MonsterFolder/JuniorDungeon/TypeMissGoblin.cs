@@ -1,0 +1,60 @@
+﻿using _8LETTE_TextRPG.MonsterFolder.JuniorDungeon;
+using _8LETTE_TextRPG;
+using static _8LETTE_TextRPG.MonsterFolder.JuniorDungeon.Monster;
+using System.Xml.Linq;
+
+class TypeMissGoblin : Monster
+{
+    public TypeMissGoblin()
+    {
+        Name = "타입미스 고블린"; //변수타입을 바꾸는 몬스터
+        Level = 2;
+        MaxHp = 15f;
+        Hp = MaxHp;
+        Attack = 8f;
+        Defense = 5f;
+    }
+
+    protected override void DefineStates()
+    {
+        AddState(State.Idle, new StateElem
+        {
+            Doing = new Action(OnIdle)
+        });
+
+        AddState(State.Attack, new StateElem
+        {
+            Doing = new Action(AttackDoing)
+        });
+
+        AddState(State.Dead, new StateElem
+        {
+            Doing = new Action(OnDeath)
+        });
+    }
+
+    private void OnIdle()
+    {
+
+    }
+
+    private void AttackDoing()
+    {
+        AttackTo(Player.Instance);
+    }
+
+    private void OnDeath()
+    {
+
+    }
+
+    public override void OnDamaged(float dmg)
+    {
+        base.OnDamaged(dmg);
+    }
+
+    public override void AttackTo(Player victim)
+    {
+        base.AttackTo(victim);
+    }
+}

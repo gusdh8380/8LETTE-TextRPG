@@ -1,4 +1,4 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeon
 {
     public abstract class Monster
     {

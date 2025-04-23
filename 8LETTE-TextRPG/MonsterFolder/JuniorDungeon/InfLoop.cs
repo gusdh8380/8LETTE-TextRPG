@@ -1,10 +1,10 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeon
 {
     class InfLoop : Monster
     {
         public InfLoop()
         {
-            Name = "무한루프";
+            Name = "무한루프"; //무한루프 몬스터
             Level = 3;
             MaxHp = 20f;
             Hp = MaxHp;

@@ -1,5 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
-using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.MonsterFolder.JuniorDungeon;
 using System.Diagnostics.CodeAnalysis;
 
 namespace _8LETTE_TextRPG

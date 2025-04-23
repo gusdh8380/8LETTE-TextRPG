@@ -4,10 +4,11 @@
     {
         public static readonly ActionSelectScreen Instance = new ActionSelectScreen();
 
+        //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
         private void ShowPlayerInfo()
         {
-            //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
+
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
             Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth} ");
 
@@ -24,7 +25,8 @@
             
             ShowPlayerInfo();
 
-            PrintNumAndString(1, "공격");
+            PrintNumAndString(1, "공격하기");
+            PrintNumAndString(2, "스킬 사용");
 
             PrintUserInstruction();
         }
@@ -36,6 +38,8 @@
             {
                 case "1":
                     return PlayerAttackScreen.Instance;
+                case "2":
+                    return PlayerSkillScreen.Instance;
                 default:
                     _isRetry = true;
                     return this;

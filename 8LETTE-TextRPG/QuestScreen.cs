@@ -49,6 +49,7 @@
                     PrintUserInstruction();
                     break;
                 case QuestState.Completed:
+
                     PrintNumAndString(1, "보상 받기");
                     PrintNumAndString(2, "돌아가기");
 
@@ -87,10 +88,12 @@
 
                     PrintNumAndString(i + 1, _quests[i].Title);
                     Console.ResetColor();
+
                 }
                 Console.WriteLine();
 
                 PrintNumAndString(0, "나가기");
+
                 PrintUserInstruction();
             }
         }
@@ -154,3 +157,4 @@
         }
     }
 }
+

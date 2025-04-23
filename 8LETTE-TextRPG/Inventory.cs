@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     //인벤토리 클래스
     // 가장 기본적인 기능만 구현하였습니다.
@@ -22,6 +16,7 @@ namespace _8LETTE_TextRPG
         /// 내부 아이템 List
         /// </summary>
         private readonly List<Item> _items = new List<Item>();
+
 
         public void AddItem(Item item) => _items.Add(item);
 

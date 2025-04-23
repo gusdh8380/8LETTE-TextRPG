@@ -42,9 +42,8 @@
                 Console.WriteLine($"{item.Name}은(는) 돈이 부족하여 살 수 없습니다.");
                 return;
             }
-
             _itemPurchasedDict[item.Id] = true;
-
+            
             Player.Instance.Gold -= item.Price;
             Player.Instance.Inventory.AddItem(item);
 

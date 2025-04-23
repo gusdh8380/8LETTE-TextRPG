@@ -134,15 +134,41 @@ namespace _8LETTE_TextRPG
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
 
-            target.OnDamaged(damage);
+            //플레이어 회피율 계산
+            bool isEvasion = Player.Instance.TryEvade();
 
-            //몬스터 정보 출력
-            Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
-            Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+            if (isEvasion)
+            {
+                damage = 0;
 
-            //캐릭터 정보 출력
-            Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
-            Console.WriteLine($"HP {target.Health + damage} -> {target.Health}\n");
+                //몬스터 정보 출력
+                Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
+                Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+
+                //캐릭터 정보 출력
+                Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
+                Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");
+
+            }
+            else
+            {
+
+
+                //몬스터 정보 출력
+                Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
+                Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
+
+                //체력 음수 방지
+                float FinalHp = target.Health - damage;
+
+                if (FinalHp < 0) { FinalHp = 0; }
+                //캐릭터 정보 출력
+                Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
+                Console.WriteLine($"HP {target.Health} -> {FinalHp}\n");
+
+                target.OnDamaged(damage);
+
+            }
         }
 
         protected virtual void Death()

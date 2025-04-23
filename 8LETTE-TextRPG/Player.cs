@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Reflection.Emit;
 
 namespace _8LETTE_TextRPG
 {
@@ -34,30 +35,74 @@ namespace _8LETTE_TextRPG
         public int Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
-        public float Health { get; set; }
+        private float _health;
+        public float Health
+        {
+            get
+            {
+                return _health;
+            }
+            set
+            {
+                if (value > Job.BaseHealth)
+                {
+                    _health = Job.BaseHealth;
+                }
+                else if (value <= 0)
+                {
+                    _health = 0f;
+                    Death();
+                }
+                else
+                {
+                    _health = value;
+                }
+            }
+        }
         public float Gold { get; set; }
+        public bool IsDead { get; private set; }
 
-        public int Levels { get; set; }
-
+        public int CriticalChance { get; set; }
+        public int EvasionRate { get; set; }
 
         //인벤토리
         public Inventory Inventory { get; private set; }
 
         //레벨
 
-        public Player() { }
         public Player(string name, Job job)
         {
             Instance = this;
             Name = name;
             Job = job;
-            Level = 1;
+            Level = new Level();
+
             BaseAttack = job.BaseAttack;
             BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+
+            //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
+            /*
+             * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
+             */
+            CriticalChance = 15;
+            EvasionRate = 10;
+        }
+
+        public void GainExp(int exp)
+        {
+            bool leveledUp = Level.AddExp(exp);
+            if (leveledUp)
+            {
+                IncreaseStats();//기본 능력치 상승
+            }
+
         }
 
         //몬스터 공격 메소드
@@ -73,57 +118,77 @@ namespace _8LETTE_TextRPG
             float damage = BaseAttack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);//최소 데미지 보장
 
-            //데미지 계산 처리는 몬스터 클래스에서
-            target.OnDamaged(damage);
+            //크리티컬 계산
+            bool isCritical = TryCritical();
+            if (isCritical)
+            {
+                damage = (float)Math.Ceiling(damage * 1.6);
 
-            Console.WriteLine($"{Name}의 공격!");
-            Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
+                //데미지 계산 처리는 몬스터 클래스에서
+                target.OnDamaged(damage);
+
+                Console.WriteLine($"{Name}의 공격!");
+                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
+            }
+            else
+            {
+                //데미지 계산 처리는 몬스터 클래스에서
+                target.OnDamaged(damage);
+
+                Console.WriteLine($"{Name}의 공격!");
+                Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
+            }
 
             if (target.IsDead)
             {
                 Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
+                GainExp(target.Level);
+                //만일 몬스터 별로 경험치가 다르게 구현해서
+                //속성을 추가해서 파라미터로 받아오게 하면
+                //Gain(target.Exp);
             }
         }
 
+        /// <summary>
+        /// 회피 확률 계산
+        /// </summary>
+        /// <returns></returns>
+        public bool TryEvade()
+        {
+            Random r = new Random();
+            return r.Next(1, 101) <= EvasionRate;
+        }
+
+        /// <summary>
+        /// 치명타 확률 계산
+        /// </summary>
+        /// <returns></returns>
+        public bool TryCritical()
+        {
+            Random r = new Random();
+            return r.Next(1, 101) <= CriticalChance;
+        }
+
         //플레이어 레벨업 시 능력치 수치 추가 메소드
-        public void IncreaseStats() { BaseAttack += 0.5f; BaseDefense += 1f; }
+        public void IncreaseStats()
+        {
+            BaseAttack += 0.5f;
+            BaseDefense += 1f;
+        }
 
         public void OnDamaged(float dmg)
         {
-            Health -= dmg;
-            // 로직 추가
-            if(Health < 0) { Health = 0; }
-        }
-    }
-
-    public class Job
-    {
-        public string Name { get; }
-
-        public float BaseAttack { get; }
-        public float BaseDefense { get; }
-        public float BaseHealth { get; }
-
-        //직업 클래스 : 임시 작성 
-        public Job(string name, float baseAttack, float baseDefense, float baseHealth)
-        {
-            Name = name;
-            BaseAttack = baseAttack;
-            BaseDefense = baseDefense;
-            BaseHealth = baseHealth;
-        }
-
-        public static List<Job> GetJobs()
-        {
-            return new List<Job>
+            if (IsDead)
             {
-                new Job("빨간 ", 12f, 5f, 100f),
-                new Job("파란 ", 8f, 10f, 120f),
-                new Job("초록 ", 10f, 7f, 110f),
-                new Job("노란 ", 15f, 3f, 90f),
-                new Job("검정 ", 9f, 6f, 130f)
-            };
+                return;
+            }
+
+            Health -= dmg;
+        }
+
+        public void Death()
+        {
+            IsDead = true;
         }
     }
-
 }

@@ -81,8 +81,44 @@ namespace _8LETTE_TextRPG
         public float Gold { get; set; }
         public bool IsDead { get; private set; }
 
-        public float CriticalChance { get; set; }
-        public float EvasionRate { get; set; }
+        private float _criticalChance;
+        public float CriticalChance
+        {
+            get
+            {
+                return _criticalChance;
+            }
+            set
+            {
+                if (value > 100f)
+                {
+                    _criticalChance = 100f;
+                }
+                else
+                {
+                    _criticalChance = value;
+                }
+            }
+        }
+        private float _evasionRate;
+        public float EvasionRate
+        {
+            get
+            {
+                return _evasionRate;
+            }
+            set
+            {
+                if (value > 100f)
+                {
+                    _evasionRate = 100f;
+                }
+                else
+                {
+                    _evasionRate = value;
+                }
+            }
+        }
 
         //인벤토리
         public Inventory Inventory { get; private set; }

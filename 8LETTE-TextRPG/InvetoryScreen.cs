@@ -25,7 +25,7 @@
                     Console.WriteLine($"{eqipped} {i + 1}. {item.Name} | 공격력: {item.Attack} |");
                 }
             }
-
+            Player.Instance.Inventory.ShowPlayerItems();
 
         }
 
@@ -43,7 +43,7 @@
                 case "1":
                     return EquipmentScreen.instance;
                 case "0":
-                    return TownScreen.instance;
+                    return TownScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

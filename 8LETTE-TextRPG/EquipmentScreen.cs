@@ -9,11 +9,11 @@
 
         public void IncreaseAttack(float amount)
         {
-            player.BaseAttack += amount;
+            Player.Instance.BaseAttack += amount;
         }
         public void IncreaseDefense(float amount)
         {
-            player.BaseDefense += amount;
+            Player.Instance.BaseDefense += amount;
         }
         public void ShowEquipMenu()
         {
@@ -54,13 +54,13 @@
                     {
                         IncreaseAttack(-selectedItem.Attack);
                         IncreaseDefense(-selectedItem.Defense);
-                        selectedItem.IsEquipped = false;
+                        IEquipable.IEquipable();
                     }
                     else
                     {
                         IncreaseAttack(selectedItem.Attack);
                         IncreaseDefense(selectedItem.Defense);
-                        selectedItem.IsEquipped = true;
+                        IEquipable.Equipe(selectedItem);
                     }
 
                         Console.WriteLine($"{selectedItem.Name}을(를) {(selectedItem.IsEquipped ? "장착" : "해제")}했습니다.");
@@ -70,9 +70,6 @@
         }
         public override void Show()
         {
-
-            Console.WriteLine("");
-
             ShowEquipMenu();
             PrintAnyKeyInstruction();
         }

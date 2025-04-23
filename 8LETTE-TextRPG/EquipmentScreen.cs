@@ -6,6 +6,15 @@
 
         public static readonly EquipmentScreen instance = new EquipmentScreen();
         private EquipmentScreen() { }
+
+        public void IncreaseAttack(float amount)
+        {
+            player.BaseAttack += amount;
+        }
+        public void IncreaseDefense(float amount)
+        {
+            player.BaseDefense += amount;
+        }
         public void ShowEquipMenu()
         {
             while (true)
@@ -41,8 +50,20 @@
             {
                 var selectedItem = items[selected - 1];
 
-                Player.Instance.Inventory.Equip(selectedItem);
-                Console.WriteLine($"{selectedItem.Name}을(를) {(selectedItem.IsEquipped ? "장착" : "해제")}했습니다.");
+                if(selectedItem.IsEquipped)
+                    {
+                        IncreaseAttack(selectedItem.Attack);
+                        IncreaseDefense(selectedItem.Defense);
+                        selectedItem.IsEquipped = false;
+                    }
+                    else
+                    {
+                        IncreaseAttack(selectedItem.Attack);
+                        IncreaseDefense(selectedItem.Defense);
+                        selectedItem.IsEquipped = true;
+                    }
+
+                        Console.WriteLine($"{selectedItem.Name}을(를) {(selectedItem.IsEquipped ? "장착" : "해제")}했습니다.");
             }
         }
 
@@ -68,5 +89,8 @@
            
 
         }
+
+
+
     }
 }

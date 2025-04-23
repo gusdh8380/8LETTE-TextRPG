@@ -32,7 +32,8 @@ namespace _8LETTE_TextRPG
 
 
         public string Name { get; }
-        public Job Job { get; }
+        //public Job Job { get; }
+        public JobBase Job { get; private set; }
         public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
@@ -69,9 +70,9 @@ namespace _8LETTE_TextRPG
         //인벤토리
         public Inventory Inventory { get; private set; }
 
-        //레벨
+       
 
-        public Player(string name, Job job)
+        public Player(string name, JobBase job)
         {
             Instance = this;
             Name = name;
@@ -94,8 +95,8 @@ namespace _8LETTE_TextRPG
             /*
              * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
              */
-            CriticalChance = 15;
-            EvasionRate = 10;
+            CriticalChance = job.CriticalChance;
+            EvasionRate = job.EvasionRate;
         }
 
         public void GainExp(int exp)
@@ -103,10 +104,14 @@ namespace _8LETTE_TextRPG
             bool leveledUp = Level.AddExp(exp);
             if (leveledUp)
             {
-                IncreaseStats();//기본 능력치 상승
+                Job.IncreaseStats(this);//기본 능력치 상승
             }
 
         }
+        //스킬 사용 메소드
+      
+
+       
 
         /// <summary>
         /// 몬스터 공격 메소드. 공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
@@ -176,12 +181,12 @@ namespace _8LETTE_TextRPG
             return r.Next(1, 101) <= CriticalChance;
         }
 
-        //플레이어 레벨업 시 능력치 수치 추가 메소드
-        public void IncreaseStats()
-        {
-            BaseAttack += 0.5f;
-            BaseDefense += 1f;
-        }
+        ////플레이어 레벨업 시 능력치 수치 추가 메소드
+        //public void IncreaseStats()
+        //{
+        //    BaseAttack += 0.5f;
+        //    BaseDefense += 1f;
+        //}
 
         public void OnDamaged(float dmg)
         {

@@ -4,20 +4,27 @@ namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class ShopScreen : Screen
     {
-        private Shop shop;
-        private Item[] items;
+        private Shop _shop;
+        private Item[] _items = [];
 
-        private enum ShopState { choice, buy, sell }
-        private ShopState state;
-
-        private int itemNum;
-        private bool isShopping = false;
-
-        public static readonly ShopScreen Instance = new ShopScreen() { };
-        private ShopScreen() 
+        private enum ShopState
         {
-            shop = new Shop();
-            state = ShopState.choice;
+            Choice,
+            Buy,
+            Sell
+        }
+
+        private ShopState _state;
+
+        private int _itemNum;
+        private bool _isShopping = false;
+
+        public static readonly ShopScreen Instance = new ShopScreen();
+
+        public ShopScreen()
+        {
+            _shop = new Shop();
+            _state = ShopState.Choice;
         }
 
         public override void Show()
@@ -28,28 +35,28 @@ namespace _8LETTE_TextRPG.ScreenFolder
 
             Console.WriteLine("아이템을 사고 팔 수 있습니다.\n");
 
-            switch (state)
+            switch (_state)
             {
-                case ShopState.choice:
-                    shop.ShowItems();
+                case ShopState.Choice:
+                    _shop.ShowItems();
                     break;
 
-                case ShopState.buy:
-                    if (isShopping)
+                case ShopState.Buy:
+                    if (_isShopping)
                     {
-                        isShopping = false;
-                        shop.BuyItem(items[itemNum]);
+                        _isShopping = false;
+                        _shop.BuyItem(_items[_itemNum]);
                         Console.WriteLine();
                     }
 
-                    shop.ShowItems(true);
+                    _shop.ShowItems(true);
                     break;
 
-                case ShopState.sell:
-                    if (isShopping)
+                case ShopState.Sell:
+                    if (_isShopping)
                     {
-                        isShopping = false;
-                        shop.SellItem(items[itemNum]);
+                        _isShopping = false;
+                        _shop.SellItem(_items[_itemNum]);
                         Console.WriteLine();
                     }
 
@@ -61,8 +68,8 @@ namespace _8LETTE_TextRPG.ScreenFolder
             Console.WriteLine("\n[보유 골드]");
             Console.WriteLine($"{Player.Instance.Gold} G\n");
 
-            if (state == ShopState.choice) PrintNumAndString(1, "아이템 구매");
-            if (state == ShopState.choice) PrintNumAndString(2, "아이템 판매");
+            if (_state == ShopState.Choice) PrintNumAndString(1, "아이템 구매");
+            if (_state == ShopState.Choice) PrintNumAndString(2, "아이템 판매");
             PrintNumAndString(0, "나가기");
 
             PrintUserInstruction();
@@ -70,38 +77,62 @@ namespace _8LETTE_TextRPG.ScreenFolder
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
-            switch (state)
+            string? input = Console.ReadLine();
+            switch (_state)
             {
-                case ShopState.choice:
-                    if (input == "0") return TownScreen.Instance;
-                    else if (input == "1") state = ShopState.buy;
-                    else if (input == "2") state = ShopState.sell;
-                    else isRetry = true;
+                case ShopState.Choice:
+                    if (input == "0")
+                    {
+                        return TownScreen.Instance;
+                    }
+                    else if (input == "1")
+                    {
+                        _state = ShopState.Buy;
+                    }
+                    else if (input == "2")
+                    {
+                        _state = ShopState.Sell;
+                    }
+                    else
+                    {
+                        _isRetry = true;
+                    }
                     break;
 
-                case ShopState.buy:
-                    items = shop.GetAllItems();
+                case ShopState.Buy:
+                    _items = _shop.GetAllItems();
 
-                    if (input == "0") state = ShopState.choice;
-                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Length)
+                    if (input == "0")
                     {
-                        itemNum = num - 1;
-                        isShopping = true;
+                        _state = ShopState.Choice;
                     }
-                    else isRetry = true;
+                    else if (int.TryParse(input, out int num) && 0 < num && num <= _items.Length)
+                    {
+                        _itemNum = num - 1;
+                        _isShopping = true;
+                    }
+                    else
+                    {
+                        _isRetry = true;
+                    }
                     break;
 
-                case ShopState.sell:
-                    items = Player.Instance.Inventory.GetAllItems();
+                case ShopState.Sell:
+                    _items = Player.Instance.Inventory.GetAllItems();
 
-                    if (input == "0") state = ShopState.choice;
-                    else if (int.TryParse(input, out int num) && 0 < num && num <= items.Length)
+                    if (input == "0")
                     {
-                        itemNum = num - 1;
-                        isShopping = true;
+                        _state = ShopState.Choice;
                     }
-                    else isRetry = true;
+                    else if (int.TryParse(input, out int num) && 0 < num && num <= _items.Length)
+                    {
+                        _itemNum = num - 1;
+                        _isShopping = true;
+                    }
+                    else
+                    {
+                        _isRetry = true;
+                    }
                     break;
             }
 

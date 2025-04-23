@@ -18,7 +18,6 @@
             PrintNumAndString(3, "인벤토리");
             PrintNumAndString(4, "상점");
             PrintNumAndString(5, "퀘스트");
-            PrintNumAndString(6, "회복 아이템");
             PrintNumAndString(0, "게임 종료");
 
             PrintUserInstruction();
@@ -42,10 +41,8 @@
                     return ShopScreen.Instance;
                 case "5":
                     return QuestScreen.Instance;
-                case "6":
-                    return this; //회복 아이템 사용 화면
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

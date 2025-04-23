@@ -44,6 +44,7 @@ namespace _8LETTE_TextRPG
             }
 
             new Player(userName, selectedJob);
+            new QuestManager();
 
             Screen? current = TownScreen.Instance;
             while (current != null)

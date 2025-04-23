@@ -36,6 +36,7 @@ namespace _8LETTE_TextRPG
         public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
+        public float MaxHealth { get; set; }
         private float _health;
         public float Health
         {
@@ -45,9 +46,9 @@ namespace _8LETTE_TextRPG
             }
             set
             {
-                if (value > Job.BaseHealth)
+                if (value > MaxHealth)
                 {
-                    _health = Job.BaseHealth;
+                    _health = MaxHealth;
                 }
                 else if (value <= 0)
                 {
@@ -69,6 +70,8 @@ namespace _8LETTE_TextRPG
         //인벤토리
         public Inventory Inventory { get; private set; }
 
+        public Dictionary<EquipmentType, string> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
+
         //레벨
 
         public Player(string name, Job job)
@@ -80,15 +83,26 @@ namespace _8LETTE_TextRPG
 
             BaseAttack = job.BaseAttack;
             BaseDefense = job.BaseDefense;
-            Health = job.BaseHealth;
+            MaxHealth = job.BaseHealth;
+            Health = MaxHealth;
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
             //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, 0f, 200f, 1));
+            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, EquipmentType.Keyboard, atk: 10));
+
+            EquippedItems = new Dictionary<EquipmentType, string>
+            {
+                { EquipmentType.Mouse, string.Empty },
+                { EquipmentType.Keyboard, string.Empty },
+                { EquipmentType.Monitor, string.Empty },
+                { EquipmentType.Chair, string.Empty },
+                { EquipmentType.Desk, string.Empty },
+                { EquipmentType.Glasses, string.Empty }
+            };
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
             /*

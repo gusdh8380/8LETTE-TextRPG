@@ -68,7 +68,7 @@
                 //Skill[] skills = Player.Instane.GetAllSkills();
                 if (num < 1 || num > 4) //|| Player.Instane.MP < skills[num - 1].MP
                 {
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
                 }
 
@@ -77,7 +77,7 @@
             }
             else
             {
-                isRetry = true;
+                _isRetry = true;
             }
 
             return this;

@@ -148,7 +148,7 @@ namespace _8LETTE_TextRPG
         protected virtual void Death()
         {
             CurState = State.Dead;
-            QuestManager.Instance.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
+            QuestManager.Instance?.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }
     }
 }

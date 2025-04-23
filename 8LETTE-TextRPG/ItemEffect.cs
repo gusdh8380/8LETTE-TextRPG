@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG
 {
-    public interface IUsable
+    public enum ItemEffect
     {
-        void Use();
+        Atk,
+        Def,
+        Hp,
+        Critical,
+        Evasion,
+        // 여기에 아이템 효과 추가
     }
 }

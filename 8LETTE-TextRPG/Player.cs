@@ -60,11 +60,12 @@ namespace _8LETTE_TextRPG
                 }
             }
         }
+
         public float Gold { get; set; }
         public bool IsDead { get; private set; }
 
-        public int CriticalChance { get; set; }
-        public int EvasionRate { get; set; }
+        public float CriticalChance { get; set; }
+        public float EvasionRate { get; set; }
 
         //인벤토리
         public Inventory Inventory { get; private set; }
@@ -87,11 +88,23 @@ namespace _8LETTE_TextRPG
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
             //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, EquipmentType.Keyboard, atk: 10));
+            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 500f, EquipmentType.Keyboard, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, 10f }
+            }));
 
             EquippedItems = new Dictionary<EquipmentType, string>
             {
@@ -107,8 +120,8 @@ namespace _8LETTE_TextRPG
             /*
              * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
              */
-            CriticalChance = 15;
-            EvasionRate = 10;
+            CriticalChance = job.CriticalChance;
+            EvasionRate = job.EvationRate;
         }
 
         public void GainExp(int exp)

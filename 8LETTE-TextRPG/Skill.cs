@@ -9,7 +9,7 @@ namespace _8LETTE_TextRPG
 {
     //스킬 :  추상 클래스 사용
     public enum SkillType { Active, Passive }
-    public enum EffectType { Damage, Buff, Debuff, Heal, Utility }
+    public enum EffectType { Damage, Buff}
 
     public abstract class Skill
     {
@@ -60,12 +60,12 @@ namespace _8LETTE_TextRPG
         }
     }
 
-    //버그워리어(미들) 스킬 [공격력 증가] 
+    //버그워리어(미들) 버프스킬 [공격력 증가] 
     public class IncreaseAtk : Skill
     {
        
         public override string Name => "공격력 증가"; //스킬 명 수정이 필요할 것 같습니다.
-        public override string Description => "공격력이 20% 증가합니다.";
+        public override string Description => " 공격력이 20% 증가합니다.";
 
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Buff;
@@ -74,50 +74,15 @@ namespace _8LETTE_TextRPG
         //스킬 실행 로직
         public override void Execute(Player player, Monster target)
         {
-            float originAtk = Player.Instance.BaseAttack;
-            float boostedAtk = originAtk * 1.2f;
+            var buff = new Buff(
+                name: "공격력 증가",
+                atkMultiplier: 1.2f,
+                defMultiplier: 1,
+                turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
+                duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
+                );
 
-
-            Random r = new Random();
-            float varirance = (float)Math.Ceiling(boostedAtk * 0.1f);
-
-            //몬스터에게 피해를 입힐 데미지 계산
-            //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
-            //현재는 방어력 무시
-
-
-            float damage = boostedAtk + r.Next(-(int)varirance, (int)varirance);
-            damage = Math.Max(1, damage);//최소 데미지 보장
-
-            //크리티컬 계산
-            bool isCritical = Player.Instance.TryCritical();
-            if (isCritical)
-            {
-                damage = (float)Math.Ceiling(damage * 1.6);
-
-                //데미지 계산 처리는 몬스터 클래스에서
-                target.OnDamaged(damage);
-
-                Console.WriteLine($"{Name}의 공격!");
-                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
-            }
-            else
-            {
-                //데미지 계산 처리는 몬스터 클래스에서
-                target.OnDamaged(damage);
-
-                Console.WriteLine($"{Name}의 공격!");
-                Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
-            }
-
-            if (target.IsDead)
-            {
-                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                Player.Instance.GainExp(target.Level);
-                //만일 몬스터 별로 경험치가 다르게 구현해서
-                //속성을 추가해서 파라미터로 받아오게 하면
-                //Gain(target.Exp);
-            }
+            Player.Instance.AddBuff(buff); 
 
         }
     }

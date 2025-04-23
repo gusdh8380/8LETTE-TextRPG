@@ -70,6 +70,7 @@ namespace _8LETTE_TextRPG
         //인벤토리
         public Inventory Inventory { get; private set; }
 
+        private List<Buff> _buffs = new List<Buff>();
        
 
         public Player(string name, JobBase job)
@@ -108,10 +109,50 @@ namespace _8LETTE_TextRPG
             }
 
         }
-        //스킬 사용 메소드
-      
+        //버프 가져오기
+        public void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+        }
 
-       
+        //버프로 인한 공격력증가 반환
+        public float GetBuffAttack()
+        {
+            float atk = BaseAttack;
+
+            foreach (var buff in _buffs)
+            {
+                atk *= buff.AttackMultiplier;
+            }
+
+            return atk;
+        }
+
+        //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
+        
+        public void EndTurn()
+        {
+            for (int i = _buffs.Count - 1; i >= 0; i--)
+            {
+                var buff = _buffs[i];
+                if (buff.Duration == DurationType.OneTurn)
+                {
+                    buff.TurnsRemaining--;
+                    if (buff.TurnsRemaining <= 0)
+                    {
+                        //버프 종료
+                        _buffs.RemoveAt(i);
+                    }
+                }
+            }
+        }
+        //전투가 끝나는 타이밍에 버프 제거 메소드
+        
+        public void ClearBattleBuffs()
+        {
+            _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
+        }
+
 
         /// <summary>
         /// 몬스터 공격 메소드. 공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
@@ -120,14 +161,21 @@ namespace _8LETTE_TextRPG
         public void AttackTo(Monster target)
         {
             Random r = new Random();
+
+            
+
             float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
 
             //몬스터에게 피해를 입힐 데미지 계산
             //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
             //현재는 방어력 무시
 
+            //공격력 버프 적용, 버프가 없으면 기본 공격력 적용
+            float atk = GetBuffAttack();
 
-            float damage = BaseAttack + r.Next(-(int)varirance, (int)varirance);
+            float damage = atk + r.Next(-(int)varirance, (int)varirance);
+
+          
             damage = Math.Max(1, damage);//최소 데미지 보장
 
             //크리티컬 계산

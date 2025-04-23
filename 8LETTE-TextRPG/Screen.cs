@@ -38,7 +38,7 @@
 
         public void PrintAnyKeyInstruction()
         {
-            Console.WriteLine("다음으로 넘어가려면 아무 키나 눌러주세요.");
+            Console.WriteLine("\n다음으로 넘어가려면 아무 키나 눌러주세요.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(">> ");
             Console.ResetColor();

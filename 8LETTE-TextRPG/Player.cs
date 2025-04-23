@@ -35,8 +35,20 @@ namespace _8LETTE_TextRPG
         //public Job Job { get; }
         public JobBase Job { get; private set; }
         public Level Level { get; set; }
-        public float BaseAttack { get; set; }
-        public float BaseDefense { get; set; }
+
+        //공격력 수정 : 전직 시 기존 공격력 유지를 위해
+        public float JobBaseAttack => Job.BaseAttack;// 직업 초기 값
+        public float BonusAttack {  get; set; } = 0f;//레벨업 추가 능력치
+        public float TotalAttack => JobBaseAttack + BonusAttack;
+
+
+        // 방어력 수정 : 전직 시 기존 방어력 유지를 위해
+        public float JobBaseDefense => Job.BaseDefense;// 직업 초기 값
+        public float BonusDefense { get; set; } = 0f;//레벨업 추가 능력치
+        public float TotalDefense => JobBaseDefense + BonusDefense;
+
+
+      
         private float _health;
         public float Health
         {
@@ -80,8 +92,8 @@ namespace _8LETTE_TextRPG
             Job = job;
             Level = new Level();
 
-            BaseAttack = job.BaseAttack;
-            BaseDefense = job.BaseDefense;
+           // BaseAttack = job.BaseAttack;
+            //BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
@@ -109,6 +121,17 @@ namespace _8LETTE_TextRPG
             }
 
         }
+        //전직 메소드, job 클래스를 입력 받음
+        public void Promote(JobBase job)
+        {
+            Job = job;
+
+            CriticalChance = Job.CriticalChance;
+            EvasionRate = Job.EvasionRate;
+
+            if (Health > Job.BaseHealth)
+                Health = Job.BaseHealth;
+        }
         //버프 가져오기
         public void AddBuff(Buff buff)
         {
@@ -118,7 +141,7 @@ namespace _8LETTE_TextRPG
         //버프로 인한 공격력증가 반환
         public float GetBuffAttack()
         {
-            float atk = BaseAttack;
+            float atk = TotalAttack;
 
             foreach (var buff in _buffs)
             {
@@ -128,8 +151,13 @@ namespace _8LETTE_TextRPG
             return atk;
         }
 
+        //Todo : 치명타, 회피 버브 적용 코드
+        public int GetBuffEvasion() { return 1; }
+        public int GetBuffCritical() {  return 1; }
+
+
         //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
-        
+
         public void EndTurn()
         {
             for (int i = _buffs.Count - 1; i >= 0; i--)
@@ -164,7 +192,7 @@ namespace _8LETTE_TextRPG
 
             
 
-            float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
+            float varirance = (float)Math.Ceiling(TotalAttack * 0.1f);
 
             //몬스터에게 피해를 입힐 데미지 계산
             //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두

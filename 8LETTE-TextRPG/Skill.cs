@@ -39,7 +39,7 @@ namespace _8LETTE_TextRPG
         //스킬 실행 로직
         public override void Execute(Player player, Monster target)
         {
-            float damage = Player.Instance.BaseAttack * 2f;
+            float damage = Player.Instance.TotalAttack * 2f;
 
             //Todo : 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = damage;
@@ -64,7 +64,7 @@ namespace _8LETTE_TextRPG
     public class IncreaseAtk : Skill
     {
        
-        public override string Name => "공격력 증가"; //스킬 명 수정이 필요할 것 같습니다.
+        public override string Name => "공격력 증가"; //Todo : 스킬명 수정이 필요할 것 같습니다.
         public override string Description => " 공격력이 20% 증가합니다.";
 
         public override SkillType Type => SkillType.Active;

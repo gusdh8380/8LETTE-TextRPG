@@ -29,8 +29,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BaseAttack += 0.5f;
-            player.BaseDefense += 0.5f;
+            player.BonusAttack += 0.5f;
+            player.BonusDefense += 0.5f;
         }
     }
 
@@ -53,8 +53,55 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BaseAttack += 1f;
-            player.BaseDefense += 0.5f;
+            player.BonusAttack += 1f;
+            player.BonusDefense += 0.5f;
+        }
+    }
+    public class BugWarrior_Ssnior : JobBase
+    {
+        public override string Name => "버그워리어 (시니어)";
+        public override float BaseAttack => 15f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 10;
+        public override int PromotionStage => 1;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill(),//전 직업 스킬 
+            new IncreaseAtk()
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 1f;
+            player.BonusDefense += 0.5f;
+        }
+
+    }
+       
+    
+    public class BugWarrior_Director : JobBase
+    {
+        public override string Name => "버그워리어 (디렉터)";
+        public override float BaseAttack => 15f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 10;
+        public override int PromotionStage => 1;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill(),//전 직업 스킬 
+            new IncreaseAtk()
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 1f;
+            player.BonusDefense += 0.5f;
         }
     }
 

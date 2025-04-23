@@ -19,15 +19,29 @@
 
 
         public void AddItem(Item item) => _items.Add(item);
+
         /// <summary>
         /// 아이템 리스트 가져오기
         /// </summary>
         /// <returns></returns>
-        public Item[] GetAllItems() => _items.ToArray();
-        public void DeleteItem(Item item) => _items.Remove(item);
+        public Item[] GetAllItems(ItemType type = ItemType.None)
+        {
+            switch (type)
+            {
+                case ItemType.Equipment:
+                    return _items.FindAll((x) => x.ItemType == ItemType.Equipment).ToArray();
+                case ItemType.Usable:
+                    return _items.FindAll((x) => x.ItemType == ItemType.Usable).ToArray();
+                default:
+                    return _items.ToArray();
+            }
+        }
 
-        public float EquippedAttackBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.Attack);
-        public float EquippedDefenseBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.Defense);
+        public void RemoveItem(Item item) => _items.Remove(item);
+
+        public float EquippedAttackBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipAtkInc);
+        public float EquippedDefenseBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipDefInc);
+        public float EquippedHpBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipHpInc);
 
 
         //장착 메소드
@@ -36,47 +50,70 @@
         /// <summary>
         /// 장착 메소드
         /// </summary>
-        /// <param name="equipableItem"></param>
-        public void Equip(IEquipable equipableItem)
+        /// <param name="item"></param>
+        public void Equip(IEquipable item)
         {
-            equipableItem.Equip();
+            item.Equip();
         }
 
-        public void Unequip(IEquipable equipableItem)
+        public void Unequip(IEquipable item)
         {
-            equipableItem.Unequip();
+            item.Unequip();
         }
 
-        public enum PrintState { Inventory, Equipment, Shop }
+        public void Use(IUsable item)
+        {
+            item.Use();
+        }
+
+        public enum PrintState
+        {
+            Inventory,
+            Equipment,
+            Usable,
+            Shop
+        }
+
         public void ShowPlayerItems(PrintState state)
         {
-            if(_items.Count == 0)
+            if (_items.Count == 0)
             {
                 Console.WriteLine("현재 가지고 있는 아이템이 없습니다.");
                 return;
             }
 
-            for (int i = 0; i < _items.Count; i++)
+            Item[] equipableItems = _items.FindAll((x) => x.ItemType == ItemType.Equipment).ToArray();
+            Item[] usableItems = _items.FindAll((x) => x.ItemType == ItemType.Usable).ToArray();
+
+            switch (state)
             {
-                Item item = _items[i];
-                string atk = item.Attack > 0 ? $"공격력 +{item.Attack} " : "";
-                string def = item.Defense > 0 ? $"방어력 +{item.Defense} " : "";
-                string heal = item.Hp > 0 ? $"회복량 +{item.Hp} " : "";
-
-                switch (state)
-                {
-                    case PrintState.Inventory:
-                        Console.WriteLine($"- {(item.IsEquipped ? "[E]" : "")}{item.Name} | {atk}{def}{heal}| {item.Description} ");
-                        break;
-
-                    case PrintState.Equipment:
-                        Console.WriteLine($"- {i + 1} {(item.IsEquipped ? "[E]" : "")}{item.Name} | {atk}{def}{heal}| {item.Description} ");
-                        break;
-
-                    case PrintState.Shop:
-                        Console.WriteLine($"{i + 1}. {item.Name} | {atk}{def}{heal}| {item.Description} | {(float)Math.Round(item.Price * 0.85)} G");
-                        break;
-                }
+                case PrintState.Inventory:
+                    foreach (Item item in _items)
+                    {
+                        Console.WriteLine($"- {(item.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                    }
+                    break;
+                case PrintState.Equipment:
+                    for (int i = 0; i < equipableItems.Length; i++)
+                    {
+                        Item item = equipableItems[i];
+                        Console.WriteLine($"- {i + 1} {(item.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                    }
+                    break;
+                case PrintState.Usable:
+                    for (int i = 0; i < usableItems.Length; i++)
+                    {
+                        Item item = usableItems[i];
+                        Console.WriteLine($"- {i + 1} {item.Name} | {item.GetEffectName()}| {item.Description} ");
+                    }
+                    break;
+                case PrintState.Shop:
+                    for (int i = 0; i < _items.Count; i++)
+                    {
+                        Item item = _items[i];
+                        Console.WriteLine($"{i + 1}. {item.Name} | {item.GetEffectName()}| {item.Description} | {Math.Round(item.Price * 0.85)} G");
+                    }
+                    break;
             }
         }
     }

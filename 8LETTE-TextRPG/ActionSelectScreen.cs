@@ -10,7 +10,7 @@
             Console.WriteLine("[내 정보]");
 
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
-            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth} ");
 
             Console.WriteLine();
         }
@@ -41,7 +41,7 @@
                 case "2":
                     return PlayerSkillScreen.Instance;
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

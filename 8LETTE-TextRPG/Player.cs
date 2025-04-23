@@ -29,6 +29,7 @@ namespace _8LETTE_TextRPG
             private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
         }
 
+
         public string Name { get; }
         public Job Job { get; }
         public Level Level { get; set; }
@@ -66,6 +67,7 @@ namespace _8LETTE_TextRPG
 
         //인벤토리
         public Inventory Inventory { get; private set; }
+
         //레벨
 
         public Player(string name, Job job)

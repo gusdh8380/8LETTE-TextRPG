@@ -1,7 +1,7 @@
-﻿using _8LETTE_TextRPG.MonsterFolder.JuniorDungeon;
-using _8LETTE_TextRPG;
-using static _8LETTE_TextRPG.MonsterFolder.JuniorDungeon.Monster;
+﻿using _8LETTE_TextRPG;
+using static _8LETTE_TextRPG.MonsterFolder.Monster;
 using System.Xml.Linq;
+using _8LETTE_TextRPG.MonsterFolder;
 
 class TypeMissGoblin : Monster
 {

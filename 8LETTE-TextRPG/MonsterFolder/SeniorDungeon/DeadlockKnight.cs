@@ -1,5 +1,5 @@
-﻿using _8LETTE_TextRPG.MonsterFolder.JuniorDungeon;
-using _8LETTE_TextRPG;
+﻿using _8LETTE_TextRPG;
+using _8LETTE_TextRPG.MonsterFolder;
 
 class DeadlockKnight : Monster
 {

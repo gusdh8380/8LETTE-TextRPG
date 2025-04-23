@@ -25,7 +25,8 @@
             
             ShowPlayerInfo();
 
-            PrintNumAndString(1, "공격");
+            PrintNumAndString(1, "공격하기");
+            PrintNumAndString(2, "스킬 사용");
 
             PrintUserInstruction();
         }
@@ -37,6 +38,8 @@
             {
                 case "1":
                     return PlayerAttackScreen.Instance;
+                case "2":
+                    return PlayerSkillScreen.Instance;
                 default:
                     isRetry = true;
                     return this;

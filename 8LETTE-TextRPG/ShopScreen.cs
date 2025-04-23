@@ -13,7 +13,7 @@ namespace _8LETTE_TextRPG
         private int itemNum;
         private bool isShopping = false;
 
-        public static readonly ShopScreen instance = new ShopScreen() { };
+        public static readonly ShopScreen Instance = new ShopScreen() { };
         private ShopScreen() 
         {
             shop = new Shop();

@@ -37,7 +37,6 @@
 
             BattleResult();
 
-            Console.WriteLine();
             PrintAnyKeyInstruction();
         }
 

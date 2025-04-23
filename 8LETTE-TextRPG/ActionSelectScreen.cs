@@ -26,7 +26,7 @@
             ShowPlayerInfo();
 
             PrintNumAndString(1, "공격하기");
-            PrintNumAndString(1, "스킬 사용");
+            PrintNumAndString(2, "스킬 사용");
 
             PrintUserInstruction();
         }

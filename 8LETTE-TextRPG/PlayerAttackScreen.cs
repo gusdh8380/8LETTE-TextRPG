@@ -37,7 +37,6 @@
             {
                 Player.Instance.AttackTo(MonsterSpawner.Instance.GetAllMonsters()[userInput]);
 
-                Console.WriteLine();
                 PrintAnyKeyInstruction();
             }
         }

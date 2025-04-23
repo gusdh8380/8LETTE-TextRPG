@@ -41,7 +41,6 @@
                 //선택한 플레이어의 스킬 메서드 사용
                 //Player.Instance.Fire(MonsterSpawner.Instance.GetAllMonsters());
 
-                Console.WriteLine();
                 PrintAnyKeyInstruction();
             }
         }

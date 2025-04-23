@@ -1,109 +1,201 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
     internal class QuestScreen : Screen
     {
         public static readonly QuestScreen Instance = new QuestScreen();
-        private QuestScreen() { }
 
-        private Screen ShowQuestDetail(string title, string description, string progress, string reward)
+        //밑에는 test용
+        private string[] questTitle =
         {
-            while (true) //퀘스트 수락
+            "마을을 위협하는 몬스터 처치",
+
+            "장비를 장착해 보자",
+
+            "더욱 더 강해지기!"
+        };
+        private string[] questDescription =
+        {
+            "이봐! 마을 근처에 미니언들이 너무 많아졌다고 생각하지 않나?\n" +
+            "마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\n" +
+            "모험가인 자네가 좀 처치해주게!",
+
+            "장비를 구매하여 장착해보자.",
+
+            "던전을 계속 클리어하여, 레벨업을 해보자."
+        };
+        private string[] questTask =
+        {
+            "미니언 5마리 처치",
+
+            "아이템 장착",
+
+            "레벨업"
+        };
+        private string[] questReward =
+        {
+            "  쓸만한 방패 x 1\n" +
+            "  500 G",
+
+            "  300 G",
+
+            "  500 G"
+        };
+        private bool[] questAccepted = {false, false, false};
+        private bool[] questCompleted = { false, true, false };
+        //위에는 test용
+
+        //퀘스트 상태(디폴트 : -1 / 퀘스트 수락 : 0 / 퀘스트 중 : 1 / 미완료 : 2 / 완료 확인 : 3 / 보상 수령 : 4)
+        private int[] flags = { -1, -1, -1 };
+
+        private bool isSelected = false;
+        private int userInput = -1;
+
+        private void ShowQuestDetail()
+        {
+            Console.WriteLine(questTitle[userInput]);
+            Console.WriteLine();
+
+            Console.WriteLine(questDescription[userInput]);
+            Console.WriteLine();
+
+            Console.WriteLine("- " + questTask[userInput]);
+            Console.WriteLine();
+
+            Console.WriteLine("- 보상");
+            Console.WriteLine(questReward[userInput]);
+            Console.WriteLine();
+
+            switch (flags[userInput])
             {
-                Console.Clear();
-                PrintTitle($"Quest!!");
-                Console.WriteLine(title);
-                Console.WriteLine();
-                Console.WriteLine(description);
-                Console.WriteLine(progress);
-                Console.WriteLine();
-                Console.WriteLine(reward);
-                Console.WriteLine();
-                Console.WriteLine("1. 수락");
-                Console.Write("2. 거절");
-                PrintUserInstruction();
-                
+                case 0:
+                    Console.WriteLine("퀘스트를 수락하였습니다!");
 
-                string input = Console.ReadLine();
+                    PrintAnyKeyInstruction();
+                    break;
 
-                if (input == "1")
-                {
-                    Console.WriteLine($"\n'{title}' 퀘스트를 수락했습니다! 퀘스트 목록으로 돌아갑니다.");
-                    Console.WriteLine("아무 키나 누르면 계속...");
-                    Console.ReadKey();
-                    return QuestScreen.Instance;
-                }
-                else if (input == "2")
-                {
-                    Console.WriteLine("\n퀘스트를 거절했습니다. 퀘스트 목록으로 돌아갑니다.");
-                    Console.WriteLine("아무 키나 누르면 계속...");
-                    Console.ReadKey();
-                    return QuestScreen.Instance;
-                }
-                else
-                {
-                    Console.WriteLine("\n잘못된 입력입니다.");
-                    Console.WriteLine("아무 키나 누르면 다시 선택 화면으로 돌아갑니다...");
-                    Console.ReadKey();
-                }
+                case 1:
+                    PrintNumAndString(1, "보상 받기");
+                    PrintNumAndString(2, "돌아가기");
+
+                    PrintUserInstruction();
+                    break;
+
+                case 2:
+                    Console.WriteLine("아직 퀘스트를 완료하지 못했습니다...");
+
+                    PrintAnyKeyInstruction();
+                    break;
+
+                case 3:
+                    Console.WriteLine("축하합니다! 퀘스트를 완료하였습니다!");
+
+                    // 퀘스트 보상 지급 로직
+                    // Quest.Reward();
+
+                    PrintAnyKeyInstruction();
+                    break;
+
+                case 4:
+                    Console.WriteLine("이미 보상이 지급된 퀘스트입니다.");
+
+                    PrintAnyKeyInstruction();
+                    break;
+
+                default:
+                    PrintNumAndString(1, "수락");
+                    PrintNumAndString(2, "거절");
+
+                    PrintUserInstruction();
+                    break;
             }
         }
 
-        public override void Show() // 퀘스트 목록
+        public override void Show()
         {
             Console.Clear();
-            PrintTitle("Quest!!");
+            PrintTitle("퀘스트");
 
-            Console.WriteLine("1. 마을을 위협하는 몬스터 처치");
-            Console.WriteLine("2. 장비를 장착해 보자");
-            Console.WriteLine("3. 더욱 더 강해지기!");
-            Console.WriteLine();
-            PrintNumAndString(0, "나가기");
-            Console.WriteLine("원하시는 퀘스트를 선택해주세요.");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(">> ");
-            Console.ResetColor();
+            if (!isSelected)
+            {
+                for (int i = 0; i < questTitle.Length; i++)
+                {
+                    PrintNumAndString(i + 1, questTitle[i]);
+                }
+                Console.WriteLine();
+
+                PrintNumAndString(0, "나가기");
+
+                PrintUserInstruction();
+            }
+            else
+            {
+                ShowQuestDetail();
+            }
         }
+
         public override Screen? Next()
         {
             string input = Console.ReadLine();
-
-            switch (input) //퀘스트 선택
+            if (!isSelected)
             {
-                case "1":
-                    return ShowQuestDetail(
-                        "마을을 위협하는 몬스터 처치",
-                        "이봐! 마을 근처에 몬스터들이 너무 많아졌다고 생각하지 않나?\n" +
-                        "마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\n" +
-                        "모험가인 자네가 좀 처치해주게!\n",
-                        "- 몬스터 5마리 처치(0/5)",
-                        "-보상-\n쓸만한방패 x 1 \n5G"
-                        );
-                case "2":
-                    return ShowQuestDetail(
-                        "장비를 장착해 보자",
-                        "장비를 구매하여 장비를 장착해보자\n",
-                        "-아이템 장착하기 (0/1)",
-                        "-보상-\n 300G"
-                        );
-                case "3":
-                    return ShowQuestDetail(
-                        "더욱 더 강해지기!",
-                        "던전을 탐험하여 레벨업을 하자\n",
-                        "-레벨업 하기(0/1)",
-                        "-보상-\n 500G"
-                        );
-                case "0":
-                    return TownScreen.Instance;
-                default:
+                if(input == "0") return TownScreen.Instance;
+                else if (int.TryParse(input, out int num))
+                {
+                    if (num < 1 || num > questTitle.Length)
+                    {
+                        isRetry = true;
+                        return this;
+                    }
+                    userInput = num - 1;
+                    isSelected = true;
+                }
+                else
+                {
                     isRetry = true;
-                    return this;
+                }
             }
+            else
+            {
+                //디폴트 : -1 / 퀘스트 수락 : 0 / 퀘스트 중 : 1 / 미완료 : 2 / 완료 확인 : 3 / 보상 수령 : 4
+                switch (flags[userInput])
+                {
+                    case 0: 
+                        flags[userInput] = 1;
+                        break;
+
+                    case 2: 
+                        flags[userInput] = 1;
+                        break;
+
+                    case 3:
+                        flags[userInput] = 4;
+                        isSelected = false;
+                        break;
+
+                    default:
+                        if (input == "2" || flags[userInput] == 4) isSelected = false;
+                        else if (input == "1")
+                        {
+                            if (flags[userInput] == -1)
+                            {
+                                questAccepted[userInput] = true;
+                                flags[userInput] = 0;
+                            }
+                            else
+                            {
+                                if (questCompleted[userInput]) flags[userInput] = 3;
+                                else flags[userInput] = 2;
+                            }
+                        }
+                        else
+                        {
+                            isRetry = true;
+                        }
+                        break;
+                }
+            }
+
+            return this;
         }
     }
 }

@@ -110,6 +110,7 @@
                         {
                             _isSelected = false;
                         }
+                        else _isRetry = true;
                         break;
                     case "1":
                         if (_quests[_userInput].State == QuestState.BeforeAccept)
@@ -120,9 +121,14 @@
                         {
                             QuestManager.Instance.ClaimReward(_quests[_userInput]);
                         }
+                        else _isRetry = true;
                         break;
                     case "2":
-                        _isSelected = false;
+                        if (_quests[_userInput].State == QuestState.BeforeAccept || _quests[_userInput].State == QuestState.Completed)
+                        {
+                            _isSelected = false;
+                        }
+                        else _isRetry = true;
                         break;
                     default:
                         _isRetry = true;
@@ -137,8 +143,9 @@
                 }
                 else if (int.TryParse(input, out int num))
                 {
-                    Quest[] activeQuests = QuestManager.Instance.GetAllQuests().FindAll(x => x.State != QuestState.Rewarded).ToArray();
-                    if (num < 1 || num > activeQuests.Length)
+                    //Quest[] activeQuests = QuestManager.Instance.GetAllQuests().FindAll(x => x.State != QuestState.Rewarded).ToArray();
+                    //위 로직 사용 시 1번 완료하면, 2번 퀘스트에 접근할 수 없는 에러가 발생해서 일단 고침
+                    if (num < 1 || num > _quests.Length)
                     {
                         _isRetry = true;
                         return this;
@@ -157,4 +164,3 @@
         }
     }
 }
-

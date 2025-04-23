@@ -35,7 +35,22 @@ namespace _8LETTE_TextRPG
         public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
-        public float MaxHealth { get; set; }
+        private float _maxHealth;
+        public float MaxHealth
+        {
+            get
+            {
+                return _maxHealth;
+            }
+            set
+            {
+                _maxHealth = value;
+                if (Health > value)
+                {
+                    Health = value;
+                }
+            }
+        }
         private float _health;
         public float Health
         {
@@ -70,7 +85,7 @@ namespace _8LETTE_TextRPG
         //인벤토리
         public Inventory Inventory { get; private set; }
 
-        public Dictionary<EquipmentType, string> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
+        public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
 
         //레벨
 
@@ -105,15 +120,28 @@ namespace _8LETTE_TextRPG
             {
                 { ItemEffect.Atk, 10f }
             }));
-
-            EquippedItems = new Dictionary<EquipmentType, string>
+            Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
             {
-                { EquipmentType.Mouse, string.Empty },
-                { EquipmentType.Keyboard, string.Empty },
-                { EquipmentType.Monitor, string.Empty },
-                { EquipmentType.Chair, string.Empty },
-                { EquipmentType.Desk, string.Empty },
-                { EquipmentType.Glasses, string.Empty }
+                { ItemEffect.Atk, 100f },
+                { ItemEffect.Hp, -50f }
+            }));
+            Inventory.AddItem(new Item("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, -5000f },
+                { ItemEffect.Def, -5000f },
+                { ItemEffect.Hp, -5000f },
+                { ItemEffect.Critical, -5000f },
+                { ItemEffect.Evasion, -5000f },
+            }));
+
+            EquippedItems = new Dictionary<EquipmentType, string?>
+            {
+                { EquipmentType.Mouse, null },
+                { EquipmentType.Keyboard, null },
+                { EquipmentType.Monitor, null },
+                { EquipmentType.Chair, null },
+                { EquipmentType.Desk, null },
+                { EquipmentType.Glasses, null }
             };
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정

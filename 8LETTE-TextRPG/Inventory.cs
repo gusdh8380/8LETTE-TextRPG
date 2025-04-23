@@ -124,6 +124,15 @@
         /// <param name="item"></param>
         public void Equip(IEquipable item)
         {
+            if (!string.IsNullOrEmpty(Player.Instance.EquippedItems[item.EquipmentType]))
+            {
+                IEquipable? equippedItem = _items.Find(x => x.Id == Player.Instance.EquippedItems[item.EquipmentType]);
+                if (equippedItem != null)
+                {
+                    Unequip(equippedItem);
+                }
+            }
+
             item.Equip();
         }
 

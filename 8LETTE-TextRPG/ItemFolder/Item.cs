@@ -64,6 +64,7 @@ namespace _8LETTE_TextRPG.ItemFolder
             Id = Guid.NewGuid().ToString();
             Name = name;
             Description = desc;
+            
             Price = price;
             ItemType = ItemType.Usable;
 

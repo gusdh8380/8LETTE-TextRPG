@@ -49,10 +49,16 @@ namespace _8LETTE_TextRPG.ScreenFolder
                     _isRetry = true;
                     return this;
                 }
+
                 _selectedItem = items[num - 1];
-                
-                if(_selectedItem.IsEquipped) _selectedItem.Unequip();
-                else _selectedItem.Equip();
+                if (!_selectedItem.IsEquipped)
+                {
+                    Player.Instance.Inventory.Equip(_selectedItem);
+                }
+                else
+                {
+                    Player.Instance.Inventory.Unequip(_selectedItem);
+                }
             }
             else
             {

@@ -41,9 +41,80 @@ namespace _8LETTE_TextRPG
 
         public void RemoveItem(Item item) => _items.Remove(item);
 
-        public float EquippedAttackBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipAtkInc);
-        public float EquippedDefenseBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipDefInc);
-        public float EquippedHpBonus() => _items.Where(i => i.IsEquipped).Sum(i => i.EquipHpInc);
+        public float EquippedAttackBonus()
+        {
+            float atk = 0f;
+            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
+            foreach (Item item in items)
+            {
+                if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
+                {
+                    atk += value;
+                }
+            }
+
+            return atk;
+        }
+
+        public float EquippedDefenseBonus()
+        {
+            float def = 0f;
+            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
+            foreach (Item item in items)
+            {
+                if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
+                {
+                    def += value;
+                }
+            }
+
+            return def;
+        }
+
+        public float EquippedHpBonus()
+        {
+            float hp = 0f;
+            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
+            foreach (Item item in items)
+            {
+                if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
+                {
+                    hp += value;
+                }
+            }
+
+            return hp;
+        }
+
+        public float EquippedCriticalBonus()
+        {
+            float critical = 0f;
+            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
+            foreach (Item item in items)
+            {
+                if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
+                {
+                    critical += value;
+                }
+            }
+
+            return critical;
+        }
+
+        public float EquippedEvasionBonus()
+        {
+            float evasion = 0f;
+            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
+            foreach (Item item in items)
+            {
+                if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
+                {
+                    evasion += value;
+                }
+            }
+
+            return evasion;
+        }
 
 
         //장착 메소드
@@ -55,6 +126,15 @@ namespace _8LETTE_TextRPG
         /// <param name="item"></param>
         public void Equip(IEquipable item)
         {
+            if (!string.IsNullOrEmpty(Player.Instance.EquippedItems[item.EquipmentType]))
+            {
+                IEquipable? equippedItem = _items.Find(x => x.Id == Player.Instance.EquippedItems[item.EquipmentType]);
+                if (equippedItem != null)
+                {
+                    Unequip(equippedItem);
+                }
+            }
+
             item.Equip();
         }
 

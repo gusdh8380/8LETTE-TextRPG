@@ -29,10 +29,7 @@ namespace _8LETTE_TextRPG
 
             Goals = goals;
 
-            if (rewardItem != null)
-            {
-                RewardItem = rewardItem;
-            }
+            RewardItem = rewardItem;
             RewardGold = rewardGold;
 
             State = QuestState.BeforeAccept;

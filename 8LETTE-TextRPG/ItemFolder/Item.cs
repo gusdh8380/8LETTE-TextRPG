@@ -10,20 +10,12 @@ namespace _8LETTE_TextRPG.ItemFolder
 
         public float Price { get; private set; }
         public ItemType ItemType { get; private set; }
+        public Dictionary<ItemEffect, float> EffectDict { get; set; }
 
         // IEquipable 구현
-        public float EquipAtkInc { get; set; }
-        public float EquipDefInc { get; set; }
-        public float EquipHpInc { get; set; }
         public EquipmentType EquipmentType { get; set; }
         public bool IsEquipped { get; set; }
         // IEquipable 구현
-
-        // IUsable 구현
-        public float UsedAtkInc { get; set; }
-        public float UsedDefInc { get; set; }
-        public float UsedHpInc { get; set; }
-        // IUsable 구현
 
         /// <summary>
         /// 장착 가능 아이템
@@ -32,10 +24,8 @@ namespace _8LETTE_TextRPG.ItemFolder
         /// <param name="desc"></param>
         /// <param name="price"></param>
         /// <param name="equipmentType"></param>
-        /// <param name="atk"></param>
-        /// <param name="def"></param>
-        /// <param name="hp"></param>
-        public Item(string name, string desc, float price, EquipmentType equipmentType, float atk = 0f, float def = 0f, float hp = 0f)
+        /// <param name="effectDict"></param>
+        public Item(string name, string desc, float price, EquipmentType equipmentType, Dictionary<ItemEffect, float> effectDict)
         {
             Id = Guid.NewGuid().ToString();
             Name = name;
@@ -44,9 +34,7 @@ namespace _8LETTE_TextRPG.ItemFolder
             Price = price;
             ItemType = ItemType.Equipment;
 
-            EquipAtkInc = atk;
-            EquipDefInc = def;
-            EquipHpInc = hp;
+            EffectDict = effectDict;
             EquipmentType = equipmentType;
         }
 
@@ -56,78 +44,65 @@ namespace _8LETTE_TextRPG.ItemFolder
         /// <param name="name"></param>
         /// <param name="desc"></param>
         /// <param name="price"></param>
-        /// <param name="atk"></param>
-        /// <param name="def"></param>
-        /// <param name="hp"></param>
-        public Item(string name, string desc, float price, float atk = 0f, float def = 0f, float hp = 0f)
+        /// <param name="effectDict"></param>
+        public Item(string name, string desc, float price, Dictionary<ItemEffect, float> effectDict)
         {
             Id = Guid.NewGuid().ToString();
             Name = name;
             Description = desc;
-            
             Price = price;
             ItemType = ItemType.Usable;
 
-            UsedAtkInc = atk;
-            UsedDefInc = def;
-            UsedHpInc = hp;
+            EffectDict = effectDict;
         }
 
         public string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
-            switch (ItemType)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
             {
-                case ItemType.Equipment:
-                    if (EquipAtkInc != 0f)
+                if (effectPair.Value != 0f)
+                {
+                    switch (effectPair.Key)
                     {
-                        sb.Append("공격력 ");
-                        sb.Append(EquipAtkInc > 0f ? "+" : "");
-                        sb.Append(EquipAtkInc);
-                        sb.Append(" ");
+                        case ItemEffect.Atk:
+                            sb.Append("공격력 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.Def:
+                            sb.Append("방어력 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.Hp:
+                            sb.Append("최대체력 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.Critical:
+                            sb.Append("치명 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.Evasion:
+                            sb.Append("회피 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        default:
+                            sb.Append(" 알 수 없음 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
                     }
-
-                    if (EquipDefInc != 0f)
-                    {
-                        sb.Append("방어력 ");
-                        sb.Append(EquipDefInc > 0f ? "+" : "");
-                        sb.Append(EquipDefInc);
-                        sb.Append(" ");
-                    }
-
-                    if (EquipHpInc != 0f)
-                    {
-                        sb.Append("체력 ");
-                        sb.Append(EquipHpInc > 0f ? "+" : "");
-                        sb.Append(EquipHpInc);
-                        sb.Append(" ");
-                    }
-                    break;
-                case ItemType.Usable:
-                    if (UsedAtkInc != 0f)
-                    {
-                        sb.Append("공격력 ");
-                        sb.Append(UsedAtkInc > 0f ? "+" : "");
-                        sb.Append(UsedAtkInc);
-                        sb.Append(" ");
-                    }
-
-                    if (UsedDefInc != 0f)
-                    {
-                        sb.Append("방어력 ");
-                        sb.Append(UsedDefInc > 0f ? "+" : "");
-                        sb.Append(UsedDefInc);
-                        sb.Append(" ");
-                    }
-
-                    if (UsedHpInc != 0f)
-                    {
-                        sb.Append("회복량 ");
-                        sb.Append(UsedHpInc > 0f ? "+" : "");
-                        sb.Append(UsedHpInc);
-                        sb.Append(" ");
-                    }
-                    break;
+                }
             }
 
             return sb.ToString();
@@ -135,20 +110,72 @@ namespace _8LETTE_TextRPG.ItemFolder
 
         public void Equip()
         {
-            if (!string.IsNullOrEmpty(Player.Instance.EquippedItems[EquipmentType]))
-            {
-                Unequip();
-            }
-
             IsEquipped = true;
             Player.Instance.EquippedItems[EquipmentType] = Id;
 
-            Player.Instance.BaseAttack += EquipAtkInc;
-            Player.Instance.BaseDefense += EquipDefInc;
-            Player.Instance.MaxHealth += EquipHpInc;
-            Player.Instance.Health += EquipHpInc;
+            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            {
+                if (effectPair.Value != 0f)
+                {
+                    switch (effectPair.Key)
+                    {
+                        case ItemEffect.Atk:
+                            if (Player.Instance.BaseAttack + effectPair.Value > 0f)
+                            {
+                                Player.Instance.BaseAttack += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.BaseAttack = 0f;
+                            }
+                            break;
+                        case ItemEffect.Def:
+                            if (Player.Instance.BaseDefense + effectPair.Value > 0f)
+                            {
+                                Player.Instance.BaseDefense += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.BaseDefense = 0f;
+                            }
+                            break;
+                        case ItemEffect.Hp:
+                            if (Player.Instance.MaxHealth + effectPair.Value > 0f)
+                            {
+                                Player.Instance.MaxHealth += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.MaxHealth = 1f;
+                            }
+                            break;
+                        case ItemEffect.Critical:
+                            if (Player.Instance.CriticalChance + effectPair.Value > 0f)
+                            {
+                                Player.Instance.CriticalChance += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.CriticalChance = 0f;
+                            }
+                            break;
+                        case ItemEffect.Evasion:
+                            if (Player.Instance.EvasionRate + effectPair.Value > 0f)
+                            {
+                                Player.Instance.EvasionRate += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.EvasionRate = 0f;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
 
-            QuestManager.Instance.SendProgress(QuestType.EquipItem, "", 1);
+            QuestManager.Instance?.SendProgress(QuestType.EquipItem, "", 1);
         }
 
         public void Unequip()
@@ -156,17 +183,56 @@ namespace _8LETTE_TextRPG.ItemFolder
             IsEquipped = false;
             Player.Instance.EquippedItems[EquipmentType] = string.Empty;
 
-            Player.Instance.BaseAttack -= EquipAtkInc;
-            Player.Instance.BaseDefense -= EquipDefInc;
-            Player.Instance.MaxHealth -= EquipHpInc;
-            Player.Instance.Health -= EquipHpInc;
+            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            {
+                switch (effectPair.Key)
+                {
+                    case ItemEffect.Atk:
+                        Player.Instance.BaseAttack -= effectPair.Value;
+                        break;
+                    case ItemEffect.Def:
+                        Player.Instance.BaseDefense -= effectPair.Value;
+                        break;
+                    case ItemEffect.Hp:
+                        Player.Instance.MaxHealth -= effectPair.Value;
+                        break;
+                    case ItemEffect.Critical:
+                        Player.Instance.CriticalChance -= effectPair.Value;
+                        break;
+                    case ItemEffect.Evasion:
+                        Player.Instance.EvasionRate -= effectPair.Value;
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public void Use()
         {
-            Player.Instance.BaseAttack += UsedAtkInc;
-            Player.Instance.BaseDefense += UsedDefInc;
-            Player.Instance.Health += UsedHpInc;
+            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            {
+                switch (effectPair.Key)
+                {
+                    case ItemEffect.Atk:
+                        Player.Instance.BaseAttack += effectPair.Value;
+                        break;
+                    case ItemEffect.Def:
+                        Player.Instance.BaseDefense += effectPair.Value;
+                        break;
+                    case ItemEffect.Hp:
+                        Player.Instance.Health += effectPair.Value;
+                        break;
+                    case ItemEffect.Critical:
+                        Player.Instance.CriticalChance += effectPair.Value;
+                        break;
+                    case ItemEffect.Evasion:
+                        Player.Instance.EvasionRate += effectPair.Value;
+                        break;
+                    default:
+                        break;
+                }
+            }
 
             Player.Instance.Inventory.RemoveItem(this);
         }

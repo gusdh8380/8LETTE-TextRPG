@@ -28,6 +28,7 @@ namespace _8LETTE_TextRPG
             private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
         }
 
+
         public string Name { get; }
         public Job Job { get; }
         public int Level { get; set; }
@@ -37,6 +38,7 @@ namespace _8LETTE_TextRPG
         public float Gold { get; set; }
 
         public int Levels { get; set; }
+
 
         //인벤토리
         public Inventory Inventory { get; private set; }
@@ -56,8 +58,6 @@ namespace _8LETTE_TextRPG
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("브론즈 소드", 5f, 0f, "초보자용 검", 100f, 0));
-            Inventory.AddItem(new Item("실버 소드", 6f, 0f, "초보자용 검", 100f, 0));
         }
 
         //몬스터 공격 메소드
@@ -125,4 +125,5 @@ namespace _8LETTE_TextRPG
             };
         }
     }
+
 }

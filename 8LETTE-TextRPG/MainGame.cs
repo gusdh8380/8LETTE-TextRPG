@@ -1,3 +1,5 @@
+using _8LETTE_TextRPG.ScreenFolder;
+
 namespace _8LETTE_TextRPG
 {
     internal class MainGame

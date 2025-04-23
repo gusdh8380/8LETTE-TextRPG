@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using _8LETTE_TextRPG.ItemFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class EquipmentScreen : Screen
     {

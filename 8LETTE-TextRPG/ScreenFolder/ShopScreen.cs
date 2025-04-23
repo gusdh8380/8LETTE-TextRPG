@@ -1,6 +1,6 @@
-﻿using static _8LETTE_TextRPG.Monster;
+﻿using _8LETTE_TextRPG.ItemFolder;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class ShopScreen : Screen
     {

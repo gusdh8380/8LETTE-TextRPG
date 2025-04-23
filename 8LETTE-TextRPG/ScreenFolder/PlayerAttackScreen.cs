@@ -1,24 +1,23 @@
-﻿namespace _8LETTE_TextRPG
+﻿using _8LETTE_TextRPG.MonsterFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
-    internal class PlayerSkillScreen : Screen
+    internal class PlayerAttackScreen : Screen
     {
-        public static readonly PlayerSkillScreen Instance = new PlayerSkillScreen();
+        public static readonly PlayerAttackScreen Instance = new PlayerAttackScreen();
 
         private bool isAttacked = false;
         private int userInput = -1;
 
-        private void ShowSkillList()
+        private void ShowAttackList()
         {
-            //몬스터 객체를 불러와서 정보를 출력
-            MonsterSpawner.Instance.ShowMonsterInfo();
+            //몬스터 객체를 불러와서 입력 번호와 정보를 출력
+            MonsterSpawner.Instance.ShowMonsterInfo(true);
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name})");
             Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
-
-            //번호와 함께 플레이어의 스킬 정보를 출력
-            //Player.Instance.ShowSkill();
 
             Console.WriteLine();
         }
@@ -27,19 +26,18 @@
         {
             Console.Clear();
 
-            PrintTitle("전투!! - 플레이어의 스킬 사용");
+            PrintTitle("전투!! - 플레이어의 공격");
 
             if (!isAttacked)
             {
-                ShowSkillList();
+                ShowAttackList();
                 PrintNumAndString(0, "취소");
 
                 PrintUserInstruction();
             }
             else
             {
-                //선택한 플레이어의 스킬 메서드 사용
-                //Player.Instance.Fire(MonsterSpawner.Instance.GetAllMonsters());
+                Player.Instance.AttackTo(MonsterSpawner.Instance.GetAllMonsters()[userInput]);
 
                 PrintAnyKeyInstruction();
             }
@@ -64,9 +62,8 @@
             }
             else if (int.TryParse(input, out int num))
             {
-                //플레이어의 스킬 번호를 벗어나거나 마력이 부족하면 아래 실행
-                //Skill[] skills = Player.Instane.GetAllSkills();
-                if (num < 1 || num > 4) //|| Player.Instane.MP < skills[num - 1].MP
+                Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters();
+                if (num < 1 || num > monsters.Length || monsters[num - 1].IsDead)
                 {
                     isRetry = true;
                     return this;

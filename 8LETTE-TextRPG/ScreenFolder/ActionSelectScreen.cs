@@ -1,4 +1,4 @@
-﻿namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class ActionSelectScreen : Screen
     {

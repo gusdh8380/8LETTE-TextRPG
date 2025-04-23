@@ -52,8 +52,8 @@
 
                 if(selectedItem.IsEquipped)
                     {
-                        IncreaseAttack(selectedItem.Attack);
-                        IncreaseDefense(selectedItem.Defense);
+                        IncreaseAttack(-selectedItem.Attack);
+                        IncreaseDefense(-selectedItem.Defense);
                         selectedItem.IsEquipped = false;
                     }
                     else
@@ -70,9 +70,7 @@
         }
         public override void Show()
         {
-            var items = Player.Instance.Inventory.GetAllItems();
 
-            PrintTitle("인벤토리 - 장착관리");
             Console.WriteLine("");
 
             ShowEquipMenu();

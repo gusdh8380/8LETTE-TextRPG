@@ -8,11 +8,12 @@ namespace _8LETTE_TextRPG
 {
     public enum EquipmentType
     {
-        Hand,
-        Head,
-        Body,
-        Legs,
-        Foots,
-        Item
+        Mouse,
+        Keyboard,
+        Monitor,
+        Chair,
+        Desk,
+        Glasses,
+        //여기에 장비 타입 추가
     }
 }

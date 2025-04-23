@@ -9,7 +9,7 @@
 
         public Shop()
         {
-            _items.Add(new Item("테스트", "테스트용 아이템.", 999f, EquipmentType.Item, atk: 1234f, def: 100f, hp: 999f));
+            _items.Add(new Item("테스트", "테스트용 아이템 (장비타입: 모니터).", 999f, EquipmentType.Monitor, atk: 1234f, def: 100f, hp: 999f));
             _items.Add(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 100f));
 
             foreach (Item item in _items)

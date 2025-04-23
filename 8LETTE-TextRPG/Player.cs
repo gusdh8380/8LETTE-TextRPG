@@ -91,16 +91,16 @@ namespace _8LETTE_TextRPG
             Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
             Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, hp: 30f));
             //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, EquipmentType.Hand, atk: 10));
+            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, EquipmentType.Keyboard, atk: 10));
 
             EquippedItems = new Dictionary<EquipmentType, string>
             {
-                { EquipmentType.Hand, string.Empty },
-                { EquipmentType.Head, string.Empty },
-                { EquipmentType.Body, string.Empty },
-                { EquipmentType.Legs, string.Empty },
-                { EquipmentType.Foots, string.Empty },
-                { EquipmentType.Item, string.Empty }
+                { EquipmentType.Mouse, string.Empty },
+                { EquipmentType.Keyboard, string.Empty },
+                { EquipmentType.Monitor, string.Empty },
+                { EquipmentType.Chair, string.Empty },
+                { EquipmentType.Desk, string.Empty },
+                { EquipmentType.Glasses, string.Empty }
             };
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정

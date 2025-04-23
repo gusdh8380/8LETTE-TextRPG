@@ -78,7 +78,7 @@ namespace _8LETTE_TextRPG
                             sb.Append(" ");
                             break;
                         case ItemEffect.Hp:
-                            sb.Append("체력 ");
+                            sb.Append("최대체력 ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -110,11 +110,6 @@ namespace _8LETTE_TextRPG
 
         public void Equip()
         {
-            if (!string.IsNullOrEmpty(Player.Instance.EquippedItems[EquipmentType]))
-            {
-                Unequip();
-            }
-
             IsEquipped = true;
             Player.Instance.EquippedItems[EquipmentType] = Id;
 
@@ -125,20 +120,54 @@ namespace _8LETTE_TextRPG
                     switch (effectPair.Key)
                     {
                         case ItemEffect.Atk:
-                            Player.Instance.BaseAttack += effectPair.Value;
+                            if (Player.Instance.BaseAttack + effectPair.Value > 0f)
+                            {
+                                Player.Instance.BaseAttack += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.BaseAttack = 0f;
+                            }
                             break;
                         case ItemEffect.Def:
-                            Player.Instance.BaseDefense += effectPair.Value;
+                            if (Player.Instance.BaseDefense + effectPair.Value > 0f)
+                            {
+                                Player.Instance.BaseDefense += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.BaseDefense = 0f;
+                            }
                             break;
                         case ItemEffect.Hp:
-                            Player.Instance.MaxHealth += effectPair.Value;
-                            Player.Instance.Health += effectPair.Value;
+                            if (Player.Instance.MaxHealth + effectPair.Value > 0f)
+                            {
+                                Player.Instance.MaxHealth += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.MaxHealth = 1f;
+                            }
                             break;
                         case ItemEffect.Critical:
-                            Player.Instance.CriticalChance += effectPair.Value;
+                            if (Player.Instance.CriticalChance + effectPair.Value > 0f)
+                            {
+                                Player.Instance.CriticalChance += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.CriticalChance = 0f;
+                            }
                             break;
                         case ItemEffect.Evasion:
-                            Player.Instance.EvasionRate += effectPair.Value;
+                            if (Player.Instance.EvasionRate + effectPair.Value > 0f)
+                            {
+                                Player.Instance.EvasionRate += effectPair.Value;
+                            }
+                            else
+                            {
+                                Player.Instance.EvasionRate = 0f;
+                            }
                             break;
                         default:
                             break;
@@ -166,7 +195,6 @@ namespace _8LETTE_TextRPG
                         break;
                     case ItemEffect.Hp:
                         Player.Instance.MaxHealth -= effectPair.Value;
-                        Player.Instance.Health -= effectPair.Value;
                         break;
                     case ItemEffect.Critical:
                         Player.Instance.CriticalChance -= effectPair.Value;

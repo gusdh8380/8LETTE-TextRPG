@@ -4,6 +4,22 @@
     {
         public static readonly StatusScreen Instance = new StatusScreen();
 
+        private void PrintBonusStatus()
+        {
+            float atkBounus = Player.Instance.Inventory.EquippedAttackBonus();
+            float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
+
+            if( atkBounus != 0 )
+                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}(+{atkBounus})");
+            else                
+                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
+
+            if (defBounus != 0)
+                Console.WriteLine($"공격력 : {Player.Instance.BaseDefense}(+{defBounus})");
+            else
+                Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
+        }
+
         public override void Show()
         {
             Console.Clear();
@@ -15,8 +31,7 @@
             // 플레이어 정보
             Console.WriteLine($"Lv. {Player.Instance.Level.CurrentLevel}");
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
-            Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
-            Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
+            PrintBonusStatus();
             Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 

@@ -145,7 +145,7 @@ namespace _8LETTE_TextRPG
                 Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
 
                 //캐릭터 정보 출력
-                Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
                 Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");
 
             }
@@ -162,7 +162,7 @@ namespace _8LETTE_TextRPG
 
                 if (FinalHp < 0) { FinalHp = 0; }
                 //캐릭터 정보 출력
-                Console.WriteLine($"Lv.{target.Level} {target.Name}");
+                Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
                 Console.WriteLine($"HP {target.Health} -> {FinalHp}\n");
 
                 target.OnDamaged(damage);

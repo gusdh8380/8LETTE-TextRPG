@@ -1,15 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class HerniatedDiscTroll : Monster
+    class IndexFairy : Monster
     {
-        public HerniatedDiscTroll()
+        public IndexFairy()
         {
-            Name = "허리디스크 트롤";
-            Level = 22;
-            MaxHp = 320f;
+            Name = "인덱스 페어리";
+            Level = 4;
+            MaxHp = 15f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
+            Attack = 13f;
+            Defense = 3f;
         }
 
         protected override void DefineStates()

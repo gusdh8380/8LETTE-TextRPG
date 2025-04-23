@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-
-    public class ThreadJumper : Monster
+    class HerniatedDiscTroll : Monster
     {
-        public ThreadJumper()
+        public HerniatedDiscTroll()
         {
-            Name = "쓰레드 점퍼";
-            Level = 8;
-            MaxHp = 120f;
+            Name = "허리디스크 트롤";
+            Level = 22;
+            MaxHp = 320f;
             Hp = MaxHp;
-            Attack = 24f;
-            Defense = 12f;
+            Attack = 44f;
+            Defense = 22f;
         }
 
         protected override void DefineStates()

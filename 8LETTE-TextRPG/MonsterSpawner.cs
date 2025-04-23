@@ -1,4 +1,5 @@
 ﻿using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
 
 namespace _8LETTE_TextRPG
 {

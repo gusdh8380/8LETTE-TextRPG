@@ -1,15 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class EternalLoop : Monster
+    public class EyebugBear : Monster
     {
-        public EternalLoop()
+        public EyebugBear()
         {
-            Name = "이터널루프";
-            Level = 9;
-            MaxHp = 140f;
+            Name = "눈알 버그베어";
+            Level = 23;
+            MaxHp = 340f;
             Hp = MaxHp;
-            Attack = 26f;
-            Defense = 13f;
+            Attack = 46f;
+            Defense = 23f;
         }
 
         protected override void DefineStates()

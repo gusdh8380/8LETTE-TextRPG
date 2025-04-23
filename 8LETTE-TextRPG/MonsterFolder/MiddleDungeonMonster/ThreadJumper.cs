@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-
-    class SemicolonSlime : Monster
+    public class ThreadJumper : Monster
     {
-        public SemicolonSlime()
+        public ThreadJumper()
         {
-            Name = "세미콜론";
-            Level = 1;
-            MaxHp = 15f;
+            Name = "쓰레드 점퍼";
+            Level = 8;
+            MaxHp = 120f;
             Hp = MaxHp;
-            Attack = 3f;
-            Defense = 2f;
+            Attack = 24f;
+            Defense = 12f;
         }
 
         protected override void DefineStates()

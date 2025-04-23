@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-
-    public class Mentagon : Monster
+    class Null : Monster
     {
-        public Mentagon()
+        public Null()
         {
-            Name = "멘타곤";
-            Level = 25;
-            MaxHp = 400f;
+            Name = "Null의유령";
+            Level = 5;
+            MaxHp = 25f;
             Hp = MaxHp;
-            Attack = 50f;
-            Defense = 25f;
+            Attack = 10f;
+            Defense = 7f;
         }
 
         protected override void DefineStates()

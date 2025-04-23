@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class  BurnoutThread : Monster
+    class InfLoop : Monster
     {
-        public BurnoutThread()
+        public InfLoop()
         {
-            Name = "번아웃 스레드";
-            Level = 20;
-            MaxHp = 280f;
+            Type = MonsterType.InfLoop;
+            Name = "무한루프";
+            Level = 3;
+            MaxHp = 20f;
             Hp = MaxHp;
-            Attack = 40f;
-            Defense = 21f;
+            Attack = 10f;
+            Defense = 5f;
         }
 
         protected override void DefineStates()

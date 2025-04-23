@@ -1,15 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class TypeMissGoblin : Monster
+    class MockingMimic : Monster
     {
-        public TypeMissGoblin()
+        public MockingMimic()
         {
-            Name = "타입미스 고블린";
-            Level = 2;
-            MaxHp = 20f;
+            Name = "모킹 미믹";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 3f;
-            Defense = 5f;
+            Attack = 28f;
+            Defense = 14f;
         }
 
         protected override void DefineStates()
@@ -54,6 +54,5 @@
         {
             base.AttackTo(victim);
         }
-    {
     }
 }

@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-
-    public class FloatingShadow : Monster
+    class SemicolonSlime : Monster
     {
-        public FloatingShadow()
+        public SemicolonSlime()
         {
-            Name = "플로팅 쉐도우";
-            Level = 7;
-            MaxHp = 100f;
+            Name = "세미콜론";
+            Level = 1;
+            MaxHp = 15f;
             Hp = MaxHp;
-            Attack = 22f;
-            Defense = 11f;
+            Attack = 3f;
+            Defense = 2f;
         }
 
         protected override void DefineStates()

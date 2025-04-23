@@ -1,16 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-
-    public class SingleToneSlug : Monster
+    public class ThreadSleep : Monster
     {
-        public SingleToneSlug()
+        public ThreadSleep()
         {
-            Name = "싱글톤 슬러그";
-            Level = 6;
-            MaxHp = 80f;
+            Name = "슬립리스 스레드";
+            Level = 21;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 20f;
-            Defense = 10f;
+            Attack = 42f;
+            Defense = 21f;
         }
 
         protected override void DefineStates()

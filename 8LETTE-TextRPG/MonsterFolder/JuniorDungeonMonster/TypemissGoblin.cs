@@ -1,15 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class IndexFairy : Monster
+    class TypeMissGoblin : Monster
     {
-        public IndexFairy()
+        public TypeMissGoblin()
         {
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Name = "타입미스 고블린";
+            Level = 2;
+            MaxHp = 20f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
+            Attack = 3f;
+            Defense = 5f;
         }
 
         protected override void DefineStates()

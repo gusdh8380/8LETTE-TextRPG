@@ -1,15 +1,14 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-
-    public class ThreadSleep : Monster
+    class  BurnoutThread : Monster
     {
-        public ThreadSleep()
+        public BurnoutThread()
         {
-            Name = "슬립리스 스레드";
-            Level = 21;
-            MaxHp = 300f;
+            Name = "번아웃 스레드";
+            Level = 20;
+            MaxHp = 280f;
             Hp = MaxHp;
-            Attack = 42f;
+            Attack = 40f;
             Defense = 21f;
         }
 

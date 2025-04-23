@@ -1,15 +1,15 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class MockingMimic : Monster
+    public class SingleToneSlug : Monster
     {
-        public MockingMimic()
+        public SingleToneSlug()
         {
-            Name = "모킹 미믹";
-            Level = 10;
-            MaxHp = 160f;
+            Name = "싱글톤 슬러그";
+            Level = 6;
+            MaxHp = 80f;
             Hp = MaxHp;
-            Attack = 28f;
-            Defense = 14f;
+            Attack = 20f;
+            Defense = 10f;
         }
 
         protected override void DefineStates()

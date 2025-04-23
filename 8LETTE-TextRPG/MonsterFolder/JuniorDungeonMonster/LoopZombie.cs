@@ -1,15 +1,15 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class InfLoop : Monster
+    class LoopZombie : Monster
     {
-        public InfLoop()
+        public LoopZombie()
         {
-            Type = MonsterType.InfLoop;
-            Name = "무한루프";
+            Type = MonsterType.Undead;
+            Name = "무한루프 좀비";
             Level = 3;
-            MaxHp = 20f;
+            MaxHp = 25f;
             Hp = MaxHp;
-            Attack = 10f;
+            Attack = 5f;
             Defense = 5f;
         }
 

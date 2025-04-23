@@ -1,5 +1,7 @@
 ﻿using _8LETTE_TextRPG.MonsterFolder;
 using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace _8LETTE_TextRPG
 {
@@ -7,8 +9,9 @@ namespace _8LETTE_TextRPG
     {
         private List<Monster> _monsters = new List<Monster>();
         public Monster[] GetAllMonsters() => _monsters.ToArray();
-        public int MonsterCount {  get; private set; }
+        public int MonsterCount { get; private set; }
         public float PreviousHP { get; private set; }
+        public int DungeonLevel { get; private set; }
 
         public static readonly MonsterSpawner Instance = new MonsterSpawner();
 
@@ -17,15 +20,20 @@ namespace _8LETTE_TextRPG
             PreviousHP = Player.Instance.Health;
 
             Random random = new Random();
-
-            //1 ~ 4 마리의 몬스터 생성
             MonsterCount = random.Next(1, 5);
 
             //랜덤한 몬스터 생성
             _monsters.Clear();
             for (int i = 0; i < MonsterCount; i++)
             {
-                _monsters.Add(new InfLoop());
+                switch(random.Next(0, 5))
+                {
+                    case 0: _monsters.Add(new SemicolonSlime()); break;
+                    case 1: _monsters.Add(new TypeMissGoblin()); break;
+                    case 2: _monsters.Add(new LoopZombie()); break;
+                    case 3: _monsters.Add(new IndexFairy()); break;
+                    case 4: _monsters.Add(new NullGhost()); break;
+                }
             }
         }
 

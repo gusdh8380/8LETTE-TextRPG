@@ -1,10 +1,11 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class Null : Monster
+    class NullGhost : Monster
     {
-        public Null()
+        public NullGhost()
         {
-            Name = "Null의유령";
+            Type = MonsterType.Ghost;
+            Name = "Null 유령";
             Level = 5;
             MaxHp = 25f;
             Hp = MaxHp;

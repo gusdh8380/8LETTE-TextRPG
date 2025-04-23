@@ -4,12 +4,13 @@
     {
         public TypeMissGoblin()
         {
+            Type = MonsterType.Goblin;
             Name = "타입미스 고블린";
             Level = 2;
             MaxHp = 20f;
             Hp = MaxHp;
-            Attack = 3f;
-            Defense = 5f;
+            Attack = 5f;
+            Defense = 2f;
         }
 
         protected override void DefineStates()

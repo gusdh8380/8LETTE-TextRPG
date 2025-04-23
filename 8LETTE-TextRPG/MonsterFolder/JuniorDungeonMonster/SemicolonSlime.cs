@@ -4,12 +4,13 @@
     {
         public SemicolonSlime()
         {
-            Name = "세미콜론";
+            Type = MonsterType.Slime;
+            Name = "세미콜론 슬라임";
             Level = 1;
             MaxHp = 15f;
             Hp = MaxHp;
             Attack = 3f;
-            Defense = 2f;
+            Defense = 1f;
         }
 
         protected override void DefineStates()

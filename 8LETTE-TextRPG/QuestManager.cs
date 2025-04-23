@@ -31,7 +31,7 @@ namespace _8LETTE_TextRPG
             _quests.Add(new Quest("테스트 퀘스트 1", "무한루프 몬스터 1마리 처치.",
                 new List<QuestGoal>
                 {
-                    new QuestGoal(QuestType.KillMonster, MonsterType.InfLoop.ToString(), 1)
+                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 1)
                 },
                 new Item("퀘스트 클리어 아이템 1", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
                 {

@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using System.Text;
+
+namespace _8LETTE_TextRPG.ItemFolder
 {
     public class Item : IEquipable, IUsable
     {
@@ -166,63 +168,6 @@
             Player.Instance.Health += UsedHpInc;
 
             Player.Instance.Inventory.RemoveItem(this);
-        }
-
-        /// <summary>
-        /// 회복 아이템 (1회성)
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="desc"></param>
-        /// <param name="hp"></param>
-        /// <param name="price"></param>
-        public Item(string name, string desc, float hp, float price)
-        {
-            Id = Guid.NewGuid().ToString();
-            Name = name;
-            Description = desc;
-            Hp = hp;
-            Price = price;
-        }
-
-        //public string StatString()
-        //{
-        //    if (Attack > 0) return $"공격력 +{Attack}";
-        //    if (Defense > 0) return $"방어력 +{Defense}";
-        //    return string.Empty;
-        //}
-
-        public void Equip()
-        {
-            if (IsEquipped)
-            {
-                IsEquipped = false;
-            }
-            else
-            {
-                // 같은 타입 해제
-                foreach (var item in Player.Instance.Inventory.GetAllItems())
-                {
-                    if (item.Type == item.Type && item.IsEquipped)
-                    {
-                        item.IsEquipped = false;
-                    }
-                }
-                IsEquipped = true;
-            }
-        }
-
-        public void Unequip()
-        {
-            if (IsEquipped)
-            {
-                IsEquipped = false;
-            }
-        }
-
-        public void Use()
-        {
-            Player.Instance.Health += Hp;
-            Player.Instance.Inventory.DeleteItem(this);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class StatusScreen : Screen
     {
@@ -19,7 +19,7 @@
             float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
             if (defBounus != 0f)
             {
-                Console.WriteLine($"공격력 : {Player.Instance.BaseDefense} (+{defBounus})");
+                Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} (+{defBounus})");
             }
             else
             {

@@ -1,3 +1,5 @@
+using _8LETTE_TextRPG.ScreenFolder;
+
 namespace _8LETTE_TextRPG
 {
     internal class MainGame
@@ -42,6 +44,7 @@ namespace _8LETTE_TextRPG
             }
 
             new Player(userName, selectedJob);
+            new QuestManager();
 
             Screen? current = TownScreen.Instance;
             while (current != null)

@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG
+﻿using _8LETTE_TextRPG.MonsterFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class PlayerAttackScreen : Screen
     {
@@ -61,7 +63,7 @@
             else if (int.TryParse(input, out int num))
             {
                 Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters();
-                if (num < 1 || num > monsters.Length || monsters[num - 1].IsDead)
+                if (num < 1 || num > MonsterSpawner.Instance.MonsterCount || monsters[num - 1].IsDead)
                 {
                     _isRetry = true;
                     return this;

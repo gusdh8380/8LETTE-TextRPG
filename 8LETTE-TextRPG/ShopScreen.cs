@@ -41,6 +41,7 @@ namespace _8LETTE_TextRPG
                         shop.BuyItem(items[itemNum]);
                         Console.WriteLine();
                     }
+
                     shop.ShowItems(true);
                     break;
 
@@ -51,7 +52,9 @@ namespace _8LETTE_TextRPG
                         shop.SellItem(items[itemNum]);
                         Console.WriteLine();
                     }
-                    Player.Instance.Inventory.ShowPlayerItems();
+
+                    Console.WriteLine("[판매 목록]");
+                    Player.Instance.Inventory.ShowPlayerItems(Inventory.PrintState.Shop);
                     break;
             }
 

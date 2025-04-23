@@ -47,22 +47,36 @@
             equipableItem.Unequip();
         }
 
-        public void ShowPlayerItems()
+        public enum PrintState { Inventory, Equipment, Shop }
+        public void ShowPlayerItems(PrintState state)
         {
-            Console.WriteLine("[판매 목록]");
             if(_items.Count == 0)
             {
                 Console.WriteLine("현재 가지고 있는 아이템이 없습니다.");
                 return;
             }
 
-            foreach (Item item in _items)
+            for (int i = 0; i < _items.Count; i++)
             {
+                Item item = _items[i];
                 string atk = item.Attack > 0 ? $"공격력 +{item.Attack} " : "";
                 string def = item.Defense > 0 ? $"방어력 +{item.Defense} " : "";
+                string heal = item.Hp > 0 ? $"회복량 +{item.Hp} " : "";
 
-                Console.Write("- {0}", (_items.IndexOf(item) + 1).ToString() + " ");
-                Console.WriteLine($"{item.Name} | {atk}{def}| {item.Description} | {(float)Math.Round(item.Price * 0.85)} G");
+                switch (state)
+                {
+                    case PrintState.Inventory:
+                        Console.WriteLine($"- {(item.IsEquipped ? "[E]" : "")}{item.Name} | {atk}{def}{heal}| {item.Description} ");
+                        break;
+
+                    case PrintState.Equipment:
+                        Console.WriteLine($"- {i + 1} {(item.IsEquipped ? "[E]" : "")}{item.Name} | {atk}{def}{heal}| {item.Description} ");
+                        break;
+
+                    case PrintState.Shop:
+                        Console.WriteLine($"{i + 1}. {item.Name} | {atk}{def}{heal}| {item.Description} | {(float)Math.Round(item.Price * 0.85)} G");
+                        break;
+                }
             }
         }
     }

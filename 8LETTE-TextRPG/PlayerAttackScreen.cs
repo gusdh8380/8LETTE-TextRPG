@@ -24,7 +24,7 @@
         {
             Console.Clear();
 
-            PrintTitle("전투!!");
+            PrintTitle("전투!! - 플레이어의 공격");
 
             if (!isAttacked)
             {

@@ -27,7 +27,7 @@
         {
             Console.Clear();
 
-            PrintTitle("전투!!");
+            PrintTitle("전투!! - 플레이어의 스킬 사용");
 
             if (!isAttacked)
             {

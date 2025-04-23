@@ -150,6 +150,8 @@ namespace _8LETTE_TextRPG
             Player.Instance.BaseDefense += EquipDefInc;
             Player.Instance.MaxHealth += EquipHpInc;
             Player.Instance.Health += EquipHpInc;
+
+            QuestManager.Instance.SendProgress(QuestType.EquipItem, "", 1);
         }
 
         public void Unequip()

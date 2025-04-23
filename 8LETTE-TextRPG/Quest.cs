@@ -11,30 +11,30 @@ namespace _8LETTE_TextRPG
         public string Id { get; private set; }
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int RequiredKillCount { get; private set; }
-        public int CurrentKillCount { get; private set; }
+        
+        public List<QuestGoal> Goals { get; private set; }
+        public bool IsCompleted => Goals.All(x => x.IsCompleted);
+
         public Item? RewardItem { get; private set; }
         public float RewardGold { get; private set; }
 
-        /// <summary>
-        /// 몬스터 처치 퀘스트
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="desc"></param>
-        /// <param name="killCount"></param>
-        /// <param name="rewardItem"></param>
-        /// <param name="rewardGold"></param>
-        public Quest(string title, string desc, int killCount, Item? rewardItem = null, float rewardGold = 0f)
+        public QuestState State { get; set; }
+
+        public Quest(string title, string desc, List<QuestGoal> goals, Item? rewardItem = null, float rewardGold = 0f)
         {
             Id = Guid.NewGuid().ToString();
             Title = title;
             Description = desc;
-            RequiredKillCount = killCount;
+
+            Goals = goals;
+
             if (rewardItem != null)
             {
                 RewardItem = rewardItem;
             }
             RewardGold = rewardGold;
+
+            State = QuestState.BeforeAccept;
         }
     }
 }

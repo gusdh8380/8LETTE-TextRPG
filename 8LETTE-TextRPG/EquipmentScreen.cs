@@ -44,7 +44,7 @@
                 if (num < 1 || num > items.Length)
                 {
                     _selectedItem = null;
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
                 }
                 _selectedItem = items[num - 1];
@@ -53,7 +53,7 @@
             else
             {
                 _selectedItem = null;
-                isRetry = true;
+                _isRetry = true;
             }
 
             return this;

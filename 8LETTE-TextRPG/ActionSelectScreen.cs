@@ -37,7 +37,7 @@
                 case "1":
                     return PlayerAttackScreen.Instance;
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

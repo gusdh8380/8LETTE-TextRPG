@@ -42,7 +42,7 @@
                 case "5":
                     return QuestScreen.Instance;
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

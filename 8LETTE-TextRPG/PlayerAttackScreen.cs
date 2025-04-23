@@ -64,7 +64,7 @@
                 Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters();
                 if (num < 1 || num > monsters.Length || monsters[num - 1].IsDead)
                 {
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
                 }
 
@@ -73,7 +73,7 @@
             }
             else
             {
-                isRetry = true;
+                _isRetry = true;
             }
 
             return this;

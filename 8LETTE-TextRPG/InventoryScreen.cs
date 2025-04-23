@@ -38,7 +38,7 @@ namespace _8LETTE_TextRPG
                 case "0":
                     return TownScreen.Instance;
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

@@ -17,6 +17,7 @@ namespace _8LETTE_TextRPG
             Dead
         }
 
+        public MonsterType Type { get; protected set; }
         public string? Name { get; protected set; }
         public int Level { get; protected set; }
         public float MaxHp { get; protected set; }
@@ -147,6 +148,7 @@ namespace _8LETTE_TextRPG
         protected virtual void Death()
         {
             CurState = State.Dead;
+            QuestManager.Instance.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }
     }
 }

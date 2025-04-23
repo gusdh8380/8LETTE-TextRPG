@@ -42,7 +42,7 @@
                 Item[] items = Player.Instance.Inventory.GetAllItems(ItemType.Usable);
                 if (num < 1 || num > items.Length)
                 {
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
                 }
 
@@ -51,7 +51,7 @@
             }
             else
             {
-                isRetry = true;
+                _isRetry = true;
             }
 
             return this;

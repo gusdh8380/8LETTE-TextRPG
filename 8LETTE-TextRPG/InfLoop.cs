@@ -4,6 +4,7 @@
     {
         public InfLoop()
         {
+            Type = MonsterType.InfLoop;
             Name = "무한루프";
             Level = 3;
             MaxHp = 20f;

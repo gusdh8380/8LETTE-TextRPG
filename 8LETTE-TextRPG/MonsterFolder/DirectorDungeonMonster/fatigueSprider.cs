@@ -6,11 +6,12 @@
         {
             Type= = MonsterType.Spider;
             Name = "피곤줄 거미";
-            Level = 16;
+            Level = 17;
             MaxHp = 300f;
             Hp = MaxHp;
             Attack = 42f;
             Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

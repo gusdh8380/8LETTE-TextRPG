@@ -6,11 +6,12 @@
         {
             Type = MonsterType.Fairy;
             Name = "척추의 요정";
-            Level = 17;
+            Level = 18;
             MaxHp = 320f;
             Hp = MaxHp;
             Attack = 44f;
             Defense = 22f;
+            GoldReward = 1150;
         }
 
         protected override void DefineStates()

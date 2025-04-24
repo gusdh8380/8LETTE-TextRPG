@@ -6,11 +6,12 @@
         {
             Type = MonsterType.Ghost;
             Name = "아이블러 팬텀";
-            Level = 18;
+            Level = 19;
             MaxHp = 340f;
             Hp = MaxHp;
             Attack = 46f;
             Defense = 23f;
+            GoldReward = 1200;
         }
 
         protected override void DefineStates()

@@ -6,11 +6,12 @@
         {
             Type = MonsterType.Dragon;
             Name = "보이드 드래곤";
-            Level = 15;
+            Level = 16;
             MaxHp = 280f;
             Hp = MaxHp;
             Attack = 40f;
             Defense = 21f;
+            GoldReward = 1000;
         }
 
         protected override void DefineStates()

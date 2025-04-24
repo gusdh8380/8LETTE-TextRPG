@@ -1,16 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-
-    public class Mentagon : Monster
+    class NoCommentRich : Monster
     {
-        public Mentagon()
+        public NoCommentRich()
         {
-            Name = "멘타곤";
-            Level = 25;
-            MaxHp = 400f;
+            Type = MonsterType.Undead;
+            Name = "노코멘트 리치";
+            Level = 12;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 50f;
-            Defense = 25f;
+            Attack = 30f;
+            Defense = 30f;
         }
 
         protected override void DefineStates()

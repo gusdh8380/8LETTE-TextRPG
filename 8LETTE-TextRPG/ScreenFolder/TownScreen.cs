@@ -14,7 +14,7 @@
             Console.WriteLine("이제 전투를 시작할 수 있습니다.\n");
 
             PrintNumAndString(1, "상태 보기");
-            PrintNumAndString(2, "전투 시작");
+            PrintNumAndString(2, $"전투 시작 ({MonsterSpawner.Instance.Type} Dungeon - {(MonsterSpawner.Instance.ClearCount % 5 + 1)}층)");
             PrintNumAndString(3, "인벤토리");
             PrintNumAndString(4, "상점");
             PrintNumAndString(5, "퀘스트");

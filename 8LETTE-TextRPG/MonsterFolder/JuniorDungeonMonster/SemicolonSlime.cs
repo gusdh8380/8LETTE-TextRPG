@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class MockingMimic : Monster
+    class SemicolonSlime : Monster
     {
-        public MockingMimic()
+        public SemicolonSlime()
         {
-            Name = "모킹 미믹";
-            Level = 10;
-            MaxHp = 160f;
+            Type = MonsterType.Slime;
+            Name = "세미콜론 슬라임";
+            Level = 1;
+            MaxHp = 15f;
             Hp = MaxHp;
-            Attack = 28f;
-            Defense = 14f;
+            Attack = 3f;
+            Defense = 1f;
+            GoldReward = 100;
         }
 
         protected override void DefineStates()

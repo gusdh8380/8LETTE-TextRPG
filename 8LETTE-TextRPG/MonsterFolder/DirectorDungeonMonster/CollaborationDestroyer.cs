@@ -1,16 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class InfLoop : Monster
+    public class CollaborationDestroyer : Monster
     {
-        public InfLoop()
+        public CollaborationDestroyer()
         {
-            Type = MonsterType.InfLoop;
-            Name = "무한루프";
-            Level = 3;
-            MaxHp = 20f;
+            Type = MonsterType.Humanoid;
+            Name = "협업 파괴자";
+            Level = 20;
+            MaxHp = 400f;
             Hp = MaxHp;
-            Attack = 10f;
-            Defense = 5f;
+            Attack = 50f;
+            Defense = 25f;
+            GoldReward = 1300;
         }
 
         protected override void DefineStates()

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace _8LETTE_TextRPG.ScreenFolder
+﻿namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class InventoryScreen : Screen
     {

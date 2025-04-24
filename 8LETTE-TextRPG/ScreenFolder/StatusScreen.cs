@@ -6,6 +6,25 @@
 
         private void PrintBonusStatus()
         {
+            Console.WriteLine();
+
+            float hpBounus = Player.Instance.Inventory.EquippedHpBonus();
+            if (hpBounus != 0f)
+            {
+                if (hpBounus > 0f)
+                {
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} (+{hpBounus})");
+                }
+                else
+                {
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} ({hpBounus})");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+            }
+
             float atkBounus = Player.Instance.Inventory.EquippedAttackBonus();
             if (atkBounus != 0f)
             {
@@ -40,38 +59,21 @@
                 Console.WriteLine($"방어력 : {Player.Instance.Defense}");
             }
 
-            float hpBounus = Player.Instance.Inventory.EquippedHpBonus();
-            if (hpBounus != 0f)
-            {
-                if (hpBounus > 0f)
-                {
-                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} (+{hpBounus})");
-                }
-                else
-                {
-                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} ({hpBounus})");
-                }
-            }
-            else
-            {
-                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
-            }
-
             float criticalBonus = Player.Instance.Inventory.EquippedCriticalBonus();
             if (criticalBonus != 0f)
             {
                 if (criticalBonus > 0f)
                 {
-                    Console.WriteLine($"치명타 확률 : {Player.Instance.CriticalChance} (+{criticalBonus}) / 100");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} (+{criticalBonus}) %");
                 }
                 else
                 {
-                    Console.WriteLine($"치명타 확률 : {Player.Instance.CriticalChance} ({criticalBonus}) / 100");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} ({criticalBonus}) %");
                 }
             }
             else
             {
-                Console.WriteLine($"치명타 확률 : {Player.Instance.CriticalChance} / 100");
+                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} %");
             }
 
             float evasionBonus = Player.Instance.Inventory.EquippedEvasionBonus();
@@ -79,17 +81,19 @@
             {
                 if (evasionBonus > 0f)
                 {
-                    Console.WriteLine($"회피 확률 : {Player.Instance.EvasionRate} (+{evasionBonus}) / 100");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} (+{evasionBonus}) %");
                 }
                 else
                 {
-                    Console.WriteLine($"회피 확률 : {Player.Instance.EvasionRate} ({evasionBonus}) / 100");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} ({evasionBonus}) %");
                 }
             }
             else
             {
-                Console.WriteLine($"회피 확률 : {Player.Instance.EvasionRate} / 100");
+                Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} %");
             }
+
+            Console.WriteLine();
         }
 
         public override void Show()
@@ -103,7 +107,9 @@
             // 플레이어 정보
             Console.WriteLine($"Lv. {Player.Instance.Level.CurrentLevel}");
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
+
             PrintBonusStatus();
+
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 
             Console.WriteLine();

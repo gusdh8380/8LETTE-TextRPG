@@ -1,4 +1,9 @@
 ﻿using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster;
+using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
+using _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster;
+using _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster;
+using System;
 
 namespace _8LETTE_TextRPG
 {
@@ -6,25 +11,94 @@ namespace _8LETTE_TextRPG
     {
         private List<Monster> _monsters = new List<Monster>();
         public Monster[] GetAllMonsters() => _monsters.ToArray();
-        public int MonsterCount {  get; private set; }
+        public int MonsterCount { get; private set; }
+        public int ClearCount { get; private set; }
+        public DungeonType Type { get; private set; }
+
+        public int PreviousLevel { get; private set; }
         public float PreviousHP { get; private set; }
+        public int PreviousExp { get; private set; }
+        public float PreviousGold { get; private set; }
 
         public static readonly MonsterSpawner Instance = new MonsterSpawner();
+        private MonsterSpawner()
+        {
+            //나중에 정보 저장 후 불러올 때, 여기서 ClearCount 값 초기화 후 Type 변경
+            ClearCount = 0;
+            ChangeDungeonType();
+        }
+
+        private void ChangeDungeonType()
+        {
+            switch (ClearCount / 5)
+            {
+                case 0:
+                    Type = DungeonType.Junior; break;
+                case 1:
+                    Type = DungeonType.Middle; break;
+                case 2:
+                    Type = DungeonType.Senior; break;
+                default:
+                    Type = DungeonType.Director; break;
+            }
+        }
+
+        private Monster? SpawnMonster(int num)
+        {
+            if(Type == DungeonType.Junior)
+                switch (num)
+                {
+                    case 0: return new SemicolonSlime();
+                    case 1: return new TypeMissGoblin();
+                    case 2: return new LoopZombie();
+                    case 3: return new IndexFairy();
+                    case 4: return new NullGhost();
+                }
+            else if (Type == DungeonType.Middle)
+                switch (num)
+                {
+                    case 0: return new InitGhost();
+                    case 1: return new LiteralSkeleton();
+                    case 2: return new MemoryMelter();
+                    case 3: return new LagSpider();
+                    case 4: return new DependencyHydra();
+                }
+            else if (Type == DungeonType.Senior)
+                switch (num)
+                {
+                    case 0: return new OldCodeBigSlime();
+                    case 1: return new NoCommentRich();
+                    case 2: return new OverturningGolem();
+                    case 3: return new IllusionPixie();
+                    case 4: return new ConflictDragon();
+                }
+            else
+                switch (num)
+                {
+                    case 0: return new VoidDragon();
+                    case 1: return new TiredWebSpider();
+                    case 2: return new SpineFairy();
+                    case 3: return new EyeBlurPhantom();
+                    case 4: return new CollaborationDestroyer();
+                }
+
+            return null;
+        }
 
         public void InitMonsters()
         {
+            PreviousLevel = Player.Instance.Level.CurrentLevel;
             PreviousHP = Player.Instance.Health;
+            PreviousExp = Player.Instance.Level.CurrentExp;
+            PreviousGold = Player.Instance.Gold;
 
             Random random = new Random();
+            MonsterCount = random.Next(1 + (int)Type, 5 + (int)Type);
 
-            //1 ~ 4 마리의 몬스터 생성
-            MonsterCount = random.Next(1, 5);
-
-            //랜덤한 몬스터 생성
             _monsters.Clear();
             for (int i = 0; i < MonsterCount; i++)
             {
-                _monsters.Add(new InfLoop());
+                _monsters.Add(SpawnMonster(random.Next(0, 5)) ?? new LoopZombie());
             }
         }
 
@@ -72,7 +146,12 @@ namespace _8LETTE_TextRPG
                 if (_monsters[i].IsDead) cnt--;
             }
 
-            if (cnt == 0) return true;
+            if (cnt == 0)
+            {
+                ClearCount++;
+                ChangeDungeonType();
+                return true;
+            }
             return false;
         }
     }

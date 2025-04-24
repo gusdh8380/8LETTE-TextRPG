@@ -1,16 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-
-    public class EyebugBear : Monster
+    public class EyeBlurPhantom : Monster
     {
-        public EyebugBear()
+        public EyeBlurPhantom()
         {
-            Name = "눈알 버그베어";
-            Level = 23;
+            Type = MonsterType.Ghost;
+            Name = "아이블러 팬텀";
+            Level = 19;
             MaxHp = 340f;
             Hp = MaxHp;
             Attack = 46f;
             Defense = 23f;
+            GoldReward = 1200;
         }
 
         protected override void DefineStates()

@@ -1,16 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-
-    public class SingleToneSlug : Monster
+    public class TiredWebSpider : Monster
     {
-        public SingleToneSlug()
+        public TiredWebSpider()
         {
-            Name = "싱글톤 슬러그";
-            Level = 6;
-            MaxHp = 80f;
+            Type = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 20f;
-            Defense = 10f;
+            Attack = 42f;
+            Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

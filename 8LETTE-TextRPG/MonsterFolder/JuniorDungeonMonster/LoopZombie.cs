@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
-    class EternalLoop : Monster
+    class LoopZombie : Monster
     {
-        public EternalLoop()
+        public LoopZombie()
         {
-            Name = "이터널루프";
-            Level = 9;
-            MaxHp = 140f;
+            Type = MonsterType.Undead;
+            Name = "무한루프 좀비";
+            Level = 3;
+            MaxHp = 25f;
             Hp = MaxHp;
-            Attack = 26f;
-            Defense = 13f;
+            Attack = 5f;
+            Defense = 5f;
+            GoldReward = 150;
         }
 
         protected override void DefineStates()

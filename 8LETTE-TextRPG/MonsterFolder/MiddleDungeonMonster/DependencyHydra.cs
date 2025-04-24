@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class  BurnoutThread : Monster
+    class DependencyHydra : Monster
     {
-        public BurnoutThread()
+        public DependencyHydra()
         {
-            Name = "번아웃 스레드";
-            Level = 20;
-            MaxHp = 280f;
+            Type = MonsterType.Dragon;
+            Name = "디펜던시 히드라";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 40f;
-            Defense = 21f;
+            Attack = 28f;
+            Defense = 14f;
+            GoldReward = 500;
         }
 
         protected override void DefineStates()

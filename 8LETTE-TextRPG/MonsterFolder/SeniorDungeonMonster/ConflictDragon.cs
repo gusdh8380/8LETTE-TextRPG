@@ -1,16 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-
-    public class FloatingShadow : Monster
+    class ConflictDragon : Monster
     {
-        public FloatingShadow()
+        public ConflictDragon()
         {
-            Name = "플로팅 쉐도우";
-            Level = 7;
-            MaxHp = 100f;
+            Type = MonsterType.Dragon;
+            Name = "컨플릭트 드래곤";
+            Level = 15;
+            MaxHp = 50f;
             Hp = MaxHp;
-            Attack = 22f;
-            Defense = 11f;
+            Attack = 40f;
+            Defense = 40f;
+            GoldReward = 900;
         }
 
         protected override void DefineStates()

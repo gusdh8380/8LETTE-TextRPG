@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class HerniatedDiscTroll : Monster
+    public class LagSpider : Monster
     {
-        public HerniatedDiscTroll()
+        public LagSpider()
         {
-            Name = "허리디스크 트롤";
-            Level = 22;
-            MaxHp = 320f;
+            Type = MonsterType.Spider;
+            Name = "렉 스파이더";
+            Level = 9;
+            MaxHp = 140f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
+            Attack = 26f;
+            Defense = 13f;
+            GoldReward = 450;
         }
 
         protected override void DefineStates()

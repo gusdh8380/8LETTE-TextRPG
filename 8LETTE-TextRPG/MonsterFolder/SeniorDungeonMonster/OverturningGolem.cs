@@ -1,16 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-
-    public class ThreadSleep : Monster
+    class OverturningGolem : Monster
     {
-        public ThreadSleep()
+        public OverturningGolem()
         {
-            Name = "슬립리스 스레드";
-            Level = 21;
-            MaxHp = 300f;
+            Type = MonsterType.Humanoid;
+            Name = "뒤집기 골렘";
+            Level = 13;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 42f;
-            Defense = 21f;
+            Attack = 35f;
+            Defense = 30f;
+            GoldReward = 800;
         }
 
         protected override void DefineStates()

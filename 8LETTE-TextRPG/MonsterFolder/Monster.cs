@@ -149,12 +149,6 @@ namespace _8LETTE_TextRPG.MonsterFolder
                 {
                     refl.Execute(target, this);
                 }
-                   
-
-                
-                //캐릭터 정보 출력
-                Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
-                Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");
             }
             else
             {

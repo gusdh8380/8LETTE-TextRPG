@@ -6,6 +6,9 @@ namespace _8LETTE_TextRPG
     {
         static void Main(string[] args)
         {
+
+            IntroScreen.ShowIntro();
+            Console.Clear();
             //이름 입력
             Console.WriteLine("이름을 입력해주세요.");
             Console.ForegroundColor = ConsoleColor.DarkYellow;

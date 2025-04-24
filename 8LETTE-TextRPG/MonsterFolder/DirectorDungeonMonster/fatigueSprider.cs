@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class Reset : Monster
+    public class fatigueSprider : Monster
     {
-        public Reset()
+        public fatigueSprider()
         {
-            Name = "쓰레드 점퍼";
-            Level = 8;
-            MaxHp = 120f;
+            Type= = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 16;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 24f;
-            Defense = 12f;
+            Attack = 42f;
+            Defense = 21f;
         }
 
         protected override void DefineStates()

@@ -1,15 +1,16 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class EyebugBear : Monster
+    class FairyOfVertebrae : Monster
     {
-        public EyebugBear()
+        public FairyOfVertebrae()
         {
-            Name = "눈알 버그베어";
-            Level = 23;
-            MaxHp = 340f;
+            Type = MonsterType.Fairy;
+            Name = "척추의 요정";
+            Level = 17;
+            MaxHp = 320f;
             Hp = MaxHp;
-            Attack = 46f;
-            Defense = 23f;
+            Attack = 44f;
+            Defense = 22f;
         }
 
         protected override void DefineStates()

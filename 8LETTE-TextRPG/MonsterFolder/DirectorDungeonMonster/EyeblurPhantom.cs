@@ -1,15 +1,16 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class ThreadSleep : Monster
+    public class EyeblurPhantom : Monster
     {
-        public ThreadSleep()
+        public EyeblurPhantom()
         {
-            Name = "슬립리스 스레드";
-            Level = 21;
-            MaxHp = 300f;
+            Type = MonsterType.Ghost;
+            Name = "아이블러 팬텀";
+            Level = 18;
+            MaxHp = 340f;
             Hp = MaxHp;
-            Attack = 42f;
-            Defense = 21f;
+            Attack = 46f;
+            Defense = 23f;
         }
 
         protected override void DefineStates()

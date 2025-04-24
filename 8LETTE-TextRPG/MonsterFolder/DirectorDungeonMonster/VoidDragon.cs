@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class EternalLoop : Monster
+    class VoidDragon : Monster
     {
-        public EternalLoop()
+        public VoidDragon()
         {
-            Name = "이터널루프";
-            Level = 9;
-            MaxHp = 140f;
+            Type = MonsterType.Dragon;
+            Name = "보이드 드래곤";
+            Level = 15;
+            MaxHp = 280f;
             Hp = MaxHp;
-            Attack = 26f;
-            Defense = 13f;
+            Attack = 40f;
+            Defense = 21f;
         }
 
         protected override void DefineStates()

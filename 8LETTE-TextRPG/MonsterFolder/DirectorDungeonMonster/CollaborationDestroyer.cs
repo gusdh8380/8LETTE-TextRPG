@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class MockingMimic : Monster
+    public class CollaborationDestroyer : Monster
     {
-        public MockingMimic()
+        public CollaborationDestroyer()
         {
-            Name = "모킹 미믹";
-            Level = 10;
-            MaxHp = 160f;
+            Type = MonsterType.Humanoid;
+            Name = "협업 파괴자";
+            Level = 20;
+            MaxHp = 400f;
             Hp = MaxHp;
-            Attack = 28f;
-            Defense = 14f;
+            Attack = 50f;
+            Defense = 25f;
         }
 
         protected override void DefineStates()

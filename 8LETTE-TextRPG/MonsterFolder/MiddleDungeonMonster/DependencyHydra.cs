@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class Mentagon : Monster
+    class DependencyHydra : Monster
     {
-        public Mentagon()
+        public DependencyHydra()
         {
-            Name = "멘타곤";
-            Level = 25;
-            MaxHp = 400f;
+            Type = MonsterType.Dragon;
+            Name = "디펜던시 히드라";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 50f;
-            Defense = 25f;
+            Attack = 28f;
+            Defense = 14f;
         }
 
         protected override void DefineStates()

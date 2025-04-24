@@ -152,11 +152,6 @@ namespace _8LETTE_TextRPG
             {
                 { ItemEffect.Hp, 30f }
             }));
-            //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 500f, EquipmentType.Keyboard, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, 10f }
-            }));
             Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, 100f },

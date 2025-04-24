@@ -122,9 +122,13 @@
             Random r = new Random();
             float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
-            //Todo : 방어력에 따른 데미지 감소 로직
+            
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
+            float PlayerDefense = Player.Instance.GetBuffedDefense();
+
+            // 방어력에 따른 데미지 감소 로직
+            damage = Player.Instance.ApplyDefenseReduction(damage, PlayerDefense);
 
             //플레이어 회피율 계산
             bool isEvasion = Player.Instance.TryEvade();

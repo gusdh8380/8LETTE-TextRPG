@@ -84,6 +84,9 @@ namespace _8LETTE_TextRPG
         public Inventory Inventory { get; private set; }
 
         private List<Buff> _buffs = new List<Buff>();
+
+        //방어 계수
+        public const float DefenseConstant = 50f;
        
 
         public Player(string name, JobBase job)
@@ -144,6 +147,7 @@ namespace _8LETTE_TextRPG
         {
             _buffs.Add(buff);
         }
+        
 
         //버프로 인한 공격력증가 반환
         public float GetBuffAttack()
@@ -156,6 +160,16 @@ namespace _8LETTE_TextRPG
             }
 
             return atk;
+        }
+        //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
+        public float GetBuffedDefense()
+        {
+            float def = TotalDefense;
+            foreach (var buff in _buffs)
+            {
+                def *= buff.DefanseMultiplier;
+            }
+            return def;
         }
 
         //Todo : 치명타, 회피 버브 적용 코드
@@ -188,6 +202,13 @@ namespace _8LETTE_TextRPG
             _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
         }
 
+        public float ApplyDefenseReduction(float Damage, float Defense)
+        {
+            float k = DefenseConstant / (DefenseConstant + Defense);
+            float mitigate = Damage * k;
+            return Math.Max(1, mitigate);
+        }
+
 
         /// <summary>
         /// 몬스터 공격 메소드. 공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
@@ -202,8 +223,7 @@ namespace _8LETTE_TextRPG
             float varirance = (float)Math.Ceiling(TotalAttack * 0.1f);
 
             //몬스터에게 피해를 입힐 데미지 계산
-            //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
-            //현재는 방어력 무시
+         
 
             //공격력 버프 적용, 버프가 없으면 기본 공격력 적용
             float atk = GetBuffAttack();
@@ -217,6 +237,8 @@ namespace _8LETTE_TextRPG
             bool isCritical = TryCritical();
             if (isCritical)
             {
+                //방어력에 따른 데미지 감소
+                damage = ApplyDefenseReduction(damage, target.Defense);
                 damage = (float)Math.Ceiling(damage * 1.6);
 
                 //데미지 계산 처리는 몬스터 클래스에서
@@ -228,6 +250,7 @@ namespace _8LETTE_TextRPG
             else
             {
                 //데미지 계산 처리는 몬스터 클래스에서
+                damage = ApplyDefenseReduction(damage, target.Defense);
                 target.OnDamaged(damage);
 
                 Console.WriteLine($"{Name}의 공격!");

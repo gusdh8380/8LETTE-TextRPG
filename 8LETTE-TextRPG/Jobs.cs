@@ -140,18 +140,17 @@ namespace _8LETTE_TextRPG
         public override float BaseHealth => 100f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
+        public override int PromotionStage => 1;
 
-
-        //승급 스테이지 기록
-        //1이면 승급?
-        public override int PromotionStage => 0;
-
-        public override List<Skill> Skills => new()
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public MemoryKnight_Middle()
         {
-            new YaguenSkill()
-
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseDfs()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
@@ -172,14 +171,17 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
-
-        public override List<Skill> Skills => new()
+        public override int PromotionStage => 2;
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public MemoryKnight_Senior()
         {
-            new YaguenSkill()
-
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseDfs(),
+                new ShieldStrike()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
@@ -199,19 +201,22 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
-
-        public override List<Skill> Skills => new()
+        public override int PromotionStage => 3;
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public MemoryKnight_Director()
         {
-            new YaguenSkill()
-
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseDfs(),
+                new ShieldStrike()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.5f;
-            player.BonusDefense += 1f;
+            player.BonusAttack += 1f;
+            player.BonusDefense += 1.5f;
         }
     }
 

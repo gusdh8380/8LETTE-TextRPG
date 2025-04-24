@@ -238,12 +238,15 @@ namespace _8LETTE_TextRPG
         //승급 스테이지 기록
         //1이면 승급?
         public override int PromotionStage => 0;
-
-        public override List<Skill> Skills => new()
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public ThreadAssassin_Middle()
         {
-            new YaguenSkill()
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseEvasion()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {

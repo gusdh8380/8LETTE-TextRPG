@@ -60,7 +60,7 @@ namespace _8LETTE_TextRPG
             target.OnDamaged(finalDamege);
           
             Console.WriteLine($"{player.Name}이(가) '야근' 스킬을 사용했습니다!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");
+            Console.WriteLine($"{target.Name}에게 {finalDamege}의 피해를 입혔습니다!");
             if (target.IsDead)
             {
                 Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
@@ -91,6 +91,8 @@ namespace _8LETTE_TextRPG
                 name: "공격력 증가",
                 atkMultiplier: 1.2f*PromotionMultiplier,
                 defMultiplier: 1,
+                criticalMultiplier: 1,
+                evasionMultiplier: 1,
                 turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                 duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
                 );
@@ -121,9 +123,9 @@ namespace _8LETTE_TextRPG
             {
                 if(monster.IsDead) continue;
 
-                rawDamage = Player.Instance.ApplyDefenseReduction(rawDamage, monster.Defense);  
-                monster.OnDamaged(rawDamage);
-                Console.WriteLine($"Lv.{monster.Level} {monster.Name}에게 {rawDamage}의 데미지를 입혔습니다.");
+                float fianlDamage = Player.Instance.ApplyDefenseReduction(rawDamage, monster.Defense);  
+                monster.OnDamaged(fianlDamage);
+                Console.WriteLine($"Lv.{monster.Level} {monster.Name}에게 {fianlDamage}의 데미지를 입혔습니다.");
 
                 if (monster.IsDead)
                 {
@@ -147,6 +149,8 @@ namespace _8LETTE_TextRPG
                name: "방어력 증가",
                atkMultiplier: 1,
                defMultiplier: 1.2f* PromotionMultiplier,
+               criticalMultiplier: 1,
+               evasionMultiplier: 1,
                turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
                );
@@ -191,5 +195,30 @@ namespace _8LETTE_TextRPG
         }
     }
 
+
+    public class IncreaseEvasion : Skill
+    {
+        public override string Name => "회피율 증가";
+        public override string Description => " 회피율이 20 증가합니다.";
+
+        public override SkillType Type => SkillType.Active;
+        public override EffectType Effect => EffectType.Buff;
+
+        public override void Execute(Player player, Monster _)
+        {
+            var buff = new Buff(
+                name: "회피율 증가",
+               atkMultiplier: 1,
+               defMultiplier: 1f,
+               criticalMultiplier: 1f,
+               evasionMultiplier: 20f*PromotionMultiplier,
+               turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
+               duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
+               );
+            Player.Instance.AddBuff(buff);
+            
+        }
+
+    }
 
 }

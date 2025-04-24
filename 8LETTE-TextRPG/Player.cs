@@ -167,13 +167,24 @@ namespace _8LETTE_TextRPG
             float def = TotalDefense;
             foreach (var buff in _buffs)
             {
-                def *= buff.DefanseMultiplier;
+                def *= buff.DefenseMultiplier;
             }
             return def;
         }
 
         //Todo : 치명타, 회피 버브 적용 코드
-        public int GetBuffEvasion() { return 1; }
+        public int GetBuffEvasion() 
+        {
+            int evs = EvasionRate;
+            foreach (var buff in _buffs)
+            {
+                evs += (int)buff.EvasionMultiplier;
+            }
+            if (evs > 99) { Console.WriteLine("이미 회피율이 99% 이상입니다"); }
+
+            return (int)MathF.Min(evs, 99); 
+        }
+
         public int GetBuffCritical() {  return 1; }
 
 
@@ -206,6 +217,7 @@ namespace _8LETTE_TextRPG
         {
             float k = DefenseConstant / (DefenseConstant + Defense);
             float mitigate = Damage * k;
+            mitigate = (float)Math.Ceiling(mitigate);
             return Math.Max(1, mitigate);
         }
 
@@ -238,8 +250,9 @@ namespace _8LETTE_TextRPG
             if (isCritical)
             {
                 //방어력에 따른 데미지 감소
-                damage = ApplyDefenseReduction(damage, target.Defense);
+                
                 damage = (float)Math.Ceiling(damage * 1.6);
+                damage = ApplyDefenseReduction(damage, target.Defense);
 
                 //데미지 계산 처리는 몬스터 클래스에서
                 target.OnDamaged(damage);
@@ -274,7 +287,7 @@ namespace _8LETTE_TextRPG
         public bool TryEvade()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= EvasionRate;
+            return r.Next(1, 101) <= GetBuffEvasion();
         }
 
         /// <summary>

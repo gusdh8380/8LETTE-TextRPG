@@ -18,6 +18,13 @@ namespace _8LETTE_TextRPG
         public abstract EffectType Effect { get; }
         public abstract string Description { get; }
 
+        /// <summary>
+        /// 디렉터 승진 시 기본 스킬 강화 계수
+        /// 1.0 = 기본 1.8 = 디렉터 
+        /// Job.PromotionStage에 따라 JobBase가 설정
+        /// </summary>
+        public float PromotionMultiplier { get; set; } = 1f;
+
         public abstract void Execute(Player player, Monster target);
 
     }
@@ -39,8 +46,10 @@ namespace _8LETTE_TextRPG
         //스킬 실행 로직
         public override void Execute(Player player, Monster target)
         {
-            float damage = Player.Instance.TotalAttack * 2f;
+            //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
+            float damage = Player.Instance.TotalAttack * 2f * PromotionMultiplier;
 
+            
             //Todo : 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = damage;
 
@@ -76,14 +85,50 @@ namespace _8LETTE_TextRPG
         {
             var buff = new Buff(
                 name: "공격력 증가",
-                atkMultiplier: 1.2f,
+                atkMultiplier: 1.2f*PromotionMultiplier,
                 defMultiplier: 1,
                 turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                 duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
                 );
+            
+ 
 
             Player.Instance.AddBuff(buff); 
 
         }
     }
+
+
+    public class DebugStrike : Skill
+    {
+        public override string Name => "디버그스트라이크";
+        public override string Description => "몬스터 전체에게 공격력의 30% 피해를 입힙니다.";
+        public override SkillType Type => SkillType.Active;
+        public override EffectType Effect => EffectType.Damage;
+
+        //몬스터 전체를 공격하는 스킬이기에, 몬스터 파라마터는 무시
+        public override void Execute(Player player, Monster _)
+        {
+            var monsters = MonsterSpawner.Instance.GetAllMonsters();
+            float Atk = Player.Instance.TotalAttack;
+            float rawDamage = ((float)Math.Ceiling(Atk * 0.3f)) * PromotionMultiplier;
+
+            foreach( var monster in monsters)
+            {
+                if(monster.IsDead) continue;
+
+                monster.OnDamaged(rawDamage);
+
+                if (monster.IsDead)
+                {
+                    Player.Instance.GainExp(monster.Level);
+                }
+            }
+
+           
+        }
+        
+    }
+
+
 }

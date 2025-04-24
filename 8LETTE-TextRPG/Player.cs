@@ -131,6 +131,12 @@ namespace _8LETTE_TextRPG
 
             if (Health > Job.BaseHealth)
                 Health = Job.BaseHealth;
+
+            //디렉터에서 스킬 계수 강화
+            const int UptpDirector = 3;
+            float enforce = (Job.PromotionStage == UptpDirector) ? 1.5f : 1f;
+            foreach(var skill in job.Skills)
+                skill.PromotionMultiplier = enforce;
         }
         //버프 가져오기
         public void AddBuff(Buff buff)

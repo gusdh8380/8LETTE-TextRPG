@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG
 {
+
   //직업 : 주니어
     public class Junior : JobBase 
     {
@@ -67,12 +68,13 @@ namespace _8LETTE_TextRPG
         public override float BaseHealth => 100f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
-        public override int PromotionStage => 1;
+        public override int PromotionStage => 2;
 
         public override List<Skill> Skills => new()
         {
             new YaguenSkill(),//전 직업 스킬 
-            new IncreaseAtk()
+            new IncreaseAtk(),
+            new DebugStrike()
         };
 
         public override void IncreaseStats(Player player)
@@ -92,18 +94,20 @@ namespace _8LETTE_TextRPG
         public override float BaseHealth => 100f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
-        public override int PromotionStage => 1;
+        public override int PromotionStage => 3;
 
         public override List<Skill> Skills => new()
         {
             new YaguenSkill(),//전 직업 스킬 
-            new IncreaseAtk()
+            new IncreaseAtk(),
+            new DebugStrike()
+
         };
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1f;
-            player.BonusDefense += 0.5f;
+            player.BonusAttack += 1.5f;
+            player.BonusDefense += 1f;
         }
     }
 

@@ -1,16 +1,18 @@
 ﻿using _8LETTE_TextRPG;
 using _8LETTE_TextRPG.MonsterFolder;
 
-class NullGhost : Monster
+class OldCodeBigSlime : Monster
 {
-    public NullGhost()
+    public OldCodeBigSlime()
     {
-        Name = "Null의 유령"; //null 몬스터
-        Level = 5;
-        MaxHp = 20f;
+        Type = MonsterType.Slime;
+        Name = "올드코드 빅슬라임";
+        Level = 11;
+        MaxHp = 40f;
         Hp = MaxHp;
-        Attack = 14f;
-        Defense = 8f;
+        Attack = 30f;
+        Defense = 30f;
+        GoldReward = 600;
     }
 
     protected override void DefineStates()

@@ -42,6 +42,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
         public float Attack { get; protected set; }
         public bool IsDead => CurState == State.Dead;
 
+        public int GoldReward { get; protected set; } // 몬스터 처치시 골드리워드를 받을 수 있는 로직 추가
         public State CurState
         {
             get

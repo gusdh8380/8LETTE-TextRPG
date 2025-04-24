@@ -1,13 +1,14 @@
 ﻿using _8LETTE_TextRPG;
 using _8LETTE_TextRPG.MonsterFolder;
 
-class MergeConflictHive : Monster
+class NoCommentRich : Monster
 {
-    public MergeConflictHive()
+    public NoCommentRich()
     {
-        Name = "머지컨플릭트 하이브"; //협업스트레스 몬스터
-        Level = 11;
-        MaxHp = 40f;
+        Type = MonsterType.Undead;
+        Name = "노코멘트 리치"; 
+        Level = 12;
+        MaxHp = 45f;
         Hp = MaxHp;
         Attack = 30f;
         Defense = 30f;

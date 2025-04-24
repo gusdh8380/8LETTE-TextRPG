@@ -1,16 +1,18 @@
 ﻿using _8LETTE_TextRPG;
 using _8LETTE_TextRPG.MonsterFolder;
 
-class IndexFairy : Monster
+class ConflictDragon : Monster
 {
-    public IndexFairy()
+    public ConflictDragon()
     {
-        Name = "인덱스 페어리"; //배열과 리스트 몬스터
-        Level = 4;
-        MaxHp = 15f;
+        Type = MonsterType.Dragon;
+        Name = "컨플릭트 드래곤";
+        Level = 15;
+        MaxHp = 50f;
         Hp = MaxHp;
-        Attack = 13f;
-        Defense = 2f;
+        Attack = 40f;
+        Defense = 40f;
+        GoldReward = 900;
     }
 
     protected override void DefineStates()

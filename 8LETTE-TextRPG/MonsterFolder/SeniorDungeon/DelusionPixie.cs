@@ -1,16 +1,18 @@
 ﻿using _8LETTE_TextRPG;
 using _8LETTE_TextRPG.MonsterFolder;
 
-class GarbageCollectorSpritKinge : Monster
+class DelusionPixie : Monster
 {
-    public GarbageCollectorSpritKinge()
+    public DelusionPixie()
     {
-        Name = "가비지 콜렉터 정령왕"; //성능최적화 몬스터
-        Level = 12;
+        Type = MonsterType.Fairy;
+        Name = "착각의 픽시";
+        Level = 14;
         MaxHp = 45f;
         Hp = MaxHp;
-        Attack = 30f;
-        Defense = 30f;
+        Attack = 35f;
+        Defense = 35f;
+        GoldReward = 800;
     }
 
     protected override void DefineStates()

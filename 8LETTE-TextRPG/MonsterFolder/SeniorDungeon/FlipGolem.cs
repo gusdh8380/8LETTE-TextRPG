@@ -1,18 +1,18 @@
 ﻿using _8LETTE_TextRPG;
-using static _8LETTE_TextRPG.MonsterFolder.Monster;
-using System.Xml.Linq;
 using _8LETTE_TextRPG.MonsterFolder;
 
-class TypeMissGoblin : Monster
+class FlipGolem: Monster
 {
-    public TypeMissGoblin()
+    public FlipGolem()
     {
-        Name = "타입미스 고블린"; //변수타입을 바꾸는 몬스터
-        Level = 2;
-        MaxHp = 15f;
+        Type = MonsterType.Humanoid;
+        Name = "뒤집기 골렘";
+        Level = 13;
+        MaxHp = 45f;
         Hp = MaxHp;
-        Attack = 8f;
-        Defense = 5f;
+        Attack = 35f;
+        Defense = 30f;
+        GoldReward = 800;
     }
 
     protected override void DefineStates()

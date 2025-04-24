@@ -57,7 +57,7 @@ namespace _8LETTE_TextRPG
             float finalDamege = damage;
             finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
 
-            target.OnDamaged(damage);
+            target.OnDamaged(finalDamege);
           
             Console.WriteLine($"{player.Name}이(가) '야근' 스킬을 사용했습니다!");
             Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");
@@ -175,7 +175,7 @@ namespace _8LETTE_TextRPG
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
 
-            target.OnDamaged(damage);
+            target.OnDamaged(finalDamege);
 
             Console.WriteLine($"{player.Name}이(가) '방패치기' 스킬을 사용했습니다!");
             Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");

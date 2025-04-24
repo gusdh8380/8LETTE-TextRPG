@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class IndexFairy : Monster
+    public class CollaborationDestroyer : Monster
     {
-        public IndexFairy()
+        public CollaborationDestroyer()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Humanoid;
+            Name = "협업 파괴자";
+            Level = 20;
+            MaxHp = 400f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 50f;
+            Defense = 25f;
+            GoldReward = 1300;
         }
-        //
 
         protected override void DefineStates()
         {

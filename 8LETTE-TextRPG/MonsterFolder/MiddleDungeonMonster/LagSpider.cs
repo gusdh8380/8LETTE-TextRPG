@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    public class LagSpider : Monster
     {
-        public IndexFairy()
+        public LagSpider()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Spider;
+            Name = "렉 스파이더";
+            Level = 9;
+            MaxHp = 140f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 26f;
+            Defense = 13f;
+            GoldReward = 450;
         }
-        //
 
         protected override void DefineStates()
         {

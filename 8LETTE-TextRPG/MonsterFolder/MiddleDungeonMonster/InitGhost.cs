@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    public class InitGhost : Monster
     {
-        public IndexFairy()
+        public InitGhost()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Ghost;
+            Name = "초기화 망령";
+            Level = 6;
+            MaxHp = 80f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 20f;
+            Defense = 10f;
+            GoldReward = 300;
         }
-        //
 
         protected override void DefineStates()
         {

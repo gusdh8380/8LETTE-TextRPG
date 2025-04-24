@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class IndexFairy : Monster
+    public class fatigueSprider : Monster
     {
-        public IndexFairy()
+        public fatigueSprider()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 42f;
+            Defense = 21f;
+            GoldReward = 1050;
         }
-        //
 
         protected override void DefineStates()
         {

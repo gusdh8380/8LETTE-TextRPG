@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class IndexFairy : Monster
+    public class EyeblurPhantom : Monster
     {
-        public IndexFairy()
+        public EyeblurPhantom()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Ghost;
+            Name = "아이블러 팬텀";
+            Level = 19;
+            MaxHp = 340f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 46f;
+            Defense = 23f;
+            GoldReward = 1200;
         }
-        //
 
         protected override void DefineStates()
         {

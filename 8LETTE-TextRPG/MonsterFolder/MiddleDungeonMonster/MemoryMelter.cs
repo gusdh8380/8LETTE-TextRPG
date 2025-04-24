@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    class MemoryMelter : Monster
     {
-        public IndexFairy()
+        public MemoryMelter()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Slime;
+            Name = "메모리 멜터";
+            Level = 8;
+            MaxHp = 120f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 24f;
+            Defense = 12f;
+            GoldReward = 400;
         }
-        //
 
         protected override void DefineStates()
         {

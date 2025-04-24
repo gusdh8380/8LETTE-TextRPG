@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    class DependencyHydra : Monster
     {
-        public IndexFairy()
+        public DependencyHydra()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Dragon;
+            Name = "디펜던시 히드라";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 28f;
+            Defense = 14f;
+            GoldReward = 500;
         }
-        //
 
         protected override void DefineStates()
         {

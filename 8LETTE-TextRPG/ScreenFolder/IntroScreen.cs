@@ -1,11 +1,9 @@
-﻿using _8LETTE_TextRPG.ScreenFolder;
-
+﻿
 
 namespace _8LETTE_TextRPG.ScreenFolder
 {
 	public class IntroScreen 
 	{
-        public static readonly IntroScreen Instance = new IntroScreen();
 
         public static void ShowIntro()
         {

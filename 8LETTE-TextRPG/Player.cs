@@ -226,6 +226,7 @@ namespace _8LETTE_TextRPG
             _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
         }
 
+        //방어력에 따른 데미지 감면 로직 구현
         public float ApplyDefenseReduction(float Damage, float Defense)
         {
             float k = DefenseConstant / (DefenseConstant + Defense);

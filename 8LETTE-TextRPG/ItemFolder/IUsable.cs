@@ -1,4 +1,4 @@
-﻿namespace _8LETTE_TextRPG.ItemFolder
+namespace _8LETTE_TextRPG.ItemFolder
 {
     public interface IUsable
     {

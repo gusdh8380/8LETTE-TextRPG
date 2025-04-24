@@ -24,8 +24,17 @@
 
                 Console.WriteLine($"던전에서 몬스터 {MonsterSpawner.Instance.MonsterCount}마리를 잡았습니다.\n");
 
-                Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name}");
+                Console.WriteLine("[캐릭터 정보]");
+                if(Player.Instance.Level.CurrentLevel == MonsterSpawner.Instance.PreviousLevel)
+                    Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name}");
+                else
+                    Console.WriteLine($"Lv.{MonsterSpawner.Instance.PreviousLevel} {Player.Instance.Name} " +
+                        $"-> {Player.Instance.Level.CurrentLevel} {Player.Instance.Name}");
                 Console.WriteLine($"HP {MonsterSpawner.Instance.PreviousHP} -> {Player.Instance.Health}");
+                Console.WriteLine($"EXP {MonsterSpawner.Instance.PreviousExp} -> {Player.Instance.Level.CurrentExp}\n");
+
+                Console.WriteLine("[획득 아이템]");
+
             }
         }
 

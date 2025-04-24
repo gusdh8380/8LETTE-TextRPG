@@ -36,6 +36,22 @@ namespace _8LETTE_TextRPG
         public Level Level { get; set; }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
+        private float _maxHealth;
+        public float MaxHealth
+        {
+            get
+            {
+                return _maxHealth;
+            }
+            set
+            {
+                _maxHealth = value;
+                if (Health > value)
+                {
+                    Health = value;
+                }
+            }
+        }
         private float _health;
         public float Health
         {
@@ -45,9 +61,9 @@ namespace _8LETTE_TextRPG
             }
             set
             {
-                if (value > Job.BaseHealth)
+                if (value > MaxHealth)
                 {
-                    _health = Job.BaseHealth;
+                    _health = MaxHealth;
                 }
                 else if (value <= 0)
                 {
@@ -60,14 +76,53 @@ namespace _8LETTE_TextRPG
                 }
             }
         }
+
         public float Gold { get; set; }
         public bool IsDead { get; private set; }
 
-        public int CriticalChance { get; set; }
-        public int EvasionRate { get; set; }
+        private float _criticalChance;
+        public float CriticalChance
+        {
+            get
+            {
+                return _criticalChance;
+            }
+            set
+            {
+                if (value > 100f)
+                {
+                    _criticalChance = 100f;
+                }
+                else
+                {
+                    _criticalChance = value;
+                }
+            }
+        }
+        private float _evasionRate;
+        public float EvasionRate
+        {
+            get
+            {
+                return _evasionRate;
+            }
+            set
+            {
+                if (value > 100f)
+                {
+                    _evasionRate = 100f;
+                }
+                else
+                {
+                    _evasionRate = value;
+                }
+            }
+        }
 
         //인벤토리
         public Inventory Inventory { get; private set; }
+
+        public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
 
         //레벨
 
@@ -80,22 +135,58 @@ namespace _8LETTE_TextRPG
 
             BaseAttack = job.BaseAttack;
             BaseDefense = job.BaseDefense;
-            Health = job.BaseHealth;
+            MaxHealth = job.BaseHealth;
+            Health = MaxHealth;
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 30f, 100f));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
+            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 30f }
+            }));
             //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 10f, 0f, 200f, 1));
+            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 500f, EquipmentType.Keyboard, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, 10f }
+            }));
+            Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, 100f },
+                { ItemEffect.Hp, -50f }
+            }));
+            Inventory.AddItem(new Item("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, -5000f },
+                { ItemEffect.Def, -5000f },
+                { ItemEffect.Hp, -5000f },
+                { ItemEffect.Critical, -5000f },
+                { ItemEffect.Evasion, -5000f },
+            }));
+
+            EquippedItems = new Dictionary<EquipmentType, string?>
+            {
+                { EquipmentType.Mouse, null },
+                { EquipmentType.Keyboard, null },
+                { EquipmentType.Monitor, null },
+                { EquipmentType.Chair, null },
+                { EquipmentType.Desk, null },
+                { EquipmentType.Glasses, null }
+            };
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
             /*
              * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
              */
-            CriticalChance = 15;
-            EvasionRate = 10;
+            CriticalChance = job.CriticalChance;
+            EvasionRate = job.EvationRate;
         }
 
         public void GainExp(int exp)

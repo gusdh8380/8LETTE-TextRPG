@@ -1,9 +1,11 @@
-﻿namespace _8LETTE_TextRPG.ItemFolder
+namespace _8LETTE_TextRPG.ItemFolder
 {
     public interface IEquipable
     {
-        void Equip();
+        EquipmentType EquipmentType { get; set; }
+        bool IsEquipped { get; set; }
 
+        void Equip();
         void Unequip();
     }
 }

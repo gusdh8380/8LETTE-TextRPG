@@ -18,6 +18,7 @@
             Console.WriteLine();
 
             PrintNumAndString(1, "장착 관리");
+            PrintNumAndString(2, "아이템 사용");
             PrintNumAndString(0, "나가기");
 
             PrintUserInstruction();
@@ -25,15 +26,17 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
             switch (input)
             {
                 case "1":
                     return EquipmentScreen.Instance;
+                case "2":
+                    return UseItemScreen.Instance;
                 case "0":
                     return TownScreen.Instance;
                 default:
-                    isRetry = true;
+                    _isRetry = true;
                     return this;
             }
         }

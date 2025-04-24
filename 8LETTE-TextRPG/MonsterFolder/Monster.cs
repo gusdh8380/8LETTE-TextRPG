@@ -1,4 +1,4 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder
+namespace _8LETTE_TextRPG.MonsterFolder
 {
     public abstract class Monster
     {
@@ -10,6 +10,7 @@
             Dead
         }
 
+        public MonsterType Type { get; protected set; }
         public string? Name { get; protected set; }
         public int Level { get; protected set; }
         public float MaxHp { get; protected set; }
@@ -166,6 +167,7 @@
         protected virtual void Death()
         {
             CurState = State.Dead;
+            QuestManager.Instance?.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }
     }
 }

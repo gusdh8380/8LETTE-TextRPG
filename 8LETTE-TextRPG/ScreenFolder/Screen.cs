@@ -2,7 +2,7 @@
 {
     internal abstract class Screen
     {
-        protected bool isRetry = false;
+        protected bool _isRetry = false;
 
         public void PrintTitle(string title) 
         {
@@ -20,7 +20,7 @@
 
         public void PrintUserInstruction()
         {
-            if (!isRetry)
+            if (!_isRetry)
             {
                 Console.WriteLine("\n원하시는 행동을 입력해주세요.");
             }
@@ -33,7 +33,7 @@
             Console.Write(">> ");
             Console.ResetColor();
 
-            isRetry = false;
+            _isRetry = false;
         }
 
         public void PrintAnyKeyInstruction()
@@ -43,7 +43,7 @@
             Console.Write(">> ");
             Console.ResetColor();
 
-            isRetry = false;
+            _isRetry = false;
         }
 
         public void GameOver()

@@ -30,16 +30,16 @@
             {
                 if (atkBounus > 0f)
                 {
-                    Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} (+{atkBounus})");
+                    Console.WriteLine($"공격력 : {Player.Instance.Attack} (+{atkBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"공격력 : {Player.Instance.BaseAttack} ({atkBounus})");
+                    Console.WriteLine($"공격력 : {Player.Instance.Attack} ({atkBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"공격력 : {Player.Instance.BaseAttack}");
+                Console.WriteLine($"공격력 : {Player.Instance.Attack}");
             }
 
             float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
@@ -47,16 +47,16 @@
             {
                 if (defBounus > 0f)
                 {
-                    Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} (+{defBounus})");
+                    Console.WriteLine($"방어력 : {Player.Instance.Defense} (+{defBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"방어력 : {Player.Instance.BaseDefense} ({defBounus})");
+                    Console.WriteLine($"방어력 : {Player.Instance.Defense} ({defBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"방어력 : {Player.Instance.BaseDefense}");
+                Console.WriteLine($"방어력 : {Player.Instance.Defense}");
             }
 
             float criticalBonus = Player.Instance.Inventory.EquippedCriticalBonus();

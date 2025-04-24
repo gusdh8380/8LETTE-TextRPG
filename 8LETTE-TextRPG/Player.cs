@@ -34,24 +34,51 @@ namespace _8LETTE_TextRPG
         public string Name { get; }
         public Job Job { get; }
         public Level Level { get; set; }
+        public float Attack
+        {
+            get
+            {
+                if (BaseAttack + Inventory.EquippedAttackBonus() < 0f)
+                {
+                    return 0f;
+                }
+                else
+                {
+                    return BaseAttack + Inventory.EquippedAttackBonus();
+                }
+            }
+        }
         public float BaseAttack { get; set; }
         public float BaseDefense { get; set; }
-        private float _maxHealth;
+        public float Defense
+        {
+            get
+            {
+                if (BaseDefense + Inventory.EquippedDefenseBonus() < 0f)
+                {
+                    return 0f;
+                }
+                else
+                {
+                    return BaseDefense + Inventory.EquippedDefenseBonus();
+                }
+            }
+        }
         public float MaxHealth
         {
             get
             {
-                return _maxHealth;
-            }
-            set
-            {
-                _maxHealth = value;
-                if (Health > value)
+                if (BaseMaxHealth + Inventory.EquippedHpBonus() < 1f)
                 {
-                    Health = value;
+                    return 1f;
+                }
+                else
+                {
+                    return BaseMaxHealth + Inventory.EquippedHpBonus();
                 }
             }
         }
+        public float BaseMaxHealth { get; set; }
         private float _health;
         public float Health
         {
@@ -80,41 +107,41 @@ namespace _8LETTE_TextRPG
         public float Gold { get; set; }
         public bool IsDead { get; private set; }
 
-        private float _criticalChance;
+        public float BaseCriticalChance { get; set; }
         public float CriticalChance
         {
             get
             {
-                return _criticalChance;
-            }
-            set
-            {
-                if (value > 100f)
+                if (BaseCriticalChance + Inventory.EquippedCriticalBonus() < 0f)
                 {
-                    _criticalChance = 100f;
+                    return 0f;
+                }
+                else if (BaseCriticalChance + Inventory.EquippedCriticalBonus() > 100f)
+                {
+                    return 100f;
                 }
                 else
                 {
-                    _criticalChance = value;
+                    return BaseCriticalChance + Inventory.EquippedCriticalBonus();
                 }
             }
         }
-        private float _evasionRate;
+        public float BaseEvasionRate { get; set; }
         public float EvasionRate
         {
             get
             {
-                return _evasionRate;
-            }
-            set
-            {
-                if (value > 100f)
+                if (BaseEvasionRate + Inventory.EquippedEvasionBonus() < 0f)
                 {
-                    _evasionRate = 100f;
+                    return 0f;
+                }
+                else if (BaseEvasionRate + Inventory.EquippedEvasionBonus() > 100f)
+                {
+                    return 100f;
                 }
                 else
                 {
-                    _evasionRate = value;
+                    return BaseEvasionRate + Inventory.EquippedEvasionBonus();
                 }
             }
         }
@@ -133,22 +160,16 @@ namespace _8LETTE_TextRPG
             Job = job;
             Level = new Level();
 
-            BaseAttack = job.BaseAttack;
-            BaseDefense = job.BaseDefense;
-            MaxHealth = job.BaseHealth;
-            Health = MaxHealth;
-            Gold = 1500f;
-            //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
@@ -157,7 +178,7 @@ namespace _8LETTE_TextRPG
                 { ItemEffect.Atk, 100f },
                 { ItemEffect.Hp, -50f }
             }));
-            Inventory.AddItem(new Item("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, -5000f },
                 { ItemEffect.Def, -5000f },
@@ -176,12 +197,18 @@ namespace _8LETTE_TextRPG
                 { EquipmentType.Glasses, null }
             };
 
+            BaseAttack = job.BaseAttack;
+            BaseDefense = job.BaseDefense;
+            BaseMaxHealth = job.BaseHealth;
+            Health = MaxHealth;
+            Gold = 1500f;
+
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
             /*
              * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
              */
-            CriticalChance = job.CriticalChance;
-            EvasionRate = job.EvationRate;
+            BaseCriticalChance = job.CriticalChance;
+            BaseEvasionRate = job.EvationRate;
         }
 
         public void GainExp(int exp)
@@ -201,14 +228,14 @@ namespace _8LETTE_TextRPG
         public void AttackTo(Monster target)
         {
             Random r = new Random();
-            float varirance = (float)Math.Ceiling(BaseAttack * 0.1f);
+            float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
             //몬스터에게 피해를 입힐 데미지 계산
             //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
             //현재는 방어력 무시
 
 
-            float damage = BaseAttack + r.Next(-(int)varirance, (int)varirance);
+            float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);//최소 데미지 보장
 
             //크리티컬 계산
@@ -249,7 +276,7 @@ namespace _8LETTE_TextRPG
         public bool TryEvade()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= EvasionRate;
+            return r.NextDouble() <= EvasionRate * 0.01f;
         }
 
         /// <summary>
@@ -259,7 +286,7 @@ namespace _8LETTE_TextRPG
         public bool TryCritical()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= CriticalChance;
+            return r.NextDouble() <= CriticalChance * 0.01f;
         }
 
         //플레이어 레벨업 시 능력치 수치 추가 메소드

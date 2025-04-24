@@ -133,7 +133,6 @@ namespace _8LETTE_TextRPG.MonsterFolder
             // 방어력에 따른 데미지 감소 로직
             damage = Player.Instance.ApplyDefenseReduction(damage, PlayerDefense);
 
-
             //플레이어 회피율 계산
             bool isEvasion = Player.Instance.TryEvade();
 

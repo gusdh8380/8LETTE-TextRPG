@@ -83,11 +83,9 @@ namespace _8LETTE_TextRPG
 
         //인벤토리
         public Inventory Inventory { get; private set; }
-
-        private List<Buff> _buffs = new List<Buff>();
         public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
-
-        //레벨
+        
+        private List<Buff> _buffs = new List<Buff>();
 
         //패시브 스킬 필터
         public IEnumerable<Skill> PassiveReflectSkill => Job.Skills.Where(s => s.Type == SkillType.Passive);
@@ -135,10 +133,10 @@ namespace _8LETTE_TextRPG
                 { EquipmentType.Glasses, null }
             };
 
-            BaseAttack = job.BaseAttack;
-            BaseDefense = job.BaseDefense;
-            BaseMaxHealth = job.BaseHealth;
-            Health = MaxHealth;
+           // BaseAttack = job.BaseAttack;
+            //BaseDefense = job.BaseDefense;
+            Health = job.BaseHealth;
+
             Gold = 1500f;
 
             //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
@@ -264,6 +262,113 @@ namespace _8LETTE_TextRPG
             mitigate = (float)Math.Ceiling(mitigate);
             return Math.Max(1, mitigate);
         }
+        //전직 메소드, job 클래스를 입력 받음
+        public void Promote(JobBase job)
+        {
+            Job = job;
+
+            CriticalChance = Job.CriticalChance;
+            EvasionRate = Job.EvasionRate;
+
+            if (Health > Job.BaseHealth)
+                Health = Job.BaseHealth;
+
+            //디렉터에서 스킬 계수 강화
+            const int UptpDirector = 3;
+            float enforce = (Job.PromotionStage == UptpDirector) ? 1.5f : 1f;
+            foreach(var skill in job.Skills)
+                skill.PromotionMultiplier = enforce;
+        }
+        //버프 가져오기
+        public void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+        }
+        
+
+        //버프로 인한 공격력증가 반환
+        public float GetBuffAttack()
+        {
+            float atk = TotalAttack;
+
+            foreach (var buff in _buffs)
+            {
+                atk *= buff.AttackMultiplier;
+            }
+
+            return atk;
+        }
+        //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
+        public float GetBuffedDefense()
+        {
+            float def = TotalDefense;
+            foreach (var buff in _buffs)
+            {
+                def *= buff.DefenseMultiplier;
+            }
+            return def;
+        }
+
+        //Todo : 치명타, 회피 버브 적용 코드
+        public int GetBuffEvasion() 
+        {
+            int evs = EvasionRate;
+            foreach (var buff in _buffs)
+            {
+                evs += (int)buff.EvasionMultiplier;
+            }
+            if (evs > 99) { Console.WriteLine("이미 회피율이 99% 이상입니다"); }
+
+            return (int)MathF.Min(evs, 99); 
+        }
+
+        public int GetBuffCritical() 
+        {  
+            int critical = CriticalChance;
+            foreach (var buff in _buffs)
+            {
+                critical += (int)buff.CriticalMultiplier;  
+            }
+            if(critical >= 100){Console.WriteLine("이미 치명타가 99% 이상입니다"); }
+
+            return (int)MathF.Min(critical,100);
+        }
+
+
+        //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
+
+        public void EndTurn()
+        {
+            for (int i = _buffs.Count - 1; i >= 0; i--)
+            {
+                var buff = _buffs[i];
+                if (buff.Duration == DurationType.OneTurn)
+                {
+                    buff.TurnsRemaining--;
+                    if (buff.TurnsRemaining <= 0)
+                    {
+                        //버프 종료
+                        _buffs.RemoveAt(i);
+                    }
+                }
+            }
+        }
+        //전투가 끝나는 타이밍에 버프 제거 메소드
+        
+        public void ClearBattleBuffs()
+        {
+            _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
+        }
+
+        //방어력에 따른 데미지 감면 로직 구현
+        public float ApplyDefenseReduction(float Damage, float Defense)
+        {
+            float k = DefenseConstant / (DefenseConstant + Defense);
+            float mitigate = Damage * k;
+            mitigate = (float)Math.Ceiling(mitigate);
+            return Math.Max(1, mitigate);
+        }
+
 
 
         /// <summary>
@@ -274,18 +379,12 @@ namespace _8LETTE_TextRPG
         {
             Random r = new Random();
 
-            
-
             float varirance = (float)Math.Ceiling(TotalAttack * 0.1f);
-
-            //몬스터에게 피해를 입힐 데미지 계산
-         
 
             //공격력 버프 적용, 버프가 없으면 기본 공격력 적용
             float atk = GetBuffAttack();
 
             float damage = atk + r.Next(-(int)varirance, (int)varirance);
-
           
             damage = Math.Max(1, damage);//최소 데미지 보장
 

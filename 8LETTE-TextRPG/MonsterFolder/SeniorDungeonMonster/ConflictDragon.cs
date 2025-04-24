@@ -1,0 +1,60 @@
+﻿using _8LETTE_TextRPG;
+using _8LETTE_TextRPG.MonsterFolder;
+
+class ConflictDragon : Monster
+{
+    public ConflictDragon()
+    {
+        Type = MonsterType.Dragon;
+        Name = "컨플릭트 드래곤";
+        Level = 15;
+        MaxHp = 50f;
+        Hp = MaxHp;
+        Attack = 40f;
+        Defense = 40f;
+        GoldReward = 900;
+    }
+
+    protected override void DefineStates()
+    {
+        AddState(State.Idle, new StateElem
+        {
+            Doing = new Action(OnIdle)
+        });
+
+        AddState(State.Attack, new StateElem
+        {
+            Doing = new Action(AttackDoing)
+        });
+
+        AddState(State.Dead, new StateElem
+        {
+            Doing = new Action(OnDeath)
+        });
+    }
+
+    private void OnIdle()
+    {
+
+    }
+
+    private void AttackDoing()
+    {
+        AttackTo(Player.Instance);
+    }
+
+    private void OnDeath()
+    {
+
+    }
+
+    public override void OnDamaged(float dmg)
+    {
+        base.OnDamaged(dmg);
+    }
+
+    public override void AttackTo(Player victim)
+    {
+        base.AttackTo(victim);
+    }
+}

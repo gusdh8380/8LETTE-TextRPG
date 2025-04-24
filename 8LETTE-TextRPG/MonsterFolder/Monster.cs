@@ -125,9 +125,13 @@ namespace _8LETTE_TextRPG.MonsterFolder
             Random r = new Random();
             float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
-            //Todo : 방어력에 따른 데미지 감소 로직
+            
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
+            float PlayerDefense = Player.Instance.GetBuffedDefense();
+
+            // 방어력에 따른 데미지 감소 로직
+            damage = Player.Instance.ApplyDefenseReduction(damage, PlayerDefense);
 
 
             //플레이어 회피율 계산
@@ -135,12 +139,20 @@ namespace _8LETTE_TextRPG.MonsterFolder
 
             if (isEvasion)
             {
-                damage = 0;
+                // damage = 0;
 
                 //몬스터 정보 출력
                 Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
                 Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
 
+                // 카운터 패시브스킬이 있다면 모두 실행
+                foreach (var refl in target.PassiveReflectSkill)
+                {
+                    refl.Execute(target, this);
+                }
+                   
+
+                
                 //캐릭터 정보 출력
                 Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
                 Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");

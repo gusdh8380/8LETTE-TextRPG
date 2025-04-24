@@ -47,7 +47,8 @@ namespace _8LETTE_TextRPG
         public float BonusDefense { get; set; } = 0f;//레벨업 추가 능력치
         public float TotalDefense => JobBaseDefense + BonusDefense;
 
-
+        //스킬 리스트 속성 추가?
+        //현재는 player.job.Skill로 사용가능
       
         private float _health;
         public float Health

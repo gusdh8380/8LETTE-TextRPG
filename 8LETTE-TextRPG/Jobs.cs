@@ -21,6 +21,7 @@ namespace _8LETTE_TextRPG
         
         //승급 스테이지 기록
         //1이면 승급?
+        //던전 챕터 클리어시 또는 승진 퀘스트 클리어 시 아래 변수 +1
         public override int PromotionStage => 0;
 
         public override List<Skill> Skills => _skills;
@@ -84,7 +85,8 @@ namespace _8LETTE_TextRPG
         {
             _skills = new List<Skill>{
                 new YaguenSkill(),
-                new IncreaseAtk()
+                new IncreaseAtk(),
+                new DebugStrike()
             };
         }
 
@@ -114,7 +116,8 @@ namespace _8LETTE_TextRPG
         {
             _skills = new List<Skill>{
                 new YaguenSkill(),
-                new IncreaseAtk()
+                new IncreaseAtk(),
+                new DebugStrike()
             };
         }
 

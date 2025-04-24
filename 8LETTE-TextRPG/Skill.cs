@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG
 {
-    //스킬 :  추상 클래스 사용
+    //스킬 :  추상 클래스 사용 
+    //*인터페이스로 구현? -> 일단 추상 클래스로 구현함
+    
     public enum SkillType { Active, Passive }
     public enum EffectType { Damage, Buff}
 

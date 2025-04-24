@@ -10,6 +10,7 @@ namespace _8LETTE_TextRPG
   //직업 : 주니어
     public class Junior : JobBase 
     {
+        public readonly List<Skill> _skills;
         public override string Name => "주니어";
         public override float BaseAttack => 12f;
         public override float BaseDefense => 5f;
@@ -22,11 +23,13 @@ namespace _8LETTE_TextRPG
         //1이면 승급?
         public override int PromotionStage => 0;
 
-        public override List<Skill> Skills => new()
+        public override List<Skill> Skills => _skills;
+        public Junior()
         {
-            new YaguenSkill()
-            
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
@@ -40,6 +43,7 @@ namespace _8LETTE_TextRPG
     //직업 : 버그워리어(미들)
     public class BugWarrior_Middle : JobBase
     {
+        public readonly List<Skill> _skills;
         public override string Name => "버그워리어 (미들)";
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
@@ -48,11 +52,15 @@ namespace _8LETTE_TextRPG
         public override int EvasionRate => 10;
         public override int PromotionStage => 1;
 
-        public override List<Skill> Skills => new()
-        { 
-            new YaguenSkill(),//전 직업 기본 스킬 
-            new IncreaseAtk()
-        };
+        
+        public override List<Skill> Skills => _skills;
+        public BugWarrior_Middle()
+       {
+            _skills = new List<Skill>{
+                new YaguenSkill(), 
+                new IncreaseAtk()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
@@ -62,6 +70,7 @@ namespace _8LETTE_TextRPG
     }
     public class BugWarrior_Senior : JobBase
     {
+        public readonly List<Skill> _skills;
         public override string Name => "버그워리어 (시니어)";
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
@@ -69,13 +78,15 @@ namespace _8LETTE_TextRPG
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
         public override int PromotionStage => 2;
+        public override List<Skill> Skills => _skills;
 
-        public override List<Skill> Skills => new()
+        public BugWarrior_Senior()
         {
-            new YaguenSkill(),//전 직업 스킬 
-            new IncreaseAtk(),
-            new DebugStrike()
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseAtk()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
@@ -88,6 +99,7 @@ namespace _8LETTE_TextRPG
     
     public class BugWarrior_Director : JobBase
     {
+        public readonly List<Skill> _skills;
         public override string Name => "버그워리어 (디렉터)";
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
@@ -96,13 +108,15 @@ namespace _8LETTE_TextRPG
         public override int EvasionRate => 10;
         public override int PromotionStage => 3;
 
-        public override List<Skill> Skills => new()
-        {
-            new YaguenSkill(),//전 직업 스킬 
-            new IncreaseAtk(),
-            new DebugStrike()
+        public override List<Skill> Skills => _skills;
 
-        };
+        public BugWarrior_Director()
+        {
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseAtk()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {

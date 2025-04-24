@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class IndexFairy : Monster
+    class VoidDragon : Monster
     {
-        public IndexFairy()
+        public VoidDragon()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Dragon;
+            Name = "보이드 드래곤";
+            Level = 16;
+            MaxHp = 280f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 40f;
+            Defense = 21f;
+            GoldReward = 1000;
         }
-        //
 
         protected override void DefineStates()
         {

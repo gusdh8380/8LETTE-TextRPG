@@ -5,12 +5,13 @@
         public NullGhost()
         {
             Type = MonsterType.Ghost;
-            Name = "Null 유령";
+            Name = "널의 유령";
             Level = 5;
             MaxHp = 25f;
             Hp = MaxHp;
             Attack = 10f;
             Defense = 7f;
+            GoldReward = 200;
         }
 
         protected override void DefineStates()

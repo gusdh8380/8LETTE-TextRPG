@@ -1,15 +1,16 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    class EternalLoop : Monster
+    class NoCommentRich : Monster
     {
-        public EternalLoop()
+        public NoCommentRich()
         {
-            Name = "이터널루프";
-            Level = 9;
-            MaxHp = 140f;
+            Type = MonsterType.Undead;
+            Name = "노코멘트 리치";
+            Level = 12;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 26f;
-            Defense = 13f;
+            Attack = 30f;
+            Defense = 30f;
         }
 
         protected override void DefineStates()

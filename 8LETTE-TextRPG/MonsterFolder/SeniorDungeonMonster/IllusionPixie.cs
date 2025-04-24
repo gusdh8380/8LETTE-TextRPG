@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    class IllusionPixie : Monster
     {
-        public IndexFairy()
+        public IllusionPixie()
         {
             Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Name = "착각의 픽시";
+            Level = 14;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 35f;
+            Defense = 35f;
+            GoldReward = 800;
         }
-        //
 
         protected override void DefineStates()
         {

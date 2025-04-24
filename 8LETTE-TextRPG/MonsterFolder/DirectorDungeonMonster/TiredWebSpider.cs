@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class  BurnoutThread : Monster
+    public class TiredWebSpider : Monster
     {
-        public BurnoutThread()
+        public TiredWebSpider()
         {
-            Name = "번아웃 스레드";
-            Level = 20;
-            MaxHp = 280f;
+            Type = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 40f;
+            Attack = 42f;
             Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

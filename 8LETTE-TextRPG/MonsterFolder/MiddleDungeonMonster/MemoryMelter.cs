@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class FloatingShadow : Monster
+    class MemoryMelter : Monster
     {
-        public FloatingShadow()
+        public MemoryMelter()
         {
-            Name = "플로팅 쉐도우";
-            Level = 7;
-            MaxHp = 100f;
+            Type = MonsterType.Slime;
+            Name = "메모리 멜터";
+            Level = 8;
+            MaxHp = 120f;
             Hp = MaxHp;
-            Attack = 22f;
-            Defense = 11f;
+            Attack = 24f;
+            Defense = 12f;
+            GoldReward = 400;
         }
 
         protected override void DefineStates()

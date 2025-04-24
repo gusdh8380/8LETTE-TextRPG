@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class IndexFairy : Monster
+    public class LiteralSkeleton : Monster
     {
-        public IndexFairy()
+        public LiteralSkeleton()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Undead;
+            Name = "리터럴 스켈레톤";
+            Level = 7;
+            MaxHp = 100f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 22f;
+            Defense = 11f;
+            GoldReward = 350;
         }
-        //
 
         protected override void DefineStates()
         {

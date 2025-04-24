@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class ThreadJumper : Monster
+    public class LagSpider : Monster
     {
-        public ThreadJumper()
+        public LagSpider()
         {
-            Name = "쓰레드 점퍼";
-            Level = 8;
-            MaxHp = 120f;
+            Type = MonsterType.Spider;
+            Name = "렉 스파이더";
+            Level = 9;
+            MaxHp = 140f;
             Hp = MaxHp;
-            Attack = 24f;
-            Defense = 12f;
+            Attack = 26f;
+            Defense = 13f;
+            GoldReward = 450;
         }
 
         protected override void DefineStates()

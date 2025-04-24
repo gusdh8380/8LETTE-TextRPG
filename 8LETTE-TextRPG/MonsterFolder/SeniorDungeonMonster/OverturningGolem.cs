@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    class MockingMimic : Monster
+    class OverturningGolem : Monster
     {
-        public MockingMimic()
+        public OverturningGolem()
         {
-            Name = "모킹 미믹";
-            Level = 10;
-            MaxHp = 160f;
+            Type = MonsterType.Humanoid;
+            Name = "뒤집기 골렘";
+            Level = 13;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 28f;
-            Defense = 14f;
+            Attack = 35f;
+            Defense = 30f;
+            GoldReward = 800;
         }
 
         protected override void DefineStates()

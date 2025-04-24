@@ -42,6 +42,8 @@ namespace _8LETTE_TextRPG.MonsterFolder
         public float Attack { get; protected set; }
         public bool IsDead => CurState == State.Dead;
 
+        public int GoldReward { get; protected set; }
+
         public State CurState
         {
             get
@@ -127,6 +129,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
 
+
             //플레이어 회피율 계산
             bool isEvasion = Player.Instance.TryEvade();
 
@@ -141,12 +144,9 @@ namespace _8LETTE_TextRPG.MonsterFolder
                 //캐릭터 정보 출력
                 Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
                 Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");
-
             }
             else
             {
-
-
                 //몬스터 정보 출력
                 Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
                 Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]\n");
@@ -160,13 +160,13 @@ namespace _8LETTE_TextRPG.MonsterFolder
                 Console.WriteLine($"HP {target.Health} -> {FinalHp}\n");
 
                 target.OnDamaged(damage);
-
             }
         }
 
         protected virtual void Death()
         {
             CurState = State.Dead;
+            Player.Instance.Gold += GoldReward;
             QuestManager.Instance?.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }
     }

@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class HerniatedDiscTroll : Monster
+    class ConflictDragon : Monster
     {
-        public HerniatedDiscTroll()
+        public ConflictDragon()
         {
-            Name = "허리디스크 트롤";
-            Level = 22;
-            MaxHp = 320f;
+            Type = MonsterType.Dragon;
+            Name = "컨플릭트 드래곤";
+            Level = 15;
+            MaxHp = 50f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
+            Attack = 40f;
+            Defense = 40f;
+            GoldReward = 900;
         }
 
         protected override void DefineStates()

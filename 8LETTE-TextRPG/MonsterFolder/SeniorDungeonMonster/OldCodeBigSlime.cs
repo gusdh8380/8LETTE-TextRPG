@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    public class Mentagon : Monster
+    class OldCodeBigSlime : Monster
     {
-        public Mentagon()
+        public OldCodeBigSlime()
         {
-            Name = "멘타곤";
-            Level = 25;
-            MaxHp = 400f;
+            Type = MonsterType.Slime;
+            Name = "올드코드 빅슬라임";
+            Level = 11;
+            MaxHp = 40f;
             Hp = MaxHp;
-            Attack = 50f;
-            Defense = 25f;
+            Attack = 30f;
+            Defense = 30f;
+            GoldReward = 600;
         }
 
         protected override void DefineStates()

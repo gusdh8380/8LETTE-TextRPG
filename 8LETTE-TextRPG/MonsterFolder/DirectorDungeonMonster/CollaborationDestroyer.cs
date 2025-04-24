@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class SingleToneSlug : Monster
+    public class CollaborationDestroyer : Monster
     {
-        public SingleToneSlug()
+        public CollaborationDestroyer()
         {
-            Name = "싱글톤 슬러그";
-            Level = 6;
-            MaxHp = 80f;
+            Type = MonsterType.Humanoid;
+            Name = "협업 파괴자";
+            Level = 20;
+            MaxHp = 400f;
             Hp = MaxHp;
-            Attack = 20f;
-            Defense = 10f;
+            Attack = 50f;
+            Defense = 25f;
+            GoldReward = 1300;
         }
 
         protected override void DefineStates()

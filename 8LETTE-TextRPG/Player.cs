@@ -85,6 +85,9 @@ namespace _8LETTE_TextRPG
 
         private List<Buff> _buffs = new List<Buff>();
 
+        //패시브 스킬 필터
+        public IEnumerable<Skill> PassiveReflectSkill => Job.Skills.Where(s => s.Type == SkillType.Passive);
+
         //방어 계수
         public const float DefenseConstant = 50f;
        

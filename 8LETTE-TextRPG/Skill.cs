@@ -219,6 +219,29 @@ namespace _8LETTE_TextRPG
             
         }
 
-    }
+        public class Counterattack : Skill
+        {
+            public override string Name => "카운터어택!";
+            public override string Description => " 몬스터의 공격을 회피 시, 공격력의 50% 피해를 줍니다 ";
 
+            public override SkillType Type => SkillType.Passive;
+            public override EffectType Effect => EffectType.Damage;
+
+            public override void Execute(Player player, Monster monster)
+            {
+                float rawDamage = player.TotalAttack * 0.5f *  PromotionMultiplier;
+                float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
+
+                monster.OnDamaged(finalDamage);
+                Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
+
+
+                if (monster.IsDead)
+                    player.GainExp(monster.Level);
+            }
+        }
+
+
+
+    }
 }

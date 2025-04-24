@@ -135,12 +135,20 @@
 
             if (isEvasion)
             {
-                damage = 0;
+                // damage = 0;
 
                 //몬스터 정보 출력
                 Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
                 Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
 
+                // 카운터 패시브스킬이 있다면 모두 실행
+                foreach (var refl in target.PassiveReflectSkill)
+                {
+                    refl.Execute(target, this);
+                }
+                   
+
+                
                 //캐릭터 정보 출력
                 Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
                 Console.WriteLine($"HP {target.Health} -> {target.Health - damage}\n");

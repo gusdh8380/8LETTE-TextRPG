@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static _8LETTE_TextRPG.IncreaseEvasion;
 
 namespace _8LETTE_TextRPG
 {
@@ -269,11 +270,16 @@ namespace _8LETTE_TextRPG
         //1이면 승급?
         public override int PromotionStage => 0;
 
-        public override List<Skill> Skills => new()
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public ThreadAssassin_Senior()
         {
-            new YaguenSkill()
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseEvasion(),
+                new Counterattack()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {

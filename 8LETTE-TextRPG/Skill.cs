@@ -312,7 +312,7 @@ namespace _8LETTE_TextRPG
                 Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
                 if (mon.IsDead)
                 {
-                    Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
+                    Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
                     player.GainExp(mon.Level);
                 }
 

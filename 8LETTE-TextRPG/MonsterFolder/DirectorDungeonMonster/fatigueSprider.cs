@@ -4,7 +4,7 @@
     {
         public fatigueSprider()
         {
-            Type= = MonsterType.Spider;
+            Type = MonsterType.Spider;
             Name = "피곤줄 거미";
             Level = 17;
             MaxHp = 300f;

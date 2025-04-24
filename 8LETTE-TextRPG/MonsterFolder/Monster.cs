@@ -41,7 +41,6 @@ namespace _8LETTE_TextRPG.MonsterFolder
         public float Defense { get; protected set; }
         public float Attack { get; protected set; }
         public bool IsDead => CurState == State.Dead;
-        public int GoldReward { get; protected set; }
 
         public int GoldReward { get; protected set; }
 

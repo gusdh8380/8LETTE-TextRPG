@@ -4,7 +4,7 @@
     {
         public TypeMissGoblin()
         {
-            Type = MonsterType.Goblin;
+            Type = MonsterType.Humanoid;
             Name = "타입미스 고블린";
             Level = 2;
             MaxHp = 20f;

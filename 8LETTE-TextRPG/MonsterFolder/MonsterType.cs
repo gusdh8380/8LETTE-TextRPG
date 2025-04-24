@@ -3,9 +3,11 @@
     public enum MonsterType
     {
         Slime,
-        Goblin,
+        Humanoid,
         Undead,
         Fairy,
-        Ghost
+        Ghost,
+        Spider,
+        Dragon
     }
 }

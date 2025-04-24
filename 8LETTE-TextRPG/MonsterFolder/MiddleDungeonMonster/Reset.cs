@@ -1,8 +1,8 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class ThreadJumper : Monster
+    public class Reset : Monster
     {
-        public ThreadJumper()
+        public Reset()
         {
             Name = "쓰레드 점퍼";
             Level = 8;

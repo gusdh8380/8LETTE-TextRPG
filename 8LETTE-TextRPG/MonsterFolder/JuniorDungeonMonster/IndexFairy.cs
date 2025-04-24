@@ -5,7 +5,7 @@
         public IndexFairy()
         {
             Type = MonsterType.Fairy;
-            Name = "인덱스 요정";
+            Name = "인덱스 페어리";
             Level = 4;
             MaxHp = 15f;
             Hp = MaxHp;

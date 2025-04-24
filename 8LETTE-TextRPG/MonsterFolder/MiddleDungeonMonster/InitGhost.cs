@@ -1,10 +1,11 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class SingleToneSlug : Monster
+    public class InitGhost : Monster
     {
-        public SingleToneSlug()
+        public InitGhost()
         {
-            Name = "싱글톤 슬러그";
+            Type = MonsterType.Ghost;
+            Name = "초기화 망령";
             Level = 6;
             MaxHp = 80f;
             Hp = MaxHp;

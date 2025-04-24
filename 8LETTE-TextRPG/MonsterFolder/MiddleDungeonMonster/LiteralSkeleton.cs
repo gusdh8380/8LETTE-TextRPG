@@ -1,10 +1,11 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class FloatingShadow : Monster
+    public class LiteralSkeleton : Monster
     {
-        public FloatingShadow()
+        public LiteralSkeleton()
         {
-            Name = "플로팅 쉐도우";
+            Type = MonsterType.Undead;
+            Name = "리터럴 스켈레톤";
             Level = 7;
             MaxHp = 100f;
             Hp = MaxHp;

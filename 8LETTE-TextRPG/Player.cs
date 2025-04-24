@@ -173,11 +173,6 @@ namespace _8LETTE_TextRPG
             {
                 { ItemEffect.Hp, 30f }
             }));
-            Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, 100f },
-                { ItemEffect.Hp, -50f }
-            }));
             Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, -5000f },

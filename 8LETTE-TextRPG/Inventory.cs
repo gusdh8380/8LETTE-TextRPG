@@ -26,17 +26,16 @@ namespace _8LETTE_TextRPG
         /// 아이템 리스트 가져오기
         /// </summary>
         /// <returns></returns>
-        public Item[] GetAllItems(ItemType type = ItemType.None)
+        public Item[] GetAllItems() => _items.ToArray();
+
+        public Item[] GetItemsOfType(ItemType type)
         {
-            switch (type)
+            return type switch
             {
-                case ItemType.Equipment:
-                    return _items.FindAll((x) => x.ItemType == ItemType.Equipment).ToArray();
-                case ItemType.Usable:
-                    return _items.FindAll((x) => x.ItemType == ItemType.Usable).ToArray();
-                default:
-                    return _items.ToArray();
-            }
+                ItemType.Equipment => _items.FindAll((x) => x.ItemType == ItemType.Equipment).ToArray(),
+                ItemType.Usable => _items.FindAll((x) => x.ItemType == ItemType.Usable).ToArray(),
+                _ => [],
+            };
         }
 
         public void RemoveItem(Item item) => _items.Remove(item);
@@ -44,14 +43,12 @@ namespace _8LETTE_TextRPG
         public float EquippedAttackBonus()
         {
             float atk = 0f;
-            foreach (Item item in GetAllItems(ItemType.Equipment))
+            EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
+            foreach (EquipableItem item in items)
             {
-                if (item is IEquipable)
+                if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
                 {
-                    if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
-                    {
-                        atk += value;
-                    }
+                    atk += value;
                 }
             }
 
@@ -61,14 +58,12 @@ namespace _8LETTE_TextRPG
         public float EquippedDefenseBonus()
         {
             float def = 0f;
-            foreach (Item item in GetAllItems(ItemType.Equipment))
+            EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
+            foreach (EquipableItem item in items)
             {
-                if (item is IEquipable)
+                if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
                 {
-                    if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
-                    {
-                        def += value;
-                    }
+                    def += value;
                 }
             }
 
@@ -78,14 +73,12 @@ namespace _8LETTE_TextRPG
         public float EquippedHpBonus()
         {
             float hp = 0f;
-            foreach (Item item in GetAllItems(ItemType.Equipment))
+            EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
+            foreach (EquipableItem item in items)
             {
-                if (item is IEquipable)
+                if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
                 {
-                    if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
-                    {
-                        hp += value;
-                    }
+                    hp += value;
                 }
             }
 
@@ -95,14 +88,12 @@ namespace _8LETTE_TextRPG
         public float EquippedCriticalBonus()
         {
             float critical = 0f;
-            foreach (Item item in GetAllItems(ItemType.Equipment))
+            EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
+            foreach (EquipableItem item in items)
             {
-                if (item is IEquipable)
+                if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
                 {
-                    if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
-                    {
-                        critical += value;
-                    }
+                    critical += value;
                 }
             }
 
@@ -112,14 +103,12 @@ namespace _8LETTE_TextRPG
         public float EquippedEvasionBonus()
         {
             float evasion = 0f;
-            foreach (Item item in GetAllItems(ItemType.Equipment))
+            EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
+            foreach (EquipableItem item in items)
             {
-                if (item is IEquipable)
+                if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
                 {
-                    if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
-                    {
-                        evasion += value;
-                    }
+                    evasion += value;
                 }
             }
 

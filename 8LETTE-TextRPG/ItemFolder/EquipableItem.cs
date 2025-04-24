@@ -80,66 +80,10 @@ namespace _8LETTE_TextRPG.ItemFolder
             IsEquipped = true;
             Player.Instance.EquippedItems[EquipmentType] = Id;
 
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            // 현재 체력이 최대체력보다 많아지는 거 방지
+            if (Player.Instance.Health > Player.Instance.MaxHealth)
             {
-                if (effectPair.Value != 0f)
-                {
-                    switch (effectPair.Key)
-                    {
-                        case ItemEffect.Atk:
-                            if (Player.Instance.BaseAttack + effectPair.Value > 0f)
-                            {
-                                Player.Instance.BaseAttack += effectPair.Value;
-                            }
-                            else
-                            {
-                                Player.Instance.BaseAttack = 0f;
-                            }
-                            break;
-                        case ItemEffect.Def:
-                            if (Player.Instance.BaseDefense + effectPair.Value > 0f)
-                            {
-                                Player.Instance.BaseDefense += effectPair.Value;
-                            }
-                            else
-                            {
-                                Player.Instance.BaseDefense = 0f;
-                            }
-                            break;
-                        case ItemEffect.Hp:
-                            if (Player.Instance.MaxHealth + effectPair.Value > 0f)
-                            {
-                                Player.Instance.MaxHealth += effectPair.Value;
-                            }
-                            else
-                            {
-                                Player.Instance.MaxHealth = 1f;
-                            }
-                            break;
-                        case ItemEffect.Critical:
-                            if (Player.Instance.CriticalChance + effectPair.Value > 0f)
-                            {
-                                Player.Instance.CriticalChance += effectPair.Value;
-                            }
-                            else
-                            {
-                                Player.Instance.CriticalChance = 0f;
-                            }
-                            break;
-                        case ItemEffect.Evasion:
-                            if (Player.Instance.EvasionRate + effectPair.Value > 0f)
-                            {
-                                Player.Instance.EvasionRate += effectPair.Value;
-                            }
-                            else
-                            {
-                                Player.Instance.EvasionRate = 0f;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                Player.Instance.Health = Player.Instance.MaxHealth;
             }
 
             QuestManager.Instance?.SendProgress(QuestType.EquipItem, "", 1);
@@ -149,30 +93,6 @@ namespace _8LETTE_TextRPG.ItemFolder
         {
             IsEquipped = false;
             Player.Instance.EquippedItems[EquipmentType] = string.Empty;
-
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
-            {
-                switch (effectPair.Key)
-                {
-                    case ItemEffect.Atk:
-                        Player.Instance.BaseAttack -= effectPair.Value;
-                        break;
-                    case ItemEffect.Def:
-                        Player.Instance.BaseDefense -= effectPair.Value;
-                        break;
-                    case ItemEffect.Hp:
-                        Player.Instance.MaxHealth -= effectPair.Value;
-                        break;
-                    case ItemEffect.Critical:
-                        Player.Instance.CriticalChance -= effectPair.Value;
-                        break;
-                    case ItemEffect.Evasion:
-                        Player.Instance.EvasionRate -= effectPair.Value;
-                        break;
-                    default:
-                        break;
-                }
-            }
         }
     }
 }

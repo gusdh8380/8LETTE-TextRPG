@@ -87,10 +87,10 @@ namespace _8LETTE_TextRPG.ItemFolder
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:
-                        Player.Instance.CriticalChance += effectPair.Value;
+                        Player.Instance.BaseCriticalChance += effectPair.Value;
                         break;
                     case ItemEffect.Evasion:
-                        Player.Instance.EvasionRate += effectPair.Value;
+                        Player.Instance.BaseEvasionRate += effectPair.Value;
                         break;
                     default:
                         break;

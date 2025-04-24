@@ -45,7 +45,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             }
             else if (int.TryParse(input, out int num))
             {
-                Item[] items = Player.Instance.Inventory.GetAllItems(ItemType.Equipment);
+                Item[] items = Player.Instance.Inventory.GetItemsOfType(ItemType.Equipment);
                 if (num < 1 || num > items.Length)
                 {
                     _selectedItem = null;

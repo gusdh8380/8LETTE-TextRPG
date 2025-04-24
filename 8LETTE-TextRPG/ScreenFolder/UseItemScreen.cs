@@ -41,7 +41,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             }
             else if (int.TryParse(input, out int num))
             {
-                Item[] items = Player.Instance.Inventory.GetAllItems(ItemType.Usable);
+                Item[] items = Player.Instance.Inventory.GetItemsOfType(ItemType.Usable);
                 if (num < 1 || num > items.Length)
                 {
                     _isRetry = true;

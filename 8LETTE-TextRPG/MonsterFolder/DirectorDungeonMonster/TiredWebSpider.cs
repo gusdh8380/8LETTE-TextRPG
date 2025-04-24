@@ -1,17 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class FairyOfVertebrae : Monster
+    public class TiredWebSpider : Monster
     {
-        public FairyOfVertebrae()
+        public TiredWebSpider()
         {
-            Type = MonsterType.Fairy;
-            Name = "척추의 요정";
-            Level = 18;
-            MaxHp = 320f;
+            Type = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
-            GoldReward = 1150;
+            Attack = 42f;
+            Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

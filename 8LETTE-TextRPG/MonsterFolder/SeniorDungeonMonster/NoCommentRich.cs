@@ -1,59 +1,59 @@
-﻿using _8LETTE_TextRPG;
-using _8LETTE_TextRPG.MonsterFolder;
-
-class NoCommentRich : Monster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    public NoCommentRich()
+    class NoCommentRich : Monster
     {
-        Type = MonsterType.Undead;
-        Name = "노코멘트 리치"; 
-        Level = 12;
-        MaxHp = 45f;
-        Hp = MaxHp;
-        Attack = 30f;
-        Defense = 30f;
-    }
-
-    protected override void DefineStates()
-    {
-        AddState(State.Idle, new StateElem
+        public NoCommentRich()
         {
-            Doing = new Action(OnIdle)
-        });
+            Type = MonsterType.Undead;
+            Name = "노코멘트 리치";
+            Level = 12;
+            MaxHp = 45f;
+            Hp = MaxHp;
+            Attack = 30f;
+            Defense = 30f;
+        }
 
-        AddState(State.Attack, new StateElem
+        protected override void DefineStates()
         {
-            Doing = new Action(AttackDoing)
-        });
+            AddState(State.Idle, new StateElem
+            {
+                Doing = new Action(OnIdle)
+            });
 
-        AddState(State.Dead, new StateElem
+            AddState(State.Attack, new StateElem
+            {
+                Doing = new Action(AttackDoing)
+            });
+
+            AddState(State.Dead, new StateElem
+            {
+                Doing = new Action(OnDeath)
+            });
+        }
+
+        private void OnIdle()
         {
-            Doing = new Action(OnDeath)
-        });
-    }
 
-    private void OnIdle()
-    {
+        }
 
-    }
+        private void AttackDoing()
+        {
+            AttackTo(Player.Instance);
+        }
 
-    private void AttackDoing()
-    {
-        AttackTo(Player.Instance);
-    }
+        private void OnDeath()
+        {
 
-    private void OnDeath()
-    {
+        }
 
-    }
+        public override void OnDamaged(float dmg)
+        {
+            base.OnDamaged(dmg);
+        }
 
-    public override void OnDamaged(float dmg)
-    {
-        base.OnDamaged(dmg);
-    }
-
-    public override void AttackTo(Player victim)
-    {
-        base.AttackTo(victim);
+        public override void AttackTo(Player victim)
+        {
+            base.AttackTo(victim);
+        }
     }
 }

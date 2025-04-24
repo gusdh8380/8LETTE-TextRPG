@@ -1,17 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class ConflictDragon : Monster
+    class IllusionPixie : Monster
     {
-        public ConflictDragon()
+        public IllusionPixie()
         {
-            Type = MonsterType.Dragon;
-            Name = "컨플릭트 드래곤";
-            Level = 15;
-            MaxHp = 50f;
+            Type = MonsterType.Fairy;
+            Name = "착각의 픽시";
+            Level = 14;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 40f;
-            Defense = 40f;
-            GoldReward = 900;
+            Attack = 35f;
+            Defense = 35f;
+            GoldReward = 800;
         }
 
         protected override void DefineStates()

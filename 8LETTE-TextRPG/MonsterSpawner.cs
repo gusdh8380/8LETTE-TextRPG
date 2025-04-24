@@ -1,5 +1,8 @@
 ﻿using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
+using _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster;
+using _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster;
 using System;
 
 namespace _8LETTE_TextRPG
@@ -40,7 +43,7 @@ namespace _8LETTE_TextRPG
             }
         }
 
-        private Monster SpawnMonster(int num)
+        private Monster? SpawnMonster(int num)
         {
             if(Type == DungeonType.Junior)
                 switch (num)
@@ -54,32 +57,32 @@ namespace _8LETTE_TextRPG
             else if (Type == DungeonType.Middle)
                 switch (num)
                 {
-                    case 0: return new SemicolonSlime();
-                    case 1: return new TypeMissGoblin();
-                    case 2: return new LoopZombie();
-                    case 3: return new IndexFairy();
-                    case 4: return new NullGhost();
+                    case 0: return new InitGhost();
+                    case 1: return new LiteralSkeleton();
+                    case 2: return new MemoryMelter();
+                    case 3: return new LagSpider();
+                    case 4: return new DependencyHydra();
                 }
             else if (Type == DungeonType.Senior)
                 switch (num)
                 {
-                    case 0: return new SemicolonSlime();
-                    case 1: return new TypeMissGoblin();
-                    case 2: return new LoopZombie();
-                    case 3: return new IndexFairy();
-                    case 4: return new NullGhost();
+                    case 0: return new OldCodeBigSlime();
+                    case 1: return new NoCommentRich();
+                    case 2: return new OverturningGolem();
+                    case 3: return new IllusionPixie();
+                    case 4: return new ConflictDragon();
                 }
             else
                 switch (num)
                 {
-                    case 0: return new SemicolonSlime();
-                    case 1: return new TypeMissGoblin();
-                    case 2: return new LoopZombie();
-                    case 3: return new IndexFairy();
-                    case 4: return new NullGhost();
+                    case 0: return new VoidDragon();
+                    case 1: return new TiredWebSpider();
+                    case 2: return new SpineFairy();
+                    case 3: return new EyeBlurPhantom();
+                    case 4: return new CollaborationDestroyer();
                 }
 
-            return new SemicolonSlime();
+            return null;
         }
 
         public void InitMonsters()
@@ -95,7 +98,7 @@ namespace _8LETTE_TextRPG
             _monsters.Clear();
             for (int i = 0; i < MonsterCount; i++)
             {
-                _monsters.Add(SpawnMonster(random.Next(0, 5)));
+                _monsters.Add(SpawnMonster(random.Next(0, 5)) ?? new LoopZombie());
             }
         }
 

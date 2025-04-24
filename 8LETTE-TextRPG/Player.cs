@@ -188,7 +188,17 @@ namespace _8LETTE_TextRPG
             return (int)MathF.Min(evs, 99); 
         }
 
-        public int GetBuffCritical() {  return 1; }
+        public int GetBuffCritical() 
+        {  
+            int critical = CriticalChance;
+            foreach (var buff in _buffs)
+            {
+                critical += (int)buff.CriticalMultiplier;  
+            }
+            if(critical >= 100){Console.WriteLine("이미 치명타가 99% 이상입니다"); }
+
+            return (int)MathF.Min(critical,100);
+        }
 
 
         //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
@@ -300,7 +310,7 @@ namespace _8LETTE_TextRPG
         public bool TryCritical()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= CriticalChance;
+            return r.Next(1, 101) <= GetBuffCritical();
         }
 
         ////플레이어 레벨업 시 능력치 수치 추가 메소드

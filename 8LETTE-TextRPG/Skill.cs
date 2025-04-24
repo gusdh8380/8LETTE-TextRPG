@@ -10,9 +10,9 @@ namespace _8LETTE_TextRPG
 {
     //스킬 :  추상 클래스 사용 
     //*인터페이스로 구현? -> 일단 추상 클래스로 구현함
-    
+
     public enum SkillType { Active, Passive }
-    public enum EffectType { Damage, Buff}
+    public enum EffectType { Damage, Buff }
 
     public abstract class Skill
     {
@@ -33,7 +33,7 @@ namespace _8LETTE_TextRPG
     }
 
 
-    //주니어 스킬 [야근]
+    //주니어 기본스킬 [야근]
 
     public class YaguenSkill : Skill
     {
@@ -52,13 +52,13 @@ namespace _8LETTE_TextRPG
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
             float damage = Player.Instance.TotalAttack * 2f * PromotionMultiplier;
 
-            
+
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = damage;
             finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
 
             target.OnDamaged(finalDamege);
-          
+
             Console.WriteLine($"{player.Name}이(가) '야근' 스킬을 사용했습니다!");
             Console.WriteLine($"{target.Name}에게 {finalDamege}의 피해를 입혔습니다!");
             if (target.IsDead)
@@ -72,11 +72,11 @@ namespace _8LETTE_TextRPG
 
         }
     }
-
+    #region 버그 워리어 스킬
     //버그워리어(미들) 버프스킬 [공격력 증가] 
     public class IncreaseAtk : Skill
     {
-       
+
         public override string Name => "공격력 증가"; //Todo : 스킬명 수정이 필요할 것 같습니다.
         public override string Description => " 공격력이 20% 증가합니다.";
 
@@ -89,17 +89,17 @@ namespace _8LETTE_TextRPG
         {
             var buff = new Buff(
                 name: "공격력 증가",
-                atkMultiplier: 1.2f*PromotionMultiplier,
+                atkMultiplier: 1.2f * PromotionMultiplier,
                 defMultiplier: 1,
                 criticalMultiplier: 1,
                 evasionMultiplier: 1,
                 turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                 duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
                 );
-            
- 
 
-            Player.Instance.AddBuff(buff); 
+
+
+            Player.Instance.AddBuff(buff);
 
         }
     }
@@ -119,11 +119,11 @@ namespace _8LETTE_TextRPG
             float Atk = Player.Instance.TotalAttack;
             float rawDamage = ((float)Math.Ceiling(Atk * 0.3f)) * PromotionMultiplier;
 
-            foreach( var monster in monsters)
+            foreach (var monster in monsters)
             {
-                if(monster.IsDead) continue;
+                if (monster.IsDead) continue;
 
-                float fianlDamage = Player.Instance.ApplyDefenseReduction(rawDamage, monster.Defense);  
+                float fianlDamage = Player.Instance.ApplyDefenseReduction(rawDamage, monster.Defense);
                 monster.OnDamaged(fianlDamage);
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name}에게 {fianlDamage}의 데미지를 입혔습니다.");
 
@@ -131,11 +131,14 @@ namespace _8LETTE_TextRPG
                 {
                     Player.Instance.GainExp(monster.Level);
                 }
-            }         
-        } 
+            }
+        }
     }
+    #endregion
 
-    public class IncreaseDfs : Skill 
+
+    #region 메모리나이트 스킬
+    public class IncreaseDfs : Skill
     {
         public override string Name => "방어력 증가";
         public override string Description => "방어력이 20% 증가합니다.";
@@ -148,7 +151,7 @@ namespace _8LETTE_TextRPG
             var buff = new Buff(
                name: "방어력 증가",
                atkMultiplier: 1,
-               defMultiplier: 1.2f* PromotionMultiplier,
+               defMultiplier: 1.2f * PromotionMultiplier,
                criticalMultiplier: 1,
                evasionMultiplier: 1,
                turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
@@ -162,7 +165,7 @@ namespace _8LETTE_TextRPG
 
     public class ShieldStrike : Skill
     {
-        public override string Name => "방패치기"; 
+        public override string Name => "방패치기";
         public override string Description => " 방어력의 100% 피해를 입힙니다.";
 
         public override SkillType Type => SkillType.Active;
@@ -194,8 +197,9 @@ namespace _8LETTE_TextRPG
 
         }
     }
+    #endregion
 
-
+    #region 스레드 헌터 스킬 
     public class IncreaseEvasion : Skill
     {
         public override string Name => "회피율 증가";
@@ -210,38 +214,115 @@ namespace _8LETTE_TextRPG
                 name: "회피율 증가",
                atkMultiplier: 1,
                defMultiplier: 1f,
-               criticalMultiplier: 1f,
-               evasionMultiplier: 20f*PromotionMultiplier,
+               criticalMultiplier: 0f,
+               evasionMultiplier: 10f * PromotionMultiplier,
                turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
                );
             Player.Instance.AddBuff(buff);
-            
+
         }
+    }
 
-        public class Counterattack : Skill
+    public class Counterattack : Skill
+    {
+        public override string Name => "카운터어택!";
+        public override string Description => " 몬스터의 공격을 회피 시, 공격력의 50% 피해를 줍니다 ";
+
+        public override SkillType Type => SkillType.Passive;
+        public override EffectType Effect => EffectType.Damage;
+
+        public override void Execute(Player player, Monster monster)
         {
-            public override string Name => "카운터어택!";
-            public override string Description => " 몬스터의 공격을 회피 시, 공격력의 50% 피해를 줍니다 ";
+            float rawDamage = player.TotalAttack * 0.5f * PromotionMultiplier;
+            float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
 
-            public override SkillType Type => SkillType.Passive;
-            public override EffectType Effect => EffectType.Damage;
+            monster.OnDamaged(finalDamage);
+            Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
 
-            public override void Execute(Player player, Monster monster)
+
+            if (monster.IsDead)
             {
-                float rawDamage = player.TotalAttack * 0.5f *  PromotionMultiplier;
-                float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
+                Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
+                player.GainExp(monster.Level);
 
-                monster.OnDamaged(finalDamage);
-                Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
+            }
+              
+        }
+    }
+    #endregion
+
+    #region 익셉션 헌터 스킬
+    public class IncreaseCritical : Skill
+    {
+        public override string Name => "치명타 증가";
+        public override string Description => " 치명타가 20 증가합니다.";
+
+        public override SkillType Type => SkillType.Active;
+        public override EffectType Effect => EffectType.Buff;
+
+        public override void Execute(Player player, Monster _)
+        {
+            var buff = new Buff(
+                name: "치명타 증가",
+               atkMultiplier: 1,
+               defMultiplier: 1f,
+               criticalMultiplier: 10f * PromotionMultiplier,
+               evasionMultiplier: 0f ,
+               turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
+               duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
+               );
+            Player.Instance.AddBuff(buff);
+
+        }
+    }
+
+    //rampage : 난사
+    public class Rampage : Skill
+    {
+        public override string Name => "난사";
+        public override string Description => " 몬스터 절반에게 무작위로 공격합니다(치명타 가능).";
+
+        public override SkillType Type => SkillType.Active;
+        public override EffectType Effect => EffectType.Damage;
+
+        public override void Execute(Player player, Monster monster)
+        {
+            //적의 수 가져오기
+            var m = MonsterSpawner.Instance.GetAllMonsters()
+                          .Where(m => !m.IsDead)
+                          .ToList();
+            //적의 절반을 무작위로 공격
+
+            int total = m.Count;
+            if (total == 0) return;
+
+            int half = (int)Math.Ceiling(total / 2.0);
+
+            var r = new Random();
+            var selected = m.OrderBy(monster => r.Next()).Take(half);
+
+            float baseAtk = player.TotalAttack;
+            float rawDamage = (float)Math.Ceiling(baseAtk) * PromotionMultiplier;
+
+            foreach (var mon in selected)
+            {
+                float dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
+                mon.OnDamaged(dmg);
+                Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+                if (mon.IsDead)
+                {
+                    Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
+                    player.GainExp(mon.Level);
+                }
 
 
-                if (monster.IsDead)
-                    player.GainExp(monster.Level);
             }
         }
 
-
+        #endregion
 
     }
 }
+
+

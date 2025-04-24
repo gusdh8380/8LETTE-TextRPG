@@ -42,7 +42,6 @@ namespace _8LETTE_TextRPG
 
     #region 버그 워리어
 
-    //직업 : 버그워리어(미들)
     public class BugWarrior_Middle : JobBase
     {
         public readonly List<Skill> _skills;
@@ -131,7 +130,7 @@ namespace _8LETTE_TextRPG
 
     #endregion
 
-    #region [메모리 나이트]
+    #region 메모리 나이트
 
     public class  MemoryKnight_Middle: JobBase
     {
@@ -238,7 +237,7 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
+        public override int PromotionStage => 1;
         public readonly List<Skill> _skills;
         public override List<Skill> Skills => _skills;
         public ThreadAssassin_Middle()
@@ -268,7 +267,7 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
+        public override int PromotionStage => 2;
 
         public readonly List<Skill> _skills;
         public override List<Skill> Skills => _skills;
@@ -300,18 +299,23 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
+        public override int PromotionStage => 3;
 
-        public override List<Skill> Skills => new()
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public ThreadAssassin_Director()
         {
-            new YaguenSkill()
-
-        };
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseEvasion(),
+                new Counterattack()
+            };
+        }
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.BonusAttack += 1.2f;
+            player.BonusDefense += 1.2f;
         }
     }
 
@@ -331,13 +335,18 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
+        public override int PromotionStage => 1;
 
-        public override List<Skill> Skills => new()
+        public readonly List<Skill> _skills;
+        public override List<Skill> Skills => _skills;
+        public ExceptionHunter_Middle()
         {
-            new YaguenSkill()
+            _skills = new List<Skill>{
+                new YaguenSkill(),
+                new IncreaseCritical()
+            };
+        }
 
-        };
 
         public override void IncreaseStats(Player player)
         {
@@ -347,7 +356,7 @@ namespace _8LETTE_TextRPG
     }
     public class ExceptionHunter_Senior : JobBase
     {
-        public override string Name => "익셉션헌터(미들)";
+        public override string Name => "익셉션헌터(시니어)";
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
@@ -357,11 +366,12 @@ namespace _8LETTE_TextRPG
 
         //승급 스테이지 기록
         //1이면 승급?
-        public override int PromotionStage => 0;
+        public override int PromotionStage => 2;
 
         public override List<Skill> Skills => new()
         {
-            new YaguenSkill()
+            new YaguenSkill(),
+            new IncreaseCritical()
 
         };
 
@@ -373,7 +383,7 @@ namespace _8LETTE_TextRPG
     }
     public class ExceptionHunter_Director : JobBase
     {
-        public override string Name => "익셉션헌터(미들)";
+        public override string Name => "익셉션헌터(디렉터)";
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
@@ -381,20 +391,20 @@ namespace _8LETTE_TextRPG
         public override int EvasionRate => 10;
 
 
-        //승급 스테이지 기록
-        //1이면 승급?
-        public override int PromotionStage => 0;
+       
+        public override int PromotionStage => 3;
 
         public override List<Skill> Skills => new()
         {
-            new YaguenSkill()
-
+            new YaguenSkill(),
+            new IncreaseCritical(),
+            new Rampage()
         };
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.BonusAttack += 1.2f;
+            player.BonusDefense += 1.2f;
         }
     }
 

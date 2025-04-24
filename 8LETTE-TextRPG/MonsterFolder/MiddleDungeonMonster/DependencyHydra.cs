@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class Reset : Monster
+    class DependencyHydra : Monster
     {
-        public Reset()
+        public DependencyHydra()
         {
-            Name = "쓰레드 점퍼";
-            Level = 8;
-            MaxHp = 120f;
+            Type = MonsterType.Dragon;
+            Name = "디펜던시 히드라";
+            Level = 10;
+            MaxHp = 160f;
             Hp = MaxHp;
-            Attack = 24f;
-            Defense = 12f;
+            Attack = 28f;
+            Defense = 14f;
+            GoldReward = 500;
         }
 
         protected override void DefineStates()

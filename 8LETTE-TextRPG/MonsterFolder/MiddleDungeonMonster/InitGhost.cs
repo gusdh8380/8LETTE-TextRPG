@@ -11,6 +11,7 @@
             Hp = MaxHp;
             Attack = 20f;
             Defense = 10f;
+            GoldReward = 300;
         }
 
         protected override void DefineStates()

@@ -41,6 +41,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
         public float Defense { get; protected set; }
         public float Attack { get; protected set; }
         public bool IsDead => CurState == State.Dead;
+        public int GoldReward { get; protected set; }
 
         public int GoldReward { get; protected set; }
 
@@ -128,6 +129,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
             //Todo : 방어력에 따른 데미지 감소 로직
             float damage = Attack + r.Next(-(int)varirance, (int)varirance);
             damage = Math.Max(1, damage);
+
 
             //플레이어 회피율 계산
             bool isEvasion = Player.Instance.TryEvade();

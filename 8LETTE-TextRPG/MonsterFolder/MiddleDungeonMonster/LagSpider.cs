@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class  BurnoutThread : Monster
+    public class LagSpider : Monster
     {
-        public BurnoutThread()
+        public LagSpider()
         {
-            Name = "번아웃 스레드";
-            Level = 20;
-            MaxHp = 280f;
+            Type = MonsterType.Spider;
+            Name = "렉 스파이더";
+            Level = 9;
+            MaxHp = 140f;
             Hp = MaxHp;
-            Attack = 40f;
-            Defense = 21f;
+            Attack = 26f;
+            Defense = 13f;
+            GoldReward = 450;
         }
 
         protected override void DefineStates()

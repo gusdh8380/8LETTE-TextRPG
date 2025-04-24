@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class EyebugBear : Monster
+    public class fatigueSprider : Monster
     {
-        public EyebugBear()
+        public fatigueSprider()
         {
-            Name = "눈알 버그베어";
-            Level = 23;
-            MaxHp = 340f;
+            Type= = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 46f;
-            Defense = 23f;
+            Attack = 42f;
+            Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class MockingMimic : Monster
+    public class EyeblurPhantom : Monster
     {
-        public MockingMimic()
+        public EyeblurPhantom()
         {
-            Name = "모킹 미믹";
-            Level = 10;
-            MaxHp = 160f;
+            Type = MonsterType.Ghost;
+            Name = "아이블러 팬텀";
+            Level = 19;
+            MaxHp = 340f;
             Hp = MaxHp;
-            Attack = 28f;
-            Defense = 14f;
+            Attack = 46f;
+            Defense = 23f;
+            GoldReward = 1200;
         }
 
         protected override void DefineStates()

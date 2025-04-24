@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    public class ThreadSleep : Monster
+    class MemoryMelter : Monster
     {
-        public ThreadSleep()
+        public MemoryMelter()
         {
-            Name = "슬립리스 스레드";
-            Level = 21;
-            MaxHp = 300f;
+            Type = MonsterType.Slime;
+            Name = "메모리 멜터";
+            Level = 8;
+            MaxHp = 120f;
             Hp = MaxHp;
-            Attack = 42f;
-            Defense = 21f;
+            Attack = 24f;
+            Defense = 12f;
+            GoldReward = 400;
         }
 
         protected override void DefineStates()

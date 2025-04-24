@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class EternalLoop : Monster
+    class FairyOfVertebrae : Monster
     {
-        public EternalLoop()
+        public FairyOfVertebrae()
         {
-            Name = "이터널루프";
-            Level = 9;
-            MaxHp = 140f;
+            Type = MonsterType.Fairy;
+            Name = "척추의 요정";
+            Level = 18;
+            MaxHp = 320f;
             Hp = MaxHp;
-            Attack = 26f;
-            Defense = 13f;
+            Attack = 44f;
+            Defense = 22f;
+            GoldReward = 1150;
         }
 
         protected override void DefineStates()

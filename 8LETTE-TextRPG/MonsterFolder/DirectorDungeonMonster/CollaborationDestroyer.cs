@@ -1,15 +1,17 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class HerniatedDiscTroll : Monster
+    public class CollaborationDestroyer : Monster
     {
-        public HerniatedDiscTroll()
+        public CollaborationDestroyer()
         {
-            Name = "허리디스크 트롤";
-            Level = 22;
-            MaxHp = 320f;
+            Type = MonsterType.Humanoid;
+            Name = "협업 파괴자";
+            Level = 20;
+            MaxHp = 400f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
+            Attack = 50f;
+            Defense = 25f;
+            GoldReward = 1300;
         }
 
         protected override void DefineStates()

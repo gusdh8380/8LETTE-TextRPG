@@ -33,7 +33,7 @@ namespace _8LETTE_TextRPG
                 {
                     new QuestGoal(QuestType.KillMonster, MonsterType.InfLoop.ToString(), 1)
                 },
-                new Item("퀘스트 클리어 아이템 1", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
+                new Potion("퀘스트 클리어 아이템 1", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
                 {
                     { ItemEffect.Atk, 999f },
                     { ItemEffect.Def, 999f },
@@ -49,7 +49,7 @@ namespace _8LETTE_TextRPG
                 {
                     new QuestGoal(QuestType.EquipItem, "", 1)
                 },
-                new Item("퀘스트 클리어 아이템 2", "테스트 퀘스트 2 클리어 보상 (장비타입: 마우스)", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
+                new EquipableItem("퀘스트 클리어 아이템 2", "테스트 퀘스트 2 클리어 보상 (장비타입: 마우스)", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
                 {
                     { ItemEffect.Atk, 999f },
                     { ItemEffect.Def, 999f },

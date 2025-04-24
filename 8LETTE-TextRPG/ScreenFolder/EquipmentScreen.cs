@@ -23,8 +23,11 @@ namespace _8LETTE_TextRPG.ScreenFolder
 
             if (_selectedItem != null)
             {
-                Console.WriteLine($"{_selectedItem.Name}을(를) {(_selectedItem.IsEquipped ? "장착" : "해제")}했습니다.");
-                Console.WriteLine();
+                if (_selectedItem is IEquipable equipableItem)
+                {
+                    Console.WriteLine($"{_selectedItem.Name}을(를) {(equipableItem.IsEquipped ? "장착" : "해제")}했습니다.");
+                    Console.WriteLine();
+                }
             }
 
             PrintNumAndString(0, "나가기");
@@ -51,13 +54,16 @@ namespace _8LETTE_TextRPG.ScreenFolder
                 }
 
                 _selectedItem = items[num - 1];
-                if (!_selectedItem.IsEquipped)
+                if (_selectedItem is IEquipable equipableItem)
                 {
-                    Player.Instance.Inventory.Equip(_selectedItem);
-                }
-                else
-                {
-                    Player.Instance.Inventory.Unequip(_selectedItem);
+                    if (!equipableItem.IsEquipped)
+                    {
+                        Player.Instance.Inventory.Equip(equipableItem);
+                    }
+                    else
+                    {
+                        Player.Instance.Inventory.Unequip(equipableItem);
+                    }
                 }
             }
             else

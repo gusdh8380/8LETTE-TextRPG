@@ -140,29 +140,30 @@ namespace _8LETTE_TextRPG
             Gold = 1500f;
             //인벤토리, 레벨, 몬스터 생성자 추가
             Inventory = new Inventory();
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
-            Inventory.AddItem(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
+
             //test용: 낡은 키보드 공격템
-            Inventory.AddItem(new Item("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 500f, EquipmentType.Keyboard, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new EquipableItem("낡은 키보드", "가끔씩 키보드가 작동하지 않습니다.", 500f, EquipmentType.Keyboard, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, 10f }
             }));
-            Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new EquipableItem("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, 100f },
                 { ItemEffect.Hp, -50f }
             }));
-            Inventory.AddItem(new Item("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
+            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, -5000f },
                 { ItemEffect.Def, -5000f },

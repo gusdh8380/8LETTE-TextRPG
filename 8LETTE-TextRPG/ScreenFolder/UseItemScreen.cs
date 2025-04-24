@@ -49,7 +49,10 @@ namespace _8LETTE_TextRPG.ScreenFolder
                 }
 
                 _selectedItem = items[num - 1];
-                _selectedItem.Use();
+                if (_selectedItem is IUsable usableItem)
+                {
+                    usableItem.Use();
+                }
             }
             else
             {

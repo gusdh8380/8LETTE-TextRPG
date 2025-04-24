@@ -11,7 +11,7 @@ namespace _8LETTE_TextRPG
 
         public Shop()
         {
-            _items.Add(new Item("테스트", "테스트용 아이템 (장비타입: 모니터).", 999f, EquipmentType.Monitor, new Dictionary<ItemEffect, float>
+            _items.Add(new EquipableItem("테스트", "테스트용 아이템 (장비타입: 모니터).", 999f, EquipmentType.Monitor, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, 999f },
                 { ItemEffect.Def, 999f },
@@ -19,7 +19,7 @@ namespace _8LETTE_TextRPG
                 { ItemEffect.Critical, 999f },
                 { ItemEffect.Evasion, 999f },
             }));
-            _items.Add(new Item("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            _items.Add(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
             }));
@@ -70,9 +70,12 @@ namespace _8LETTE_TextRPG
         {
             _itemPurchasedDict[playerItem.Id] = false;
 
-            if (playerItem.IsEquipped)
+            if (playerItem is IEquipable equipableItem)
             {
-                Player.Instance.Inventory.Unequip(playerItem);
+                if (equipableItem.IsEquipped)
+                {
+                    Player.Instance.Inventory.Unequip(equipableItem);
+                }
             }
 
             Player.Instance.Inventory.RemoveItem(playerItem);

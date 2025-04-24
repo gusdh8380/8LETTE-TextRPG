@@ -44,12 +44,14 @@ namespace _8LETTE_TextRPG
         public float EquippedAttackBonus()
         {
             float atk = 0f;
-            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
-            foreach (Item item in items)
+            foreach (Item item in GetAllItems(ItemType.Equipment))
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
+                if (item is IEquipable)
                 {
-                    atk += value;
+                    if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
+                    {
+                        atk += value;
+                    }
                 }
             }
 
@@ -59,12 +61,14 @@ namespace _8LETTE_TextRPG
         public float EquippedDefenseBonus()
         {
             float def = 0f;
-            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
-            foreach (Item item in items)
+            foreach (Item item in GetAllItems(ItemType.Equipment))
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
+                if (item is IEquipable)
                 {
-                    def += value;
+                    if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
+                    {
+                        def += value;
+                    }
                 }
             }
 
@@ -74,12 +78,14 @@ namespace _8LETTE_TextRPG
         public float EquippedHpBonus()
         {
             float hp = 0f;
-            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
-            foreach (Item item in items)
+            foreach (Item item in GetAllItems(ItemType.Equipment))
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
+                if (item is IEquipable)
                 {
-                    hp += value;
+                    if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
+                    {
+                        hp += value;
+                    }
                 }
             }
 
@@ -89,12 +95,14 @@ namespace _8LETTE_TextRPG
         public float EquippedCriticalBonus()
         {
             float critical = 0f;
-            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
-            foreach (Item item in items)
+            foreach (Item item in GetAllItems(ItemType.Equipment))
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
+                if (item is IEquipable)
                 {
-                    critical += value;
+                    if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
+                    {
+                        critical += value;
+                    }
                 }
             }
 
@@ -104,12 +112,14 @@ namespace _8LETTE_TextRPG
         public float EquippedEvasionBonus()
         {
             float evasion = 0f;
-            Item[] items = _items.FindAll(x => x.IsEquipped).ToArray();
-            foreach (Item item in items)
+            foreach (Item item in GetAllItems(ItemType.Equipment))
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
+                if (item is IEquipable)
                 {
-                    evasion += value;
+                    if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
+                    {
+                        evasion += value;
+                    }
                 }
             }
 
@@ -128,7 +138,7 @@ namespace _8LETTE_TextRPG
         {
             if (!string.IsNullOrEmpty(Player.Instance.EquippedItems[item.EquipmentType]))
             {
-                IEquipable? equippedItem = _items.Find(x => x.Id == Player.Instance.EquippedItems[item.EquipmentType]);
+                IEquipable? equippedItem = _items.Find(x => x.Id == Player.Instance.EquippedItems[item.EquipmentType]) as IEquipable;
                 if (equippedItem != null)
                 {
                     Unequip(equippedItem);
@@ -172,14 +182,24 @@ namespace _8LETTE_TextRPG
                 case PrintState.Inventory:
                     foreach (Item item in _items)
                     {
-                        Console.WriteLine($"- {(item.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                        if (item is IEquipable equipableItem)
+                        {
+                            Console.WriteLine($"- {(equipableItem.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"- {item.Name} | {item.GetEffectName()}| {item.Description} ");
+                        }
                     }
                     break;
                 case PrintState.Equipment:
                     for (int i = 0; i < equipableItems.Length; i++)
                     {
                         Item item = equipableItems[i];
-                        Console.WriteLine($"- {i + 1} {(item.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                        if (item is IEquipable equipableItem)
+                        {
+                            Console.WriteLine($"- {i + 1} {(equipableItem.IsEquipped ? "[E]" : "")}{item.Name} | {item.GetEffectName()}| {item.Description} ");
+                        }
                     }
                     break;
                 case PrintState.Usable:

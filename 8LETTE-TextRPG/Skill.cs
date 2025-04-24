@@ -304,12 +304,24 @@ namespace _8LETTE_TextRPG
 
             float baseAtk = player.TotalAttack;
             float rawDamage = (float)Math.Ceiling(baseAtk) * PromotionMultiplier;
-
+            float dmg;
             foreach (var mon in selected)
             {
-                float dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
-                mon.OnDamaged(dmg);
-                Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+
+                if (player.TryCritical())
+                {
+                    dmg = (float)Math.Ceiling(rawDamage * 1.6);
+                    dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
+                    mon.OnDamaged(dmg);
+                    Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+                }
+                else 
+                {
+                    dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
+                    mon.OnDamaged(dmg);
+                    Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+                }
+                
                 if (mon.IsDead)
                 {
                     Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");

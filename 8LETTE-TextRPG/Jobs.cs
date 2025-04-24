@@ -34,6 +34,8 @@ namespace _8LETTE_TextRPG
         }
     }
 
+    #region 버그 워리어
+
     //직업 : 버그워리어(미들)
     public class BugWarrior_Middle : JobBase
     {
@@ -47,7 +49,7 @@ namespace _8LETTE_TextRPG
 
         public override List<Skill> Skills => new()
         { 
-            new YaguenSkill(),//전 직업 스킬 
+            new YaguenSkill(),//전 직업 기본 스킬 
             new IncreaseAtk()
         };
 
@@ -57,7 +59,7 @@ namespace _8LETTE_TextRPG
             player.BonusDefense += 0.5f;
         }
     }
-    public class BugWarrior_Ssnior : JobBase
+    public class BugWarrior_Senior : JobBase
     {
         public override string Name => "버그워리어 (시니어)";
         public override float BaseAttack => 15f;
@@ -104,5 +106,263 @@ namespace _8LETTE_TextRPG
             player.BonusDefense += 0.5f;
         }
     }
+
+    #endregion
+
+    #region [메모리 나이트]
+
+    public class  MemoryKnight_Middle: JobBase
+    {
+        public override string Name => "메모리나이트";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 10f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.5f;
+            player.BonusDefense += 1f;
+        }
+    }
+
+    public class MemoryKnight_Senior : JobBase
+    {
+        public override string Name => "메모리나이트(시니어)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 10f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.5f;
+            player.BonusDefense += 1f;
+        }
+    }
+    public class MemoryKnight_Director : JobBase
+    {
+        public override string Name => "메모리나이트(디렉터)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 10f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.5f;
+            player.BonusDefense += 1f;
+        }
+    }
+
+
+    #endregion
+
+
+    #region 스레드 어썌신
+    public class ThreadAssassin_Middle: JobBase
+    {
+        public override string Name => "스레드어쌔신(미들)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 30;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+
+    public class ThreadAssassin_Senior : JobBase
+    {
+        public override string Name => "스레드어쌔신(시니어)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 30;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+
+    public class ThreadAssassin_Director : JobBase
+    {
+        public override string Name => "스레드어쌔신(디렉터)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 15;
+        public override int EvasionRate => 30;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+
+    #endregion
+
+
+    #region 익셉션 헌터
+    public class ExceptionHunter_Middle : JobBase
+    {
+        public override string Name => "익셉션헌터(미들)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 30;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+    public class ExceptionHunter_Senior : JobBase
+    {
+        public override string Name => "익셉션헌터(미들)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 30;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+    public class ExceptionHunter_Director : JobBase
+    {
+        public override string Name => "익셉션헌터(미들)";
+        public override float BaseAttack => 10f;
+        public override float BaseDefense => 5f;
+        public override float BaseHealth => 100f;
+        public override int CriticalChance => 30;
+        public override int EvasionRate => 10;
+
+
+        //승급 스테이지 기록
+        //1이면 승급?
+        public override int PromotionStage => 0;
+
+        public override List<Skill> Skills => new()
+        {
+            new YaguenSkill()
+
+        };
+
+        public override void IncreaseStats(Player player)
+        {
+            player.BonusAttack += 0.7f;
+            player.BonusDefense += 0.7f;
+        }
+    }
+
+    #endregion
 
 }

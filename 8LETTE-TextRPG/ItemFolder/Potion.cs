@@ -78,19 +78,19 @@ namespace _8LETTE_TextRPG.ItemFolder
                 switch (effectPair.Key)
                 {
                     case ItemEffect.Atk:
-                        Player.Instance.BaseAttack += effectPair.Value;
+                        Player.Instance.PotionBonusAttack += effectPair.Value;
                         break;
                     case ItemEffect.Def:
-                        Player.Instance.BaseDefense += effectPair.Value;
+                        Player.Instance.PotionBonusDefense += effectPair.Value;
                         break;
                     case ItemEffect.Hp:
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:
-                        Player.Instance.BaseCriticalChance += effectPair.Value;
+                        Player.Instance.PotionBonusCritical += effectPair.Value;
                         break;
                     case ItemEffect.Evasion:
-                        Player.Instance.BaseEvasionRate += effectPair.Value;
+                        Player.Instance.PotionBonusEvasion += effectPair.Value;
                         break;
                     default:
                         break;

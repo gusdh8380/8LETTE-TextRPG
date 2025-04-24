@@ -34,7 +34,6 @@ namespace _8LETTE_TextRPG
 
 
     //주니어 기본스킬 [야근]
-
     public class YaguenSkill : Skill
     {
         private static Random _rand = new Random();
@@ -47,31 +46,34 @@ namespace _8LETTE_TextRPG
 
 
         //스킬 실행 로직
-        public override void Execute(Player player, Monster target)
+        public override void Execute(Player player, Monster _)
         {
+            var monsters = MonsterSpawner.Instance.GetAllMonsters()
+                           .Where(m => !m.IsDead)
+                           .ToArray();
+
+            // 랜덤으로 한 마리 선택
+            var rand = new Random();
+            var chosen = monsters[rand.Next(monsters.Length)];
+
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
             float damage = Player.Instance.TotalAttack * 2f * PromotionMultiplier;
 
-
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
-            float finalDamege = damage;
-            finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
+            float finalDamege = player.ApplyDefenseReduction(damage, chosen.Defense);
 
-            target.OnDamaged(finalDamege);
+            chosen.OnDamaged(finalDamege);
 
             Console.WriteLine($"{player.Name}이(가) '야근' 스킬을 사용했습니다!");
-            Console.WriteLine($"{target.Name}에게 {finalDamege}의 피해를 입혔습니다!");
-            if (target.IsDead)
+            Console.WriteLine($"{chosen.Name}에게 {finalDamege}의 피해를 입혔습니다!");
+            if (chosen.IsDead)
             {
-                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                Player.Instance.GainExp(target.Level);
-                //만일 몬스터 별로 경험치가 다르게 구현해서
-                //속성을 추가해서 파라미터로 받아오게 하면
-                //Gain(target.Exp);
+                Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
+                Player.Instance.GainExp(chosen.Level);
             }
-
         }
     }
+
     #region 버그 워리어 스킬
     //버그워리어(미들) 버프스킬 [공격력 증가] 
     public class IncreaseAtk : Skill

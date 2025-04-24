@@ -81,9 +81,9 @@ namespace _8LETTE_TextRPG.ItemFolder
             Player.Instance.EquippedItems[EquipmentType] = Id;
 
             // 현재 체력이 최대체력보다 많아지는 거 방지
-            if (Player.Instance.Health > Player.Instance.MaxHealth)
+            if (Player.Instance.Health > Player.Instance.Job.BaseHealth)
             {
-                Player.Instance.Health = Player.Instance.MaxHealth;
+                Player.Instance.Health = Player.Instance.Job.BaseHealth;
             }
 
             QuestManager.Instance?.SendProgress(QuestType.EquipItem, "", 1);

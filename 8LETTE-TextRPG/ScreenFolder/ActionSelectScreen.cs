@@ -10,7 +10,7 @@
             Console.WriteLine("[내 정보]");
 
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
-            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth} ");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ");
 
             Console.WriteLine();
         }

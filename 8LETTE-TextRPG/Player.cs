@@ -15,14 +15,10 @@ namespace _8LETTE_TextRPG
     /// </summary>
     public class Player
     {
-        /// <summary>
-        /// 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
-        /// </summary>
+        // 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
         private static Player? _instance;
 
-        /// <summary>
-        /// 플레이어 인스턴스
-        /// </summary>
+        // 플레이어 인스턴스
         [NotNull]
         public static Player Instance
         {
@@ -30,26 +26,28 @@ namespace _8LETTE_TextRPG
             private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
         }
 
-
         public string Name { get; }
-        //public Job Job { get; }
         public JobBase Job { get; private set; }
         public Level Level { get; set; }
 
         //공격력 수정 : 전직 시 기존 공격력 유지를 위해
-        public float JobBaseAttack => Job.BaseAttack;// 직업 초기 값
-        public float BonusAttack {  get; set; } = 0f;//레벨업 추가 능력치
-        public float TotalAttack => JobBaseAttack + BonusAttack;
-
+        public float PotionBonusAttack { get; set; } = 0f;
+        public float LevelBonusAttack { get; set; } = 0f; // 레벨업 추가 능력치
+        public float JobBaseAttack => Job.BaseAttack + PotionBonusAttack;// 직업 초기 값
+        public float TotalAttack => JobBaseAttack + LevelBonusAttack + Inventory.EquippedAttackBonus();
 
         // 방어력 수정 : 전직 시 기존 방어력 유지를 위해
-        public float JobBaseDefense => Job.BaseDefense;// 직업 초기 값
-        public float BonusDefense { get; set; } = 0f;//레벨업 추가 능력치
-        public float TotalDefense => JobBaseDefense + BonusDefense;
+        public float PotionBonusDefense { get; set; } = 0f;
+        public float LevelBonusDefense { get; set; } = 0f; // 레벨업 추가 능력치
+        public float JobBaseDefense => Job.BaseDefense + PotionBonusDefense; // 직업 초기 값
+        public float TotalDefense => JobBaseDefense + LevelBonusDefense + Inventory.EquippedDefenseBonus();
 
-        //스킬 리스트 속성 추가?
-        //현재는 player.job.Skill로 사용가능
-      
+        //치명 & 회피
+        public float PotionBonusCritical { get; set; } = 0f;
+        public float TotalCriticalChance => Job.CriticalChance + PotionBonusCritical + Inventory.EquippedCriticalBonus();
+        public float PotionBonusEvasion { get; set; } = 0f;
+        public float TotalEvasionRate => Job.EvasionRate + PotionBonusEvasion + Inventory.EquippedEvasionBonus();
+
         private float _health;
         public float Health
         {
@@ -78,21 +76,16 @@ namespace _8LETTE_TextRPG
         public float Gold { get; set; }
         public bool IsDead { get; private set; }
 
-        public int CriticalChance { get; set; }
-        public int EvasionRate { get; set; }
-
         //인벤토리
         public Inventory Inventory { get; private set; }
         public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
-        
-        private List<Buff> _buffs = new List<Buff>();
 
-        //패시브 스킬 필터
+        //스킬
+        private List<Buff> _buffs = new List<Buff>();
         public IEnumerable<Skill> PassiveReflectSkill => Job.Skills.Where(s => s.Type == SkillType.Passive);
 
         //방어 계수
         public const float DefenseConstant = 50f;
-       
 
         public Player(string name, JobBase job)
         {
@@ -133,18 +126,9 @@ namespace _8LETTE_TextRPG
                 { EquipmentType.Glasses, null }
             };
 
-           // BaseAttack = job.BaseAttack;
-            //BaseDefense = job.BaseDefense;
             Health = job.BaseHealth;
 
             Gold = 1500f;
-
-            //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
-            /*
-             * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
-             */
-            CriticalChance = job.CriticalChance;
-            EvasionRate = job.EvasionRate;
         }
 
         public void GainExp(int exp)
@@ -152,17 +136,15 @@ namespace _8LETTE_TextRPG
             bool leveledUp = Level.AddExp(exp);
             if (leveledUp)
             {
-                Job.IncreaseStats(this);//기본 능력치 상승
+                Job.IncreaseStats(this);
             }
 
         }
+
         //전직 메소드, job 클래스를 입력 받음
         public void Promote(JobBase job)
         {
             Job = job;
-
-            CriticalChance = Job.CriticalChance;
-            EvasionRate = Job.EvasionRate;
 
             if (Health > Job.BaseHealth)
                 Health = Job.BaseHealth;
@@ -178,7 +160,6 @@ namespace _8LETTE_TextRPG
         {
             _buffs.Add(buff);
         }
-        
 
         //버프로 인한 공격력증가 반환
         public float GetBuffAttack()
@@ -204,33 +185,38 @@ namespace _8LETTE_TextRPG
         }
 
         //Todo : 치명타, 회피 버브 적용 코드
-        public int GetBuffEvasion() 
+        public float GetBuffEvasion() 
         {
-            int evs = EvasionRate;
+            float evs = TotalEvasionRate;
             foreach (var buff in _buffs)
             {
-                evs += (int)buff.EvasionMultiplier;
+                evs += buff.EvasionMultiplier;
             }
-            if (evs > 99) { Console.WriteLine("이미 회피율이 99% 이상입니다"); }
+            if (evs >= 100)
+            {
+                evs = 100;
+                Console.WriteLine("이미 회피율이 100% 입니다");
+            }
 
-            return (int)MathF.Min(evs, 99); 
+            return MathF.Min(evs, 100); 
         }
-
-        public int GetBuffCritical() 
+        public float GetBuffCritical() 
         {  
-            int critical = CriticalChance;
+            float critical = TotalCriticalChance;
             foreach (var buff in _buffs)
             {
-                critical += (int)buff.CriticalMultiplier;  
+                critical += buff.CriticalMultiplier;  
             }
-            if(critical >= 100){Console.WriteLine("이미 치명타가 99% 이상입니다"); }
+            if(critical >= 100)
+            {
+                critical = 100;
+                Console.WriteLine("이미 치명타가 100% 입니다");
+            }
 
-            return (int)MathF.Min(critical,100);
+            return MathF.Min(critical, 100);
         }
-
 
         //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
-
         public void EndTurn()
         {
             for (int i = _buffs.Count - 1; i >= 0; i--)
@@ -247,8 +233,8 @@ namespace _8LETTE_TextRPG
                 }
             }
         }
+
         //전투가 끝나는 타이밍에 버프 제거 메소드
-        
         public void ClearBattleBuffs()
         {
             _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
@@ -262,114 +248,6 @@ namespace _8LETTE_TextRPG
             mitigate = (float)Math.Ceiling(mitigate);
             return Math.Max(1, mitigate);
         }
-        //전직 메소드, job 클래스를 입력 받음
-        public void Promote(JobBase job)
-        {
-            Job = job;
-
-            CriticalChance = Job.CriticalChance;
-            EvasionRate = Job.EvasionRate;
-
-            if (Health > Job.BaseHealth)
-                Health = Job.BaseHealth;
-
-            //디렉터에서 스킬 계수 강화
-            const int UptpDirector = 3;
-            float enforce = (Job.PromotionStage == UptpDirector) ? 1.5f : 1f;
-            foreach(var skill in job.Skills)
-                skill.PromotionMultiplier = enforce;
-        }
-        //버프 가져오기
-        public void AddBuff(Buff buff)
-        {
-            _buffs.Add(buff);
-        }
-        
-
-        //버프로 인한 공격력증가 반환
-        public float GetBuffAttack()
-        {
-            float atk = TotalAttack;
-
-            foreach (var buff in _buffs)
-            {
-                atk *= buff.AttackMultiplier;
-            }
-
-            return atk;
-        }
-        //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
-        public float GetBuffedDefense()
-        {
-            float def = TotalDefense;
-            foreach (var buff in _buffs)
-            {
-                def *= buff.DefenseMultiplier;
-            }
-            return def;
-        }
-
-        //Todo : 치명타, 회피 버브 적용 코드
-        public int GetBuffEvasion() 
-        {
-            int evs = EvasionRate;
-            foreach (var buff in _buffs)
-            {
-                evs += (int)buff.EvasionMultiplier;
-            }
-            if (evs > 99) { Console.WriteLine("이미 회피율이 99% 이상입니다"); }
-
-            return (int)MathF.Min(evs, 99); 
-        }
-
-        public int GetBuffCritical() 
-        {  
-            int critical = CriticalChance;
-            foreach (var buff in _buffs)
-            {
-                critical += (int)buff.CriticalMultiplier;  
-            }
-            if(critical >= 100){Console.WriteLine("이미 치명타가 99% 이상입니다"); }
-
-            return (int)MathF.Min(critical,100);
-        }
-
-
-        //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
-
-        public void EndTurn()
-        {
-            for (int i = _buffs.Count - 1; i >= 0; i--)
-            {
-                var buff = _buffs[i];
-                if (buff.Duration == DurationType.OneTurn)
-                {
-                    buff.TurnsRemaining--;
-                    if (buff.TurnsRemaining <= 0)
-                    {
-                        //버프 종료
-                        _buffs.RemoveAt(i);
-                    }
-                }
-            }
-        }
-        //전투가 끝나는 타이밍에 버프 제거 메소드
-        
-        public void ClearBattleBuffs()
-        {
-            _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
-        }
-
-        //방어력에 따른 데미지 감면 로직 구현
-        public float ApplyDefenseReduction(float Damage, float Defense)
-        {
-            float k = DefenseConstant / (DefenseConstant + Defense);
-            float mitigate = Damage * k;
-            mitigate = (float)Math.Ceiling(mitigate);
-            return Math.Max(1, mitigate);
-        }
-
-
 
         /// <summary>
         /// 몬스터 공격 메소드. 공격한 몬스터 객체를 파라미터로 받아와서 해당 몬스터의 체력 감소 로직 작성
@@ -442,13 +320,6 @@ namespace _8LETTE_TextRPG
             Random r = new Random();
             return r.Next(1, 101) <= GetBuffCritical();
         }
-
-        ////플레이어 레벨업 시 능력치 수치 추가 메소드
-        //public void IncreaseStats()
-        //{
-        //    BaseAttack += 0.5f;
-        //    BaseDefense += 1f;
-        //}
 
         public void OnDamaged(float dmg)
         {

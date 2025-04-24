@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static _8LETTE_TextRPG.IncreaseEvasion;
-
-namespace _8LETTE_TextRPG
+﻿namespace _8LETTE_TextRPG
 {
-
   //직업 : 주니어
     public class Junior : JobBase 
     {
@@ -35,8 +27,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.5f;
-            player.BonusDefense += 0.5f;
+            player.LevelBonusAttack += 0.5f;
+            player.LevelBonusDefense += 0.5f;
         }
     }
 
@@ -65,8 +57,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1f;
-            player.BonusDefense += 0.5f;
+            player.LevelBonusAttack += 1f;
+            player.LevelBonusDefense += 0.5f;
         }
     }
     public class BugWarrior_Senior : JobBase
@@ -92,8 +84,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1f;
-            player.BonusDefense += 0.5f;
+            player.LevelBonusAttack += 1f;
+            player.LevelBonusDefense += 0.5f;
         }
 
     }
@@ -123,8 +115,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1.5f;
-            player.BonusDefense += 1f;
+            player.LevelBonusAttack += 1.5f;
+            player.LevelBonusDefense += 1f;
         }
     }
 
@@ -154,8 +146,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.5f;
-            player.BonusDefense += 1f;
+            player.LevelBonusAttack += 0.5f;
+            player.LevelBonusDefense += 1f;
         }
     }
 
@@ -185,8 +177,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.5f;
-            player.BonusDefense += 1f;
+            player.LevelBonusAttack += 0.5f;
+            player.LevelBonusDefense += 1f;
         }
     }
     public class MemoryKnight_Director : JobBase
@@ -215,14 +207,13 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1f;
-            player.BonusDefense += 1.5f;
+            player.LevelBonusAttack += 1f;
+            player.LevelBonusDefense += 1.5f;
         }
     }
 
 
     #endregion
-
 
     #region 스레드 어썌신
     public class ThreadAssassin_Middle: JobBase
@@ -250,8 +241,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.LevelBonusAttack += 0.7f;
+            player.LevelBonusDefense += 0.7f;
         }
     }
 
@@ -282,8 +273,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.LevelBonusAttack += 0.7f;
+            player.LevelBonusDefense += 0.7f;
         }
     }
 
@@ -314,13 +305,12 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1.2f;
-            player.BonusDefense += 1.2f;
+            player.LevelBonusAttack += 1.2f;
+            player.LevelBonusDefense += 1.2f;
         }
     }
 
     #endregion
-
 
     #region 익셉션 헌터
     public class ExceptionHunter_Middle : JobBase
@@ -350,8 +340,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.LevelBonusAttack += 0.7f;
+            player.LevelBonusDefense += 0.7f;
         }
     }
     public class ExceptionHunter_Senior : JobBase
@@ -377,8 +367,8 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 0.7f;
-            player.BonusDefense += 0.7f;
+            player.LevelBonusAttack += 0.7f;
+            player.LevelBonusDefense += 0.7f;
         }
     }
     public class ExceptionHunter_Director : JobBase
@@ -403,11 +393,10 @@ namespace _8LETTE_TextRPG
 
         public override void IncreaseStats(Player player)
         {
-            player.BonusAttack += 1.2f;
-            player.BonusDefense += 1.2f;
+            player.LevelBonusAttack += 1.2f;
+            player.LevelBonusDefense += 1.2f;
         }
     }
 
     #endregion
-
 }

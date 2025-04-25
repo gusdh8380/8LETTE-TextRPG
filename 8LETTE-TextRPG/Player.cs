@@ -103,6 +103,42 @@ namespace _8LETTE_TextRPG
                 }
             }
         }
+        public float MaxMana
+        {
+            get
+            {
+                if (Stats.BaseMP + Inventory.EquippedMpBonus() < 1f)
+                {
+                    return 1f;
+                }
+                else
+                {
+                    return Stats.BaseMP + Inventory.EquippedMpBonus();
+                }
+            }
+        }
+        public float Mana
+        {
+            get
+            {
+                return Stats.CurMP;
+            }
+            set
+            {
+                if (value > Stats.CurMP)
+                {
+                    Stats.CurMP = MaxMana;
+                }
+                else if (value <= 0)
+                {
+                    Stats.CurMP = 0f;
+                }
+                else
+                {
+                    Stats.CurHealth = value;
+                }
+            }
+        }
 
         public float Gold
         {
@@ -150,7 +186,6 @@ namespace _8LETTE_TextRPG
 
         //인벤토리
         public Inventory Inventory => _context.Inventory ?? throw new ArgumentNullException("Inventory is not defined.");
-
         public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new ArgumentNullException("EquippedItems is not defined.");
 
         //스킬
@@ -191,16 +226,16 @@ namespace _8LETTE_TextRPG
             bool leveledUp = Level.AddExp(exp);
             if(leveledUp)
             {
-                IncreaseStats();
+                Job.IncreaseStats();
             }
 
             OnContextChanged();
         }
 
-        //전직 메소드, job 클래스를 입력 받음
+        //승진 메소드, job 클래스를 입력 받음
         public void Promote(JobBase job)
         {
-            Job = job;
+            //Job = job;
 
             if (Health > Job.BaseHealth)
                 Health = Job.BaseHealth;
@@ -377,17 +412,6 @@ namespace _8LETTE_TextRPG
         {
             Random r = new Random();
             return r.Next(1, 101) <= GetBuffCritical();
-        }
-
-        //플레이어 레벨업 시 능력치 수치 추가 메소드
-        public void IncreaseStats()
-        {
-            Stats.BaseAttack += 0.5f;
-            Stats.BaseDefense += 1f;
-
-            QuestManager.Instance.SendProgress(QuestType.IncreaseStat);
-
-            OnContextChanged();
         }
 
         public void OnDamaged(float dmg)

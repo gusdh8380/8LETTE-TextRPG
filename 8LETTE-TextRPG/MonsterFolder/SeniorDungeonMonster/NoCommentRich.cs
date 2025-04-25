@@ -51,7 +51,7 @@ namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
             Console.WriteLine($"{Name}를 처지했습니다!");
             if (r.Next(1, 101) <= 10)
             {
-                Player.Instance.Inventory.AddItem(new Potion(20f));
+                Player.Instance.Inventory.AddItem(new UsableItem(20f));
 
                 Console.WriteLine($"{Name}가 체력 포션 (20)을 드랍했습니다.");
                 BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (20)을 드랍했습니다.");

@@ -10,8 +10,8 @@
             Console.WriteLine("[내 정보]");
 
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name}) ");
-            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ");
-            Console.WriteLine($"MP {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP} ");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth} ");
+            Console.WriteLine($"MP {Player.Instance.Mana} / {Player.Instance.MaxMana} ");
 
             Console.WriteLine();
         }

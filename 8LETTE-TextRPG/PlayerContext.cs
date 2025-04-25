@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _8LETTE_TextRPG.ItemFolder;
+﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.Xml.Linq;
 
 namespace TextRPG
 {
@@ -77,6 +70,8 @@ namespace TextRPG
 
             Stats.BaseCriticalChance = Job.CriticalChance;
             Stats.BaseEvasionRate = Job.EvasionRate;
+
+            Stats.BaseMP = Job.BaseMP;
 
             Gold = 1500f;
         }

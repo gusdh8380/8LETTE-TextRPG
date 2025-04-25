@@ -13,6 +13,7 @@ namespace _8LETTE_TextRPG.ItemFolder
         Hp,
         Critical,
         Evasion,
+        MP,
         // 여기에 아이템 효과 추가
     }
 }

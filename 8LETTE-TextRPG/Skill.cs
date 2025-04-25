@@ -28,7 +28,7 @@ namespace _8LETTE_TextRPG
         /// <summary>
         /// 현재 MP로 스킬 사용 가능 여부
         /// </summary>
-        public virtual bool CanUse(Player player) => player.ManaPoint >= ManaCost;
+        public virtual bool CanUse(Player player) => player.Mana >= ManaCost;
 
         /// <summary>
         /// 디렉터 승진 시 기본 스킬 강화 계수
@@ -63,7 +63,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             var monsters = MonsterSpawner.Instance.GetAllMonsters()
                            .Where(m => !m.IsDead)
@@ -74,7 +74,7 @@ namespace _8LETTE_TextRPG
             var chosen = monsters[rand.Next(monsters.Length)];
 
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
-            float damage = Player.Instance.TotalAttack * 2f * PromotionMultiplier;
+            float damage = Player.Instance.Attack * 2f * PromotionMultiplier;
 
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = player.ApplyDefenseReduction(damage, chosen.Defense);
@@ -116,7 +116,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             var buff = new Buff(
                 name: "공격력 증가",
@@ -154,10 +154,10 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             var monsters = MonsterSpawner.Instance.GetAllMonsters();
-            float Atk = Player.Instance.TotalAttack;
+            float Atk = Player.Instance.Attack;
             float rawDamage = ((float)Math.Ceiling(Atk * 0.3f)) * PromotionMultiplier;
 
             foreach (var monster in monsters)
@@ -197,7 +197,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
 
             var buff = new Buff(
@@ -237,10 +237,10 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
-            float damage = Player.Instance.TotalDefense * PromotionMultiplier;
+            float damage = Player.Instance.Defense * PromotionMultiplier;
 
 
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
@@ -284,7 +284,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             var buff = new Buff(
                 name: "회피율 증가",
@@ -312,7 +312,7 @@ namespace _8LETTE_TextRPG
 
         public override bool Execute(Player player, Monster monster)
         {
-            float rawDamage = player.TotalAttack * 0.5f * PromotionMultiplier;
+            float rawDamage = player.Attack * 0.5f * PromotionMultiplier;
             float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
             Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
 
@@ -350,7 +350,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             var buff = new Buff(
                 name: "치명타 증가",
@@ -385,7 +385,7 @@ namespace _8LETTE_TextRPG
                 return false;
             }
 
-            player.ManaPoint -= ManaCost;
+            player.Mana -= ManaCost;
 
             //적의 수 가져오기
             var m = MonsterSpawner.Instance.GetAllMonsters()
@@ -398,7 +398,7 @@ namespace _8LETTE_TextRPG
             var r = new Random();
             var selected = m.OrderBy(monster => r.Next()).Take(half);
 
-            float baseAtk = player.TotalAttack;
+            float baseAtk = player.Attack;
             float rawDamage = (float)Math.Ceiling(baseAtk) * PromotionMultiplier;
             float dmg;
             foreach (var mon in selected)

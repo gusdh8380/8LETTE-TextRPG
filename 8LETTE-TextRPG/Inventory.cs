@@ -86,13 +86,14 @@ namespace _8LETTE_TextRPG
 
             return hp;
         }
+
         public float EquippedMpBonus()
         {
             float mp = 0f;
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.MP, out float value))
                 {
                     mp += value;
                 }

@@ -30,16 +30,16 @@
             {
                 if (hpBounus > 0f)
                 {
-                    Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP} (+{mpBounus})");
+                    Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} (+{mpBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP} ({mpBounus})");
+                    Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} ({mpBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP}");
+                Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana}");
             }
 
 

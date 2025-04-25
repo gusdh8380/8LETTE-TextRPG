@@ -9,13 +9,12 @@ namespace _8LETTE_TextRPG
         public Item[] GetItemsOfType(EquipmentType? equipmentType)
         {
            if(equipmentType != null)
-                return _context.Items?
-                    .ToArray()
+                return _context.Items
                     .OfType<EquipableItem>()
                     .Where(item => item.EquipmentType == equipmentType)
                     .ToArray();
            else
-                return _context.Items?.ToArray().OfType<Potion>().ToArray();
+                return _context.Items.OfType<UsableItem>().ToArray();
         }
         public Item[] GetAllItems() => _context.Items?.ToArray() ?? throw new NullReferenceException();
 
@@ -40,7 +39,7 @@ namespace _8LETTE_TextRPG
             Console.WriteLine("[판매 목록]");
             for (int i = 0; i < items.Length; i++)
             {
-                string sold = !_itemPurchasedDict[items[i].Id] ? items[i].Price.ToString() + " G" : "구매완료";
+                string sold = !_context.ItemPurchasedDict[items[i].Id] ? items[i].Price.ToString() + " G" : "구매완료";
                 Console.WriteLine($"- {i + 1}. {items[i].Name} | {items[i].GetEffectName()}| {items[i].Description} | {sold}");
             }
         }

@@ -12,6 +12,8 @@ namespace _8LETTE_TextRPG
     {
         public float BaseHealth;
         public float CurHealth;
+        public float BaseMP;
+        public float CurMP;
         public float BaseAttack;
         public float BaseDefense;
         public float BaseCriticalChance;

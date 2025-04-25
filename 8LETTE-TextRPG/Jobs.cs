@@ -8,6 +8,7 @@
         public override float BaseAttack => 12f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
        
@@ -41,6 +42,7 @@
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
         public override int PromotionStage => 1;
@@ -68,6 +70,7 @@
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
         public override int PromotionStage => 2;
@@ -98,6 +101,7 @@
         public override float BaseAttack => 15f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
         public override int PromotionStage => 3;
@@ -130,6 +134,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 10f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
         public override int PromotionStage => 1;
@@ -157,6 +162,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 10f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
 
@@ -187,6 +193,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 10f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 10;
 
@@ -222,6 +229,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 30;
 
@@ -252,6 +260,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 30;
 
@@ -284,6 +293,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 15;
         public override int EvasionRate => 30;
 
@@ -319,6 +329,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 30;
         public override int EvasionRate => 10;
 
@@ -350,6 +361,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 30;
         public override int EvasionRate => 10;
 
@@ -377,6 +389,7 @@
         public override float BaseAttack => 10f;
         public override float BaseDefense => 5f;
         public override float BaseHealth => 100f;
+        public override float BaseMP => 50f;
         public override int CriticalChance => 30;
         public override int EvasionRate => 10;
 

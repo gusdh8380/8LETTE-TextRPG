@@ -18,6 +18,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             Console.WriteLine("[내 정보]");
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name})");
             Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
+            Console.WriteLine($"MP {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP}");
 
             Console.WriteLine();
         }

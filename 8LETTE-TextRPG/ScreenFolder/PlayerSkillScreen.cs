@@ -22,7 +22,7 @@
             Skill[] skills = Player.Instance.Job.Skills.ToArray();
             for (int i = 0; i < skills.Length; i++)
             {
-                Console.WriteLine($"{i + 1}. {skills[i].Name}");
+                Console.WriteLine($"{i + 1}. {skills[i].Name} - MP {skills[i].ManaCost}");
                 Console.WriteLine($"   {skills[i].Description}");
                 Console.WriteLine();
             }

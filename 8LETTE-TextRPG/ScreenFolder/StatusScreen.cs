@@ -25,6 +25,24 @@
                 Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
             }
 
+            float mpBounus = Player.Instance.Inventory.EquippedMpBonus();
+            if (hpBounus != 0f)
+            {
+                if (hpBounus > 0f)
+                {
+                    Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP} (+{mpBounus})");
+                }
+                else
+                {
+                    Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP} ({mpBounus})");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"마 나 : {Player.Instance.ManaPoint} / {Player.Instance.Job.BaseMP}");
+            }
+
+
             float atkBounus = Player.Instance.Inventory.EquippedAttackBonus();
             if (atkBounus != 0f)
             {

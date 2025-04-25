@@ -49,13 +49,17 @@ namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
         private void OnDeath()
         {
             Random r = new Random();
-            Console.WriteLine($"{Name}을 처지했습니다!");
-            if (r.Next(1, 101) <= 15)
+            Console.WriteLine($"{Name}을(를) 처지했습니다!");
+            if (r.NextSingle() <= 0.15f)
             {
-                Player.Instance.Inventory.AddItem(new UsableItem(25f));
+                Item droppedItem = new UsableItem(Guid.NewGuid().ToString(), "체력 포션 (25)", "사용 시 HP를 25 회복합니다.", 85f, UseType.Potion, new Dictionary<ItemEffect, float>
+                {
+                    { ItemEffect.Hp, 25 }
+                });
+                Player.Instance.Inventory.AddItem(droppedItem);
 
-                Console.WriteLine($"{Name}이 체력 포션 (25)을 드랍했습니다.");
-                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}이 체력 포션 (25)을 드랍했습니다.");
+                Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
             }
         }
 

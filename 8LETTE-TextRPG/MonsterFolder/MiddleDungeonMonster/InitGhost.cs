@@ -49,13 +49,17 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
         private void OnDeath()
         {
             Random r = new Random();
-            Console.WriteLine($"{Name}을 처지했습니다!");
-            if (r.Next(1, 101) <= 5)
+            Console.WriteLine($"{Name}을(를) 처지했습니다!");
+            if (r.NextSingle() <= 0.05f)
             {
-                Player.Instance.Inventory.AddItem(new UsableItem(15f));
+                Item droppedItem = new UsableItem(Guid.NewGuid().ToString(), "체력 포션 (15)", "사용 시 HP를 15 회복합니다.", 55f, UseType.Potion, new Dictionary<ItemEffect, float>
+                {
+                    { ItemEffect.Hp, 15 }
+                });
+                Player.Instance.Inventory.AddItem(droppedItem);
 
-                Console.WriteLine($"{Name}이 체력 포션 (15)을 드랍했습니다.");
-                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}이 체력 포션 (15)을 드랍했습니다.");
+                Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
             }
         }
 

@@ -24,22 +24,6 @@ namespace _8LETTE_TextRPG.ItemFolder
             Effects = effects;
         }
 
-        public UsableItem(float hpBonus)
-        {
-            Id = Guid.NewGuid().ToString();
-            Name = $"체력 포션 ({hpBonus})";
-            Description = $"사용 시 HP를 {hpBonus} 회복합니다.";
-
-            Price = hpBonus * 3 + 10;
-            ItemType = ItemType.Usable;
-
-            UseType = UseType.Potion;
-            Effects = new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, hpBonus }
-            };
-        }
-
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();

@@ -18,7 +18,7 @@ namespace TextRPG
         private readonly static JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
 
         public string? Name;
-        public Job? Job;
+        public JobBase? Job;
         public Level? Level;
         public PlayerStats? Stats;
 
@@ -28,12 +28,12 @@ namespace TextRPG
         public Inventory? Inventory;
         public Dictionary<EquipmentType, string?>? EquippedItems;
 
-        public void Initialize(string name, Job job)
+        public PlayerContext()
         {
             serializerSettings.Converters.Add(new StringEnumConverter());
         }
 
-        public void Initialize(string name, Job job)
+        public void Initialize(string name, JobBase job)
         {
             Name = name;
             Job = job;

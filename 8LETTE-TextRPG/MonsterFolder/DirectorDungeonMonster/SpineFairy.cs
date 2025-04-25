@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class IndexFairy : Monster
+    class SpineFairy : Monster
     {
-        public IndexFairy()
+        public SpineFairy()
         {
             Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Name = "척추의 요정";
+            Level = 18;
+            MaxHp = 320f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 44f;
+            Defense = 22f;
+            GoldReward = 1150;
         }
-        //
 
         protected override void DefineStates()
         {

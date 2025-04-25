@@ -1,8 +1,8 @@
 ﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    public class EyeblurPhantom : Monster
+    public class EyeBlurPhantom : Monster
     {
-        public EyeblurPhantom()
+        public EyeBlurPhantom()
         {
             Type = MonsterType.Ghost;
             Name = "아이블러 팬텀";

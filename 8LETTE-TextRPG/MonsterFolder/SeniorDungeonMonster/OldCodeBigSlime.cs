@@ -1,19 +1,18 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    class IndexFairy : Monster
+    class OldCodeBigSlime : Monster
     {
-        public IndexFairy()
+        public OldCodeBigSlime()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Slime;
+            Name = "올드코드 빅슬라임";
+            Level = 11;
+            MaxHp = 40f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 30f;
+            Defense = 30f;
+            GoldReward = 600;
         }
-        //
 
         protected override void DefineStates()
         {

@@ -1,17 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    public class fatigueSprider : Monster
+    class OverturningGolem : Monster
     {
-        public fatigueSprider()
+        public OverturningGolem()
         {
-            Type = MonsterType.Spider;
-            Name = "피곤줄 거미";
-            Level = 17;
-            MaxHp = 300f;
+            Type = MonsterType.Humanoid;
+            Name = "뒤집기 골렘";
+            Level = 13;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 42f;
-            Defense = 21f;
-            GoldReward = 1050;
+            Attack = 35f;
+            Defense = 30f;
+            GoldReward = 800;
         }
 
         protected override void DefineStates()

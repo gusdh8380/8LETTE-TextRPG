@@ -1,17 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
-    class FairyOfVertebrae : Monster
+    class ConflictDragon : Monster
     {
-        public FairyOfVertebrae()
+        public ConflictDragon()
         {
-            Type = MonsterType.Fairy;
-            Name = "척추의 요정";
-            Level = 18;
-            MaxHp = 320f;
+            Type = MonsterType.Dragon;
+            Name = "컨플릭트 드래곤";
+            Level = 15;
+            MaxHp = 50f;
             Hp = MaxHp;
-            Attack = 44f;
-            Defense = 22f;
-            GoldReward = 1150;
+            Attack = 40f;
+            Defense = 40f;
+            GoldReward = 900;
         }
 
         protected override void DefineStates()

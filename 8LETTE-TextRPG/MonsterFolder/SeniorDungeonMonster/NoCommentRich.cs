@@ -1,19 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
-    class IndexFairy : Monster
+    class NoCommentRich : Monster
     {
-        public IndexFairy()
+        public NoCommentRich()
         {
-            Type = MonsterType.Fairy;
-            Name = "인덱스 페어리";
-            Level = 4;
-            MaxHp = 15f;
+            Type = MonsterType.Undead;
+            Name = "노코멘트 리치";
+            Level = 12;
+            MaxHp = 45f;
             Hp = MaxHp;
-            Attack = 13f;
-            Defense = 3f;
-            GoldReward = 175;
+            Attack = 30f;
+            Defense = 30f;
         }
-        //
 
         protected override void DefineStates()
         {

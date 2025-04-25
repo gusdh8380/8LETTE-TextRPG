@@ -1,15 +1,17 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeon
+﻿namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
-    class InfLoop : Monster
+    public class TiredWebSpider : Monster
     {
-        public InfLoop()
+        public TiredWebSpider()
         {
-            Name = "무한루프"; //무한루프 몬스터
-            Level = 3;
-            MaxHp = 20f;
+            Type = MonsterType.Spider;
+            Name = "피곤줄 거미";
+            Level = 17;
+            MaxHp = 300f;
             Hp = MaxHp;
-            Attack = 10f;
-            Defense = 5f;
+            Attack = 42f;
+            Defense = 21f;
+            GoldReward = 1050;
         }
 
         protected override void DefineStates()

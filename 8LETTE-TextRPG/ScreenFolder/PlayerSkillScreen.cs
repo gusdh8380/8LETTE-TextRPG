@@ -15,12 +15,17 @@
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
             Console.WriteLine($"Lv.{Player.Instance.Level.CurrentLevel} {Player.Instance.Name} ({Player.Instance.Job.Name})");
-            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
+            Console.WriteLine();
 
             //번호와 함께 플레이어의 스킬 정보를 출력
-            //Player.Instance.ShowSkill();
-
-            Console.WriteLine();
+            Skill[] skills = Player.Instance.Job.Skills.ToArray();
+            for (int i = 0; i < skills.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {skills[i].Name}");
+                Console.WriteLine($"   {skills[i].Description}");
+                Console.WriteLine();
+            }
         }
 
         public override void Show()
@@ -38,8 +43,7 @@
             }
             else
             {
-                //선택한 플레이어의 스킬 메서드 사용
-                //Player.Instance.Fire(MonsterSpawner.Instance.GetAllMonsters());
+                Player.Instance.Job.Skills.ToArray()[userInput].Execute(Player.Instance, null);
 
                 PrintAnyKeyInstruction();
             }
@@ -65,8 +69,8 @@
             else if (int.TryParse(input, out int num))
             {
                 //플레이어의 스킬 번호를 벗어나거나 마력이 부족하면 아래 실행
-                //Skill[] skills = Player.Instane.GetAllSkills();
-                if (num < 1 || num > 4) //|| Player.Instane.MP < skills[num - 1].MP
+                Skill[] skills = Player.Instance.Job.Skills.ToArray();
+                if (num < 1 || num > skills.Length) //|| Player.Instane.MP < skills[num - 1].MP
                 {
                     _isRetry = true;
                     return this;

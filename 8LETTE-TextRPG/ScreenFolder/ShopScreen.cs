@@ -7,7 +7,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
     {
         private Shop _shop;
         private Item[] _items = [];
-        private Item _selectedItem;
+        private Item? _selectedItem;
         private EquipmentType? _equipmentType;
         private int flag = -1;
 
@@ -78,22 +78,22 @@ namespace _8LETTE_TextRPG.ScreenFolder
             switch (flag)
             {
                 case 0: // 돈이 부족하여 살 수 없을 때
-                    Console.WriteLine($"{_selectedItem.Name}은(는) 돈이 부족하여 살 수 없습니다.\n");
+                    Console.WriteLine($"{_selectedItem?.Name}은(는) 돈이 부족하여 살 수 없습니다.\n");
                     flag = -1;
                     break;
 
                 case 1: // 아이템을 샀을 때
-                    Console.WriteLine($"{_selectedItem.Name}을(를) 구매했습니다.\n");
+                    Console.WriteLine($"{_selectedItem?.Name}을(를) 구매했습니다.\n");
                     flag = -1;
                     break;
 
                 case 2: // 구매한 아이템을 사려고 할 때
-                    Console.WriteLine($"{_selectedItem.Name}은(는) 이미 구매한 항목입니다.\n");
+                    Console.WriteLine($"{_selectedItem?.Name}은(는) 이미 구매한 항목입니다.\n");
                     flag = -1;
                     break;
 
                 case 3: // 구매한 아이템을 사려고 할 때
-                    Console.WriteLine($"{_selectedItem.Name}을(를) 판매했습니다.\n");
+                    Console.WriteLine($"{_selectedItem?.Name}을(를) 판매했습니다.\n");
                     flag = -1;
                     break;
 

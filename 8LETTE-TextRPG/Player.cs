@@ -147,7 +147,11 @@ namespace _8LETTE_TextRPG
             get => _context.Gold ?? throw new NullReferenceException();
             set => _context.Gold = value;
         }
-        public bool IsDead => _context.IsDead ?? throw new NullReferenceException();
+        public bool IsDead
+        {
+            get => _context.IsDead ?? throw new NullReferenceException();
+            set => _context.IsDead = value;
+        }
 
         public float CriticalChance
         {

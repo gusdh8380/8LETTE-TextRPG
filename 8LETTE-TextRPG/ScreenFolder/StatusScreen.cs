@@ -128,6 +128,8 @@
 
             PrintBonusStatus();
 
+            Console.WriteLine($"전투불능 : {Player.Instance.IsDead}");
+
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 
             Console.WriteLine();

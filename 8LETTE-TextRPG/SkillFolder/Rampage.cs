@@ -27,7 +27,7 @@ namespace _8LETTE_TextRPG.SkillFolder
             player.Mana -= ManaCost;
 
             //적의 수 가져오기
-            List<Monster> m = MonsterSpawner.Instance.GetAllMonsters().Where(m => !m.IsDead).ToList();
+            List<Monster> m = DungeonManager.Instance.GetAllMonsters().Where(m => !m.IsDead).ToList();
 
             //적의 절반을 무작위로 공격
             int total = m.Count;

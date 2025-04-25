@@ -28,7 +28,7 @@ namespace _8LETTE_TextRPG.SkillFolder
 
             player.Mana -= ManaCost;
 
-            Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters().Where(m => !m.IsDead).ToArray();
+            Monster[] monsters = DungeonManager.Instance.GetAllMonsters().Where(m => !m.IsDead).ToArray();
 
             // 랜덤으로 한 마리 선택
             var rand = new Random();

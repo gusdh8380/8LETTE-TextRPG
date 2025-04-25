@@ -27,7 +27,7 @@ namespace _8LETTE_TextRPG.SkillFolder
 
             player.Mana -= ManaCost;
 
-            Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters();
+            Monster[] monsters = DungeonManager.Instance.GetAllMonsters();
             float Atk = Player.Instance.Attack;
             float rawDamage = (float)Math.Ceiling(Atk * 0.3f) * PromotionMultiplier;
 

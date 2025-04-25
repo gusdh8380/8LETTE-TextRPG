@@ -14,7 +14,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
         private void ShowSkillList()
         {
             //몬스터 객체를 불러와서 정보를 출력
-            MonsterSpawner.Instance.ShowMonsterInfo();
+            DungeonManager.Instance.ShowMonsterInfo();
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
@@ -47,7 +47,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             }
             else
             {
-                Monster monster = MonsterSpawner.Instance.GetAllMonsters().Where(m => m.IsDead == false).ToArray()[0];
+                Monster monster = DungeonManager.Instance.GetAllMonsters().Where(m => m.IsDead == false).ToArray()[0];
                 hasMana = Player.Instance.Job.Skills.ToArray()[userInput].Execute(Player.Instance, monster);
 
                 PrintAnyKeyInstruction();
@@ -66,7 +66,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
                 }
                 isAttacked = false;
                 //만약 몬스터가 모두 죽었다면, 전투 결과 화면으로 이동
-                if (MonsterSpawner.Instance.IsAllDead())
+                if (DungeonManager.Instance.IsAllDead())
                 {
                     return BattleResultScreen.Instance;
                 }

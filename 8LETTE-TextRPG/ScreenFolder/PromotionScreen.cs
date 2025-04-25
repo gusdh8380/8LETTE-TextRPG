@@ -50,9 +50,9 @@ namespace _8LETTE_TextRPG.ScreenFolder
             if (!_hasRequest)
             {
                 //_remainClear = 0; //디버깅용
-                _remainClear = (int)MathF.Max(5 * ((int)Player.Instance.Job.PromotionType + 1) - MonsterSpawner.Instance.ClearCount, 0);
+                _remainClear = (int)MathF.Max(5 * ((int)Player.Instance.Job.PromotionType + 1) - DungeonManager.Instance.ClearCount, 0);
 
-                Console.WriteLine($"현재 던전 클리어 수는 {MonsterSpawner.Instance.ClearCount}회 입니다.");
+                Console.WriteLine($"현재 던전 클리어 수는 {DungeonManager.Instance.ClearCount}회 입니다.");
                 Console.WriteLine($"다음 승진까지 남은 클리어 횟수는 {_remainClear}회 입니다.");
                 Console.WriteLine();
 

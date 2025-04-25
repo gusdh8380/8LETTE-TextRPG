@@ -22,7 +22,7 @@
 
             PrintTitle("전투!!");
 
-            MonsterSpawner.Instance.ShowMonsterInfo();
+            DungeonManager.Instance.ShowMonsterInfo();
             
             ShowPlayerInfo();
 
@@ -34,7 +34,7 @@
 
         public override Screen? Next()
         {
-            if (MonsterSpawner.Instance.IsAllDead())
+            if (DungeonManager.Instance.IsAllDead())
             {
                 return BattleResultScreen.Instance;
             }

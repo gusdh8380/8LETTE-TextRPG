@@ -17,6 +17,9 @@
             }
             else
             {
+                //전투 후 마나 회복 로직
+                Player.Instance.ManaPoint += 10f;
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Victory");
                 Console.ResetColor();

@@ -48,6 +48,33 @@ namespace _8LETTE_TextRPG
         public float PotionBonusEvasion { get; set; } = 0f;
         public float TotalEvasionRate => Job.EvasionRate + PotionBonusEvasion + Inventory.EquippedEvasionBonus();
 
+        //마나
+        private float _manaPoint;
+        public float ManaPoint
+        {
+            get
+            {
+                return _manaPoint;
+            }
+            set
+            {
+                if (value > Job.BaseHealth)
+                {
+                    _manaPoint = Job.BaseMP;
+                }
+                else if (value <= 0)
+                {
+                    _manaPoint = 0f;
+
+                }
+                else
+                {
+                    _manaPoint = value;
+                }
+            }
+        }
+            
+
         private float _health;
         public float Health
         {
@@ -125,6 +152,7 @@ namespace _8LETTE_TextRPG
             }));
 
             Health = job.BaseHealth;
+            ManaPoint = job.BaseMP;
 
             Gold = 1500f;
         }

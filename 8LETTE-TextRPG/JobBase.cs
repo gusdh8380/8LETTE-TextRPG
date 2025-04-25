@@ -15,6 +15,7 @@ namespace _8LETTE_TextRPG
         public abstract float BaseAttack { get; }
         public abstract float BaseDefense { get; }
         public abstract float BaseHealth { get; }
+        public abstract float BaseMP { get; }
 
         public abstract int CriticalChance { get; }
         public abstract int EvasionRate { get; }

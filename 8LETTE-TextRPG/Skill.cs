@@ -22,6 +22,15 @@ namespace _8LETTE_TextRPG
         public abstract string Description { get; }
 
         /// <summary>
+        /// 스킬 사용 시 소모되는 MP
+        /// </summary>
+        public virtual float ManaCost => 10f;  // 기본값, 각 스킬별로 오버라이드 가능
+        /// <summary>
+        /// 현재 MP로 스킬 사용 가능 여부
+        /// </summary>
+        public virtual bool CanUse(Player player) => player.ManaPoint >= ManaCost;
+
+        /// <summary>
         /// 디렉터 승진 시 기본 스킬 강화 계수
         /// 1.0 = 기본 1.8 = 디렉터 
         /// Job.PromotionStage에 따라 JobBase가 설정
@@ -36,18 +45,27 @@ namespace _8LETTE_TextRPG
     //주니어 기본스킬 [야근]
     public class YaguenSkill : Skill
     {
-        private static Random _rand = new Random();
+        
 
         public override string Name => "야근";
         public override string Description => "랜덤 적 하나에게 공격력 2배의 피해를 입힙니다.";
 
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Damage;
+        public override float ManaCost => base.ManaCost;
 
 
         //스킬 실행 로직
         public override void Execute(Player player, Monster _)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             var monsters = MonsterSpawner.Instance.GetAllMonsters()
                            .Where(m => !m.IsDead)
                            .ToArray();
@@ -86,11 +104,20 @@ namespace _8LETTE_TextRPG
 
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Buff;
+        public override float ManaCost => base.ManaCost;
 
 
         //스킬 실행 로직
         public override void Execute(Player player, Monster target)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             var buff = new Buff(
                 name: "공격력 증가",
                 atkMultiplier: 1.2f * PromotionMultiplier,
@@ -116,9 +143,19 @@ namespace _8LETTE_TextRPG
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Damage;
 
+        public override float ManaCost => 15f;
+
         //몬스터 전체를 공격하는 스킬이기에, 몬스터 파라마터는 무시
         public override void Execute(Player player, Monster _)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             var monsters = MonsterSpawner.Instance.GetAllMonsters();
             float Atk = Player.Instance.TotalAttack;
             float rawDamage = ((float)Math.Ceiling(Atk * 0.3f)) * PromotionMultiplier;
@@ -149,10 +186,19 @@ namespace _8LETTE_TextRPG
         public override string Description => "방어력이 20% 증가합니다.";
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Buff;
+        public override float ManaCost => base.ManaCost;
 
-        //몬스터 전체를 공격하는 스킬이기에, 몬스터 파라마터는 무시
         public override void Execute(Player player, Monster _)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
+
             var buff = new Buff(
                name: "방어력 증가",
                atkMultiplier: 1,
@@ -176,10 +222,21 @@ namespace _8LETTE_TextRPG
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Damage;
 
+        public override float ManaCost => 15f;
+
 
         //스킬 실행 로직
         public override void Execute(Player player, Monster target)
         {
+
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
             float damage = Player.Instance.TotalDefense * PromotionMultiplier;
 
@@ -214,8 +271,18 @@ namespace _8LETTE_TextRPG
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Buff;
 
+        public override float ManaCost => base.ManaCost;
+
         public override void Execute(Player player, Monster _)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             var buff = new Buff(
                 name: "회피율 증가",
                atkMultiplier: 1,
@@ -237,6 +304,7 @@ namespace _8LETTE_TextRPG
 
         public override SkillType Type => SkillType.Passive;
         public override EffectType Effect => EffectType.Damage;
+        public override float ManaCost => 15f;
 
         public override void Execute(Player player, Monster monster)
         {
@@ -267,9 +335,18 @@ namespace _8LETTE_TextRPG
 
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Buff;
+        public override float ManaCost => base.ManaCost;
 
         public override void Execute(Player player, Monster _)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             var buff = new Buff(
                 name: "치명타 증가",
                atkMultiplier: 1,
@@ -292,9 +369,18 @@ namespace _8LETTE_TextRPG
 
         public override SkillType Type => SkillType.Active;
         public override EffectType Effect => EffectType.Damage;
+        public override float ManaCost => 15f;
 
         public override void Execute(Player player, Monster monster)
         {
+            if (!CanUse(player))
+            {
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
+                return;
+            }
+
+            player.ManaPoint -= ManaCost;
+
             //적의 수 가져오기
             var m = MonsterSpawner.Instance.GetAllMonsters()
                           .Where(m => !m.IsDead)

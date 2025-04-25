@@ -1,10 +1,10 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
 
 namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class TypeMissGoblin : Monster
     {
-        Random r = new Random();
         public TypeMissGoblin()
         {
             Type = MonsterType.Humanoid;
@@ -47,15 +47,14 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 
         private void OnDeath()
         {
-            Console.WriteLine($"{Name}을(를) 처지했습니다!");
-            if (r.Next(1, 101) <= 100)//30% 확률로 아래 아이템을 드랍
+            Random r = new Random();
+            Console.WriteLine($"{Name}을 처지했습니다!");
+            if (r.Next(1, 101) <= 10)
             {
-                Player.Instance.Inventory.AddItem(new Potion("체력 포션 (10)", "사용 시 HP를 10 회복합니다.", 40f, new Dictionary<ItemEffect, float>
-                 {
-                     { ItemEffect.Hp, 10f }
-                 }));
+                Player.Instance.Inventory.AddItem(new Potion(10f));
 
-                Console.WriteLine($"{Name}이(가) 체력 포션 (10)을 드랍했습니다.");
+                Console.WriteLine($"{Name}이 체력 포션 (10)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}이 체력 포션 (10)을 드랍했습니다.");
             }
         }
 

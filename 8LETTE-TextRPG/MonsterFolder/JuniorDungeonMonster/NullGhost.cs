@@ -1,7 +1,11 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿using _8LETTE_TextRPG.ItemFolder;
+
+namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class NullGhost : Monster
     {
+
+        Random r = new Random();
         public NullGhost()
         {
             Type = MonsterType.Ghost;
@@ -44,7 +48,18 @@
 
         private void OnDeath()
         {
+            
+            Console.WriteLine($"{Name}을(를) 처지했습니다!");
+            if (r.Next(1, 101) <= 100)//30% 확률로 아래 아이템을 드랍
+            {
+                Player.Instance.Inventory.AddItem(new Potion("테스트 물약 d(30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+                 {
+                     { ItemEffect.Hp, 30f }
+                 }));
 
+                Console.WriteLine($"{Name}이(가) 테스트 물약을 드랍했습니다.");
+
+            }
         }
 
         public override void OnDamaged(float dmg)

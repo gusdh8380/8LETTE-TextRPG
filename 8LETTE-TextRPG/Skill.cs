@@ -62,13 +62,15 @@ namespace _8LETTE_TextRPG
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = player.ApplyDefenseReduction(damage, chosen.Defense);
 
-            chosen.OnDamaged(finalDamege);
-
             Console.WriteLine($"{player.Name}이(가) '야근' 스킬을 사용했습니다!");
             Console.WriteLine($"{chosen.Name}에게 {finalDamege}의 피해를 입혔습니다!");
+
+            chosen.OnDamaged(finalDamege);
+
+            
             if (chosen.IsDead)
             {
-                Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
+                //Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
                 Player.Instance.GainExp(chosen.Level);
             }
         }
@@ -126,8 +128,9 @@ namespace _8LETTE_TextRPG
                 if (monster.IsDead) continue;
 
                 float fianlDamage = Player.Instance.ApplyDefenseReduction(rawDamage, monster.Defense);
-                monster.OnDamaged(fianlDamage);
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name}에게 {fianlDamage}의 데미지를 입혔습니다.");
+                monster.OnDamaged(fianlDamage);
+                
 
                 if (monster.IsDead)
                 {
@@ -183,14 +186,15 @@ namespace _8LETTE_TextRPG
 
             // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
             float finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
+            Console.WriteLine($"{player.Name}이(가) '방패치기' 스킬을 사용했습니다!");
+            Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");
 
             target.OnDamaged(finalDamege);
 
-            Console.WriteLine($"{player.Name}이(가) '방패치기' 스킬을 사용했습니다!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");
+            
             if (target.IsDead)
             {
-                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
+               // Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
                 Player.Instance.GainExp(target.Level);
                 //만일 몬스터 별로 경험치가 다르게 구현해서
                 //속성을 추가해서 파라미터로 받아오게 하면
@@ -238,14 +242,15 @@ namespace _8LETTE_TextRPG
         {
             float rawDamage = player.TotalAttack * 0.5f * PromotionMultiplier;
             float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
+            Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
 
             monster.OnDamaged(finalDamage);
-            Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬로 {monster.Name}에게 {finalDamage}의 카운터 어택를 입혔습니다!");
+        
 
 
             if (monster.IsDead)
             {
-                Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
+                //Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
                 player.GainExp(monster.Level);
 
             }
@@ -314,19 +319,23 @@ namespace _8LETTE_TextRPG
                 {
                     dmg = (float)Math.Ceiling(rawDamage * 1.6);
                     dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
-                    mon.OnDamaged(dmg);
+
                     Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+                    mon.OnDamaged(dmg);
+                    
                 }
                 else 
                 {
                     dmg = player.ApplyDefenseReduction(rawDamage, mon.Defense);
-                    mon.OnDamaged(dmg);
+
                     Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
+                    mon.OnDamaged(dmg);
+                   
                 }
                 
                 if (mon.IsDead)
                 {
-                    Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
+                   // Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
                     player.GainExp(mon.Level);
                 }
 

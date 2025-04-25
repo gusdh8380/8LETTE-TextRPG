@@ -137,7 +137,7 @@ namespace _8LETTE_TextRPG
                 }
                 else
                 {
-                    Stats.CurHealth = value;
+                    Stats.CurMP = value;
                 }
             }
         }

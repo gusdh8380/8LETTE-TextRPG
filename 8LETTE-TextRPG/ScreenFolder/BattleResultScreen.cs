@@ -21,6 +21,7 @@
             {
                 //전투 후 마나 회복 로직
                 Player.Instance.Mana += 10f;
+                Player.Instance.OnContextChanged();
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Victory");

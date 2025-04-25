@@ -95,6 +95,11 @@ namespace _8LETTE_TextRPG.ItemFolder
                         Player.Instance.Stats.BaseDefense += effectPair.Value;
                         break;
                     case ItemEffect.Hp:
+                        if (Player.Instance.IsDead)
+                        {
+                            Player.Instance.IsDead = false;
+                        }
+
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:

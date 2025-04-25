@@ -135,9 +135,7 @@ namespace _8LETTE_TextRPG
             if (leveledUp)
             {
                 Job.IncreaseStats(this);
-
             }
-
         }
 
         //전직 메소드, job 클래스를 입력 받음

@@ -52,7 +52,6 @@ namespace _8LETTE_TextRPG.ScreenFolder
                 if (_selectedItem is IUsable usableItem)
                 {
                     usableItem.Use();
-                    QuestManager.Instance?.SendProgress(QuestType.UseItem, "", 1);
                 }
             }
             else

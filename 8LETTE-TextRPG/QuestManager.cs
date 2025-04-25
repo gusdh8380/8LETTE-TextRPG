@@ -24,7 +24,8 @@ namespace _8LETTE_TextRPG
             Instance = this;
 
             _quests.Add(new Quest("죽여도 끝이 없는 언데드 몬스터",
-                "언데드 몬스터 5 마리, 슬라임 몬스터 3마리를 처치하세요.",
+                "끝없이 살아나는 언데드 버그 몬스터!\n" +
+                "언데드 몬스터 5 마리를 처치해 주세요!",
                 new List<QuestGoal>
                 {
                     new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5),
@@ -46,7 +47,7 @@ namespace _8LETTE_TextRPG
                 "인벤토리에서 코딩에 관한 장비를 장착해 보세요!",
                 new List<QuestGoal>
                 {
-                    new QuestGoal(QuestType.EquipItem, "", 1)
+                    new QuestGoal(QuestType.EquipItem, "장비 장착해보기", 1)
                 },
                 new EquipableItem("개사기 마우스", "테스트 퀘스트 2 클리어 보상", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
                 {
@@ -59,22 +60,14 @@ namespace _8LETTE_TextRPG
                 5000f)
             );
 
-            _quests.Add(new Quest("코딩은 체력싸움!",
+            _quests.Add(new Quest("코딩은 체력 싸움!",
                 "체력이 있어야 코딩도 수월하게 할 수 있습니다..\n" +
-                "인벤토리에서 체력포션 한개를 마시자!",
+                "인벤토리에서 포션 한 개를 마셔 보세요!",
                 new List<QuestGoal>
                 {
-                    new QuestGoal(QuestType.UseItem, "", 1)
+                    new QuestGoal(QuestType.UseItem, "포션 마시기", 1)
                 },
-                new EquipableItem("인공눈물", "퀘스트 보상으로 얻은 인공눈물. 넣으면 눈의 피로가 풀린다.", 0f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
-                {
-                    { ItemEffect.Atk, 0f },
-                    { ItemEffect.Def, 0f },
-                    { ItemEffect.Hp, 1f },
-                    { ItemEffect.Critical, 0f },
-                    { ItemEffect.Evasion, 0f }
-                }),
-                200f)
+                rewardGold: 200f)
                 );
 
             _quests.Add(new Quest("버전 업그레이드",
@@ -82,18 +75,10 @@ namespace _8LETTE_TextRPG
                "레벨 업을 하여 능력치를 올려보세요!",
                new List<QuestGoal>
                {
-                    new QuestGoal(QuestType.IncreaseStat,"PlayerLevel",1)
+                    new QuestGoal(QuestType.IncreaseStat,"레벨 업",1)
                },
-               new EquipableItem("개사기 마우스", "테스트 퀘스트 2 클리어 보상", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
-               {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
-               }),
-               500f
-           ));
+               rewardGold: 500f)
+            );
         }
 
         public void Accept(Quest quest)

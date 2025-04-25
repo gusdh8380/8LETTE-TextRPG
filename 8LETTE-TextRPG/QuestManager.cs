@@ -57,6 +57,24 @@ namespace _8LETTE_TextRPG
                 }),
                 5000f)
             );
+
+            _quests.Add(new Quest("코딩은 체력싸움!",
+                "체력이 있어야 코딩도 수월하게 할 수 있습니다..\n" +
+                "인벤토리에서 체력포션 한개를 마시자!",
+                new List<QuestGoal>
+                {
+                    new QuestGoal(QuestType.UseItem, "", 1)
+                },
+                new EquipableItem("인공눈물", "퀘스트 보상으로 얻은 인공눈물. 넣으면 눈의 피로가 풀린다.", 0f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
+                {
+                    { ItemEffect.Atk, 0f },
+                    { ItemEffect.Def, 0f },
+                    { ItemEffect.Hp, 1f },
+                    { ItemEffect.Critical, 0f },
+                    { ItemEffect.Evasion, 0f }
+                }),
+                200f)
+                );
         }
 
         public void Accept(Quest quest)

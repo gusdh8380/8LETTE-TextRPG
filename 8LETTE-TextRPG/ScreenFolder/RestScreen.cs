@@ -1,0 +1,63 @@
+﻿namespace _8LETTE_TextRPG.ScreenFolder
+{
+    internal class RestScreen : Screen
+    {
+        public static readonly RestScreen Instance = new RestScreen();
+
+        private Rest _rest;
+
+        public RestScreen()
+        {
+            _rest = new Rest(1000f);
+        }
+
+        public override void Show()
+        {
+            Console.Clear();
+
+            PrintTitle("휴식하기");
+
+            Console.WriteLine($"이곳에서 {_rest.Price}G를 지불하고 휴식할 수 있습니다.");
+            Console.WriteLine("휴식 시 HP, MP가 모두 회복되며, 전투불능 상태가 해제됩니다.\n");
+
+            Console.WriteLine("[내 정보]");
+            Console.WriteLine($"HP {Player.Instance.Health} / {Player.Instance.MaxHealth}");
+            Console.WriteLine($"MP {Player.Instance.Mana} / {Player.Instance.MaxMana}");
+            Console.WriteLine($"전투불능 {Player.Instance.IsDead}");
+            Console.WriteLine($"Gold {Player.Instance.Gold}G");
+
+            Console.WriteLine();
+
+            PrintNumAndString(1, "휴식하기");
+            PrintNumAndString(0, "나가기");
+
+            PrintUserInstruction();
+        }
+
+        public override Screen? Next()
+        {
+            string? input = Console.ReadLine();
+            switch (input)
+            {
+                case "0":
+                    return TownScreen.Instance;
+                case "1":
+                    if (_rest.TryRest())
+                    {
+                        Console.WriteLine("충분히 휴식했습니다!");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("골드가 부족합니다.");
+                        Console.ReadKey();
+                    }
+
+                    return TownScreen.Instance;
+                default:
+                    _isRetry = true;
+                    return this;
+            }
+        }
+    }
+}

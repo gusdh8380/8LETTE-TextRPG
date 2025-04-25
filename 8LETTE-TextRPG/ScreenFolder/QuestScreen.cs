@@ -8,9 +8,7 @@
 
         public QuestScreen()
         {
-            new QuestManager();
-
-            _quests = QuestManager.Instance.GetAllQuests().ToArray();
+            _quests = QuestManager.Instance.GetAllQuests();
         }
 
         private bool _isSelected = false;
@@ -81,6 +79,11 @@
             {
                 for (int i = 0; i < _quests.Length; i++)
                 {
+                    if (_quests[i].State == QuestState.Completed)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+
                     if (_quests[i].State == QuestState.Rewarded)
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -143,8 +146,6 @@
                 }
                 else if (int.TryParse(input, out int num))
                 {
-                    //Quest[] activeQuests = QuestManager.Instance.GetAllQuests().FindAll(x => x.State != QuestState.Rewarded).ToArray();
-                    //위 로직 사용 시 1번 완료하면, 2번 퀘스트에 접근할 수 없는 에러가 발생해서 일단 고침
                     if (num < 1 || num > _quests.Length)
                     {
                         _isRetry = true;

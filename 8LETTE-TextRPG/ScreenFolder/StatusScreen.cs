@@ -81,16 +81,16 @@
             {
                 if (evasionBonus > 0f)
                 {
-                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} (+{evasionBonus}) %");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} (+{evasionBonus})%");
                 }
                 else
                 {
-                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} ({evasionBonus}) %");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} ({evasionBonus})%");
                 }
             }
             else
             {
-                Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} %");
+                Console.WriteLine($"회  피 : {Player.Instance.EvasionRate}%");
             }
 
             Console.WriteLine();

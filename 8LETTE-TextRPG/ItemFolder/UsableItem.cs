@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,23 +7,27 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG.ItemFolder
 {
-    class Potion : Item, IUsable
+    class UsableItem : Item, IUsable
     {
-        public Potion(string name, string desc, float price, Dictionary<ItemEffect, float> effectDict)
+        public UseType UseType { get; set; }
+
+        public UsableItem(string id, string name, string desc, float price, UseType useType, Dictionary<ItemEffect, float> effects)
         {
+            Id = id;
             Name = name;
             Description = desc;
 
             Price = price;
             ItemType = ItemType.Usable;
 
-            EffectDict = effectDict;
+            UseType = useType;
+            Effects = effects;
         }
 
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in Effects)
             {
                 if (effectPair.Value != 0f)
                 {
@@ -73,24 +78,24 @@ namespace _8LETTE_TextRPG.ItemFolder
 
         public void Use()
         {
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in Effects)
             {
                 switch (effectPair.Key)
                 {
                     case ItemEffect.Atk:
-                        Player.Instance.BaseAttack += effectPair.Value;
+                        Player.Instance.Stats.BaseAttack += effectPair.Value;
                         break;
                     case ItemEffect.Def:
-                        Player.Instance.BaseDefense += effectPair.Value;
+                        Player.Instance.Stats.BaseDefense += effectPair.Value;
                         break;
                     case ItemEffect.Hp:
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:
-                        Player.Instance.BaseCriticalChance += effectPair.Value;
+                        Player.Instance.Stats.BaseCriticalChance += effectPair.Value;
                         break;
                     case ItemEffect.Evasion:
-                        Player.Instance.BaseEvasionRate += effectPair.Value;
+                        Player.Instance.Stats.BaseEvasionRate += effectPair.Value;
                         break;
                     default:
                         break;
@@ -98,6 +103,8 @@ namespace _8LETTE_TextRPG.ItemFolder
             }
 
             Player.Instance.Inventory.RemoveItem(this);
+
+            Player.Instance.OnContextChanged();
         }
     }
 }

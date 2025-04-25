@@ -55,11 +55,11 @@
 
         public override Screen? Next()
         {
-            if (Player.Instance.IsDead)
-            {
-                GameOver();
-                return null;
-            }
+            //if (Player.Instance.IsDead)
+            //{
+            //    GameOver();
+            //    return null;
+            //}
 
             Console.ReadKey();
             return TownScreen.Instance;

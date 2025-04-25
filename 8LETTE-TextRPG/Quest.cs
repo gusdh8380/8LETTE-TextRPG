@@ -1,4 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG
 {
+    [Serializable]
     class Quest
     {
         public string Id { get; private set; }
@@ -21,11 +23,12 @@ namespace _8LETTE_TextRPG
 
         public QuestState State { get; set; }
 
-        public Quest(string title, string desc, List<QuestGoal> goals, Item? rewardItem = null, float rewardGold = 0f)
+        [JsonConstructor]
+        public Quest(string id, string title, string description, List<QuestGoal> goals, Item? rewardItem = null, float rewardGold = 0f)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = id;
             Title = title;
-            Description = desc;
+            Description = description;
 
             Goals = goals;
 

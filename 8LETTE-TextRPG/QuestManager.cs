@@ -1,11 +1,7 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG
 {
@@ -16,59 +12,54 @@ namespace _8LETTE_TextRPG
         [NotNull]
         public static QuestManager Instance
         {
-            get => _instance;
-            private set => _instance = value ?? throw new ArgumentNullException("QuestManager Instance is required.");
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new QuestManager();
+                }
+
+                return _instance;
+            }
+            private set
+            {
+                _instance = value;
+            }
         }
 
-        private List<Quest> _quests = new List<Quest>();
+        private QuestContext _context;
 
-        public List<Quest> GetAllQuests() => _quests;
+        public Quest[] GetAllQuests() => _context.Quests.ToArray();
 
         public QuestManager()
         {
-            Instance = this;
-
-            _quests.Add(new Quest("테스트 퀘스트 1", "무한루프 몬스터 1마리 처치.",
-                new List<QuestGoal>
-                {
-                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 1)
-                },
-                new Potion("퀘스트 클리어 아이템 1", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
-                {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
-            );
-
-            _quests.Add(new Quest("테스트 퀘스트 2", "아무 장비 장착.",
-                new List<QuestGoal>
-                {
-                    new QuestGoal(QuestType.EquipItem, "", 1)
-                },
-                new EquipableItem("퀘스트 클리어 아이템 2", "테스트 퀘스트 2 클리어 보상 (장비타입: 마우스)", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
-                {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
-            );
+            QuestContext? context = QuestContext.Load();
+            if (context == null)
+            {
+                _context = new QuestContext();
+                _context.Initialize();
+            }
+            else
+            {
+                _context = context;
+            }
         }
 
         public void Accept(Quest quest)
         {
             quest.State = QuestState.InProgress;
+            _context.Save();
         }
 
-        public void SendProgress(QuestType type, string target, int amount = 1)
+        /// <summary>
+        /// 퀘스트 진행 업데이트
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="target"></param>
+        /// <param name="amount"></param>
+        public void SendProgress(QuestType type, string? target = null, int amount = 1)
         {
-            foreach (Quest quest in _quests)
+            foreach (Quest quest in _context.Quests)
             {
                 foreach (QuestGoal goal in quest.Goals)
                 {
@@ -77,9 +68,12 @@ namespace _8LETTE_TextRPG
                         continue;
                     }
 
-                    if (goal.Type == type && goal.Target == target)
+                    if (goal.Type == type)
                     {
-                        goal.CurrentAmount += amount;
+                        if (string.IsNullOrEmpty(goal.Target) || goal.Target == target)
+                        {
+                            goal.CurrentAmount += amount;
+                        }
                     }
                 }
 
@@ -88,6 +82,8 @@ namespace _8LETTE_TextRPG
                     quest.State = QuestState.Completed;
                 }
             }
+
+            _context.Save();
         }
 
         public void ClaimReward(Quest quest)
@@ -108,6 +104,7 @@ namespace _8LETTE_TextRPG
             }
 
             quest.State = QuestState.Rewarded;
+            _context.Save();
         }
     }
 }

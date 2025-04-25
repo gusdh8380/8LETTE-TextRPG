@@ -1,6 +1,7 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
 using System.Diagnostics.CodeAnalysis;
+using TextRPG;
 
 namespace _8LETTE_TextRPG
 {
@@ -26,41 +27,42 @@ namespace _8LETTE_TextRPG
         [NotNull]
         public static Player Instance
         {
-            get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
-            private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+            get => _instance ?? throw new NullReferenceException();
+            private set => _instance = value;
         }
 
+        private PlayerContext _context;
 
-        public string Name { get; }
-        public Job Job { get; }
-        public Level Level { get; set; }
+        public string Name => _context.Name ?? throw new NullReferenceException();
+        public Job Job => _context.Job ?? throw new NullReferenceException();
+        public Level Level => _context.Level ?? throw new NullReferenceException();
+        public PlayerStats Stats => _context.Stats ?? throw new NullReferenceException();
+
         public float Attack
         {
             get
             {
-                if (BaseAttack + Inventory.EquippedAttackBonus() < 0f)
+                if (Stats.BaseAttack + Inventory.EquippedAttackBonus() < 0f)
                 {
                     return 0f;
                 }
                 else
                 {
-                    return BaseAttack + Inventory.EquippedAttackBonus();
+                    return Stats.BaseAttack + Inventory.EquippedAttackBonus();
                 }
             }
         }
-        public float BaseAttack { get; set; }
-        public float BaseDefense { get; set; }
         public float Defense
         {
             get
             {
-                if (BaseDefense + Inventory.EquippedDefenseBonus() < 0f)
+                if (Stats.BaseDefense + Inventory.EquippedDefenseBonus() < 0f)
                 {
                     return 0f;
                 }
                 else
                 {
-                    return BaseDefense + Inventory.EquippedDefenseBonus();
+                    return Stats.BaseDefense + Inventory.EquippedDefenseBonus();
                 }
             }
         }
@@ -68,147 +70,147 @@ namespace _8LETTE_TextRPG
         {
             get
             {
-                if (BaseMaxHealth + Inventory.EquippedHpBonus() < 1f)
+                if (Stats.BaseHealth + Inventory.EquippedHpBonus() < 1f)
                 {
                     return 1f;
                 }
                 else
                 {
-                    return BaseMaxHealth + Inventory.EquippedHpBonus();
+                    return Stats.BaseHealth + Inventory.EquippedHpBonus();
                 }
             }
         }
-        public float BaseMaxHealth { get; set; }
-        private float _health;
         public float Health
         {
             get
             {
-                return _health;
+                return Stats.CurHealth;
             }
             set
             {
                 if (value > MaxHealth)
                 {
-                    _health = MaxHealth;
+                    Stats.CurHealth = MaxHealth;
                 }
                 else if (value <= 0)
                 {
-                    _health = 0f;
+                    Stats.CurHealth = 0f;
                     Death();
                 }
                 else
                 {
-                    _health = value;
+                    Stats.CurHealth = value;
                 }
             }
         }
 
-        public float Gold { get; set; }
-        public bool IsDead { get; private set; }
+        public float Gold
+        {
+            get => _context.Gold ?? throw new NullReferenceException();
+            set => _context.Gold = value;
+        }
+        public bool IsDead => _context.IsDead ?? throw new NullReferenceException();
 
-        public float BaseCriticalChance { get; set; }
         public float CriticalChance
         {
             get
             {
-                if (BaseCriticalChance + Inventory.EquippedCriticalBonus() < 0f)
+                if (Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus() < 0f)
                 {
                     return 0f;
                 }
-                else if (BaseCriticalChance + Inventory.EquippedCriticalBonus() > 100f)
+                else if (Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus() > 100f)
                 {
                     return 100f;
                 }
                 else
                 {
-                    return BaseCriticalChance + Inventory.EquippedCriticalBonus();
+                    return Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus();
                 }
             }
         }
-        public float BaseEvasionRate { get; set; }
         public float EvasionRate
         {
             get
             {
-                if (BaseEvasionRate + Inventory.EquippedEvasionBonus() < 0f)
+                if (Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus() < 0f)
                 {
                     return 0f;
                 }
-                else if (BaseEvasionRate + Inventory.EquippedEvasionBonus() > 100f)
+                else if (Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus() > 100f)
                 {
                     return 100f;
                 }
                 else
                 {
-                    return BaseEvasionRate + Inventory.EquippedEvasionBonus();
+                    return Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus();
                 }
             }
         }
 
         //인벤토리
-        public Inventory Inventory { get; private set; }
+        public Inventory Inventory => _context.Inventory ?? throw new ArgumentNullException("Inventory is not defined.");
 
-        public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
+        public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new ArgumentNullException("EquippedItems is not defined.");
 
         //레벨
 
-        public Player(string name, Job job)
+        public Player()
         {
             Instance = this;
-            Name = name;
-            Job = job;
-            Level = new Level();
 
-            Inventory = new Inventory();
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            PlayerContext? context = PlayerContext.Load();
+            if (context == null)
             {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new Item("테스트 아이템", "체력이 50 깎입니다. 공격력이 100 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, 100f },
-                { ItemEffect.Hp, -50f }
-            }));
-            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, -5000f },
-                { ItemEffect.Def, -5000f },
-                { ItemEffect.Hp, -5000f },
-                { ItemEffect.Critical, -5000f },
-                { ItemEffect.Evasion, -5000f },
-            }));
+                //이름 입력
+                Console.WriteLine("이름을 입력해주세요.");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\n>> ");
+                Console.ResetColor();
+                string? userName = Console.ReadLine();
+                userName = string.IsNullOrEmpty(userName) ? "8LETTE" : userName;
 
-            EquippedItems = new Dictionary<EquipmentType, string?>
+                //직업 선택
+                List<Job> jobs = Job.GetJobs();
+                Job selectedJob;
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine("직업을 선택해주세요.");
+
+                    for (int i = 0; i < jobs.Count; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {jobs[i].Name}");
+                    }
+
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("\n>> ");
+                    Console.ResetColor();
+
+                    if (int.TryParse(Console.ReadLine(), out int num))
+                    {
+                        if (num < 1 || num > jobs.Count)
+                        {
+                            continue;
+                        }
+
+                        selectedJob = jobs[num - 1];
+                        break;
+                    }
+                }
+
+                _context = new PlayerContext();
+                _context.Initialize(userName, selectedJob);
+            }
+            else
             {
-                { EquipmentType.Mouse, null },
-                { EquipmentType.Keyboard, null },
-                { EquipmentType.Monitor, null },
-                { EquipmentType.Chair, null },
-                { EquipmentType.Desk, null },
-                { EquipmentType.Glasses, null }
-            };
+                _context = context;
+            }
+        }
 
-            BaseAttack = job.BaseAttack;
-            BaseDefense = job.BaseDefense;
-            BaseMaxHealth = job.BaseHealth;
-            Health = MaxHealth;
-            Gold = 1500f;
-
-            //치명타, 회피율 생성자 추가, 임시로 15%, 10% 고정
-            /*
-             * 향후 논의 : 레벨업, 아이템에 따른 치명타 및 회피율 수치 변동
-             */
-            BaseCriticalChance = job.CriticalChance;
-            BaseEvasionRate = job.EvationRate;
+        public void OnContextChanged()
+        {
+            _context.Save();
         }
 
         public void GainExp(int exp)
@@ -219,6 +221,7 @@ namespace _8LETTE_TextRPG
                 IncreaseStats();//기본 능력치 상승
             }
 
+            OnContextChanged();
         }
 
         /// <summary>
@@ -292,8 +295,12 @@ namespace _8LETTE_TextRPG
         //플레이어 레벨업 시 능력치 수치 추가 메소드
         public void IncreaseStats()
         {
-            BaseAttack += 0.5f;
-            BaseDefense += 1f;
+            Stats.BaseAttack += 0.5f;
+            Stats.BaseDefense += 1f;
+
+            QuestManager.Instance.SendProgress(QuestType.IncreaseStat);
+
+            OnContextChanged();
         }
 
         public void OnDamaged(float dmg)
@@ -304,11 +311,15 @@ namespace _8LETTE_TextRPG
             }
 
             Health -= dmg;
+
+            OnContextChanged();
         }
 
         public void Death()
         {
-            IsDead = true;
+            _context.IsDead = true;
+
+            OnContextChanged();
         }
     }
 }

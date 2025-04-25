@@ -25,6 +25,7 @@ namespace _8LETTE_TextRPG
                 CurrentLevel++;
                 NextLevelExp += 25 + 5 * (CurrentExp - 1);
                 IsLevelUp = true;
+                QuestManager.Instance?.SendProgress(QuestType.IncreaseStat, "PlayerLevel", 1);
             }
 
             return IsLevelUp;

@@ -34,7 +34,7 @@ namespace _8LETTE_TextRPG
                 case ItemType.Equipment:
                     EquipmentType equipmentType = jo["EquipmentType"]?.ToObject<EquipmentType>() ?? throw new NullReferenceException();
                     item = new EquipableItem(id, name, desc, price, equipmentType, effects);
-                    if (item is EquipableItem equipableItem)
+                    if (item is IEquipable equipableItem)
                     {
                         equipableItem.IsEquipped = jo["IsEquipped"]?.Value<bool>() ?? throw new NullReferenceException();
                     }

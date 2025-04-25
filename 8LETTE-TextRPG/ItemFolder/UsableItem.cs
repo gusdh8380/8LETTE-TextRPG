@@ -24,6 +24,20 @@ namespace _8LETTE_TextRPG.ItemFolder
             Effects = effects;
         }
 
+        public Potion(float hpBonus)
+        {
+            Name = $"체력 포션 ({hpBonus})";
+            Description = $"사용 시 HP를 {hpBonus} 회복합니다.";
+
+            Price = hpBonus * 3 + 10;
+            ItemType = ItemType.Usable;
+
+            EffectDict = new Dictionary<ItemEffect, float>
+                 {
+                     { ItemEffect.Hp, hpBonus }
+                 };
+        }
+
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
@@ -102,6 +116,7 @@ namespace _8LETTE_TextRPG.ItemFolder
                 }
             }
 
+            QuestManager.Instance?.SendProgress(QuestType.UseItem, "포션 마시기", 1);
             Player.Instance.Inventory.RemoveItem(this);
 
             Player.Instance.OnContextChanged();

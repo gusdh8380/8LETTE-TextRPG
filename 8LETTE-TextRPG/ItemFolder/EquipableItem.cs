@@ -87,6 +87,8 @@ namespace _8LETTE_TextRPG.ItemFolder
             {
                 Player.Instance.Health = Player.Instance.MaxHealth;
             }
+
+            QuestManager.Instance?.SendProgress(QuestType.EquipItem, "장비 장착해보기", 1);
         }
 
         public void Unequip()

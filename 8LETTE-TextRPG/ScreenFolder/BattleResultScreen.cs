@@ -4,6 +4,8 @@
     {
         public static readonly BattleResultScreen Instance = new BattleResultScreen();
 
+        public Action? PrintDropItem;
+
         //전투의 결과를 출력
         public void BattleResult()
         {
@@ -17,6 +19,9 @@
             }
             else
             {
+                //전투 후 마나 회복 로직
+                Player.Instance.ManaPoint += 10f;
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Victory");
                 Console.ResetColor();
@@ -39,6 +44,9 @@
 
                 Console.WriteLine("[클리어 보상]");
                 Console.WriteLine($"골  드 : {MonsterSpawner.Instance.PreviousGold} -> {Player.Instance.Gold}");
+                PrintDropItem?.Invoke();
+
+                PrintDropItem = null;
             }
         }
 

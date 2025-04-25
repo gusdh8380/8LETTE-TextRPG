@@ -1,7 +1,11 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
+
+namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class MemoryMelter : Monster
     {
+           Random r = new Random();
         public MemoryMelter()
         {
             Type = MonsterType.Slime;
@@ -44,7 +48,15 @@
 
         private void OnDeath()
         {
+            Random r = new Random();
+            Console.WriteLine($"{Name}를 처지했습니다!");
+            if (r.Next(1, 101) <= 15)
+            {
+                Player.Instance.Inventory.AddItem(new Potion(15f));
 
+                Console.WriteLine($"{Name}가 체력 포션 (15)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (15)을 드랍했습니다.");
+            }
         }
 
         public override void OnDamaged(float dmg)

@@ -34,7 +34,7 @@ namespace _8LETTE_TextRPG
         private PlayerContext _context;
 
         public string Name => _context.Name ?? throw new NullReferenceException();
-        public Job Job => _context.Job ?? throw new NullReferenceException();
+        public JobBase Job => _context.Job ?? throw new NullReferenceException();
         public Level Level => _context.Level ?? throw new NullReferenceException();
         public PlayerStats Stats => _context.Stats ?? throw new NullReferenceException();
 
@@ -153,7 +153,9 @@ namespace _8LETTE_TextRPG
 
         public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new ArgumentNullException("EquippedItems is not defined.");
 
-        //레벨
+        //스킬
+        private List<Buff> _buffs = new List<Buff>();
+        public IEnumerable<Skill> PassiveReflectSkill => Job.Skills.Where(s => s.Type == SkillType.Passive);
 
         public Player()
         {
@@ -170,37 +172,8 @@ namespace _8LETTE_TextRPG
                 string? userName = Console.ReadLine();
                 userName = string.IsNullOrEmpty(userName) ? "8LETTE" : userName;
 
-                //직업 선택
-                List<Job> jobs = Job.GetJobs();
-                Job selectedJob;
-                while (true)
-                {
-                    Console.Clear();
-                    Console.WriteLine("직업을 선택해주세요.");
-
-                    for (int i = 0; i < jobs.Count; i++)
-                    {
-                        Console.WriteLine($"{i + 1}. {jobs[i].Name}");
-                    }
-
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.Write("\n>> ");
-                    Console.ResetColor();
-
-                    if (int.TryParse(Console.ReadLine(), out int num))
-                    {
-                        if (num < 1 || num > jobs.Count)
-                        {
-                            continue;
-                        }
-
-                        selectedJob = jobs[num - 1];
-                        break;
-                    }
-                }
-
                 _context = new PlayerContext();
-                _context.Initialize(userName, selectedJob);
+                _context.Initialize(userName, new Junior());
             }
             else
             {
@@ -216,12 +189,120 @@ namespace _8LETTE_TextRPG
         public void GainExp(int exp)
         {
             bool leveledUp = Level.AddExp(exp);
-            if (leveledUp)
+            if(leveledUp)
             {
-                IncreaseStats();//기본 능력치 상승
+                IncreaseStats();
             }
 
             OnContextChanged();
+        }
+
+        //전직 메소드, job 클래스를 입력 받음
+        public void Promote(JobBase job)
+        {
+            Job = job;
+
+            if (Health > Job.BaseHealth)
+                Health = Job.BaseHealth;
+
+            //디렉터에서 스킬 계수 강화
+            const int UptpDirector = 3;
+            float enforce = (Job.PromotionStage == UptpDirector) ? 1.5f : 1f;
+            foreach(var skill in job.Skills)
+                skill.PromotionMultiplier = enforce;
+        }
+        //버프 가져오기
+        public void AddBuff(Buff buff)
+        {
+            _buffs.Add(buff);
+        }
+
+        //버프로 인한 공격력증가 반환
+        public float GetBuffAttack()
+        {
+            float atk = Attack;
+
+            foreach (var buff in _buffs)
+            {
+                atk *= buff.AttackMultiplier;
+            }
+
+            return atk;
+        }
+        //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
+        public float GetBuffedDefense()
+        {
+            float def = Defense;
+            foreach (var buff in _buffs)
+            {
+                def *= buff.DefenseMultiplier;
+            }
+            return def;
+        }
+
+        //Todo : 치명타, 회피 버브 적용 코드
+        public float GetBuffEvasion() 
+        {
+            float evs = EvasionRate;
+            foreach (var buff in _buffs)
+            {
+                evs += buff.EvasionMultiplier;
+            }
+            if (evs >= 100)
+            {
+                evs = 100;
+                Console.WriteLine("이미 회피율이 100% 입니다");
+            }
+
+            return MathF.Min(evs, 100); 
+        }
+        public float GetBuffCritical() 
+        {  
+            float critical = CriticalChance;
+            foreach (var buff in _buffs)
+            {
+                critical += buff.CriticalMultiplier;  
+            }
+            if(critical >= 100)
+            {
+                critical = 100;
+                Console.WriteLine("이미 치명타가 100% 입니다");
+            }
+
+            return MathF.Min(critical, 100);
+        }
+
+        //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
+        public void EndTurn()
+        {
+            for (int i = _buffs.Count - 1; i >= 0; i--)
+            {
+                var buff = _buffs[i];
+                if (buff.Duration == DurationType.OneTurn)
+                {
+                    buff.TurnsRemaining--;
+                    if (buff.TurnsRemaining <= 0)
+                    {
+                        //버프 종료
+                        _buffs.RemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        //전투가 끝나는 타이밍에 버프 제거 메소드
+        public void ClearBattleBuffs()
+        {
+            _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
+        }
+            
+        //방어력에 따른 데미지 감면 로직 구현
+        public float ApplyDefenseReduction(float Damage, float Defense)
+        {
+            float k = 50f / (50f + Defense);
+            float mitigate = Damage * k;
+            mitigate = (float)Math.Ceiling(mitigate);
+            return Math.Max(1, mitigate);
         }
 
         /// <summary>
@@ -231,40 +312,46 @@ namespace _8LETTE_TextRPG
         public void AttackTo(Monster target)
         {
             Random r = new Random();
+
             float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
-            //몬스터에게 피해를 입힐 데미지 계산
-            //Todo : 몬스터 방어력에 따른 데미지 감소 로직도 염두
-            //현재는 방어력 무시
+            //공격력 버프 적용, 버프가 없으면 기본 공격력 적용
+            float atk = GetBuffAttack();
 
-
-            float damage = Attack + r.Next(-(int)varirance, (int)varirance);
+            float damage = atk + r.Next(-(int)varirance, (int)varirance);
+          
             damage = Math.Max(1, damage);//최소 데미지 보장
 
             //크리티컬 계산
             bool isCritical = TryCritical();
             if (isCritical)
             {
+                //방어력에 따른 데미지 감소
+                
                 damage = (float)Math.Ceiling(damage * 1.6);
+                damage = ApplyDefenseReduction(damage, target.Defense);
+                Console.WriteLine($"{Name}의 공격!");
+                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
 
                 //데미지 계산 처리는 몬스터 클래스에서
                 target.OnDamaged(damage);
 
-                Console.WriteLine($"{Name}의 공격!");
-                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
+               
             }
             else
             {
                 //데미지 계산 처리는 몬스터 클래스에서
-                target.OnDamaged(damage);
-
                 Console.WriteLine($"{Name}의 공격!");
                 Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
+                damage = ApplyDefenseReduction(damage, target.Defense);
+                target.OnDamaged(damage);
+
+               
             }
 
             if (target.IsDead)
-            {
-                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
+            {   
+                //Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
                 GainExp(target.Level);
                 //만일 몬스터 별로 경험치가 다르게 구현해서
                 //속성을 추가해서 파라미터로 받아오게 하면
@@ -279,7 +366,7 @@ namespace _8LETTE_TextRPG
         public bool TryEvade()
         {
             Random r = new Random();
-            return r.NextDouble() <= EvasionRate * 0.01f;
+            return r.Next(1, 101) <= GetBuffEvasion();
         }
 
         /// <summary>
@@ -289,7 +376,7 @@ namespace _8LETTE_TextRPG
         public bool TryCritical()
         {
             Random r = new Random();
-            return r.NextDouble() <= CriticalChance * 0.01f;
+            return r.Next(1, 101) <= GetBuffCritical();
         }
 
         //플레이어 레벨업 시 능력치 수치 추가 메소드

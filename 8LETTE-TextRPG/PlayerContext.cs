@@ -28,7 +28,7 @@ namespace TextRPG
         public Inventory? Inventory;
         public Dictionary<EquipmentType, string?>? EquippedItems;
 
-        public PlayerContext()
+        public void Initialize(string name, Job job)
         {
             serializerSettings.Converters.Add(new StringEnumConverter());
         }
@@ -79,7 +79,7 @@ namespace TextRPG
             Stats.CurHealth = Stats.BaseHealth;
 
             Stats.BaseCriticalChance = Job.CriticalChance;
-            Stats.BaseEvasionRate = Job.EvationRate;
+            Stats.BaseEvasionRate = Job.EvasionRate;
 
             Gold = 1500f;
         }

@@ -1,6 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace _8LETTE_TextRPG

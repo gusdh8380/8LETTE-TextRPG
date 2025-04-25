@@ -1,7 +1,11 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
+﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
+
+namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
     class OverturningGolem : Monster
     {
+        Random r = new Random();
         public OverturningGolem()
         {
             Type = MonsterType.Humanoid;
@@ -44,7 +48,15 @@
 
         private void OnDeath()
         {
+            Random r = new Random();
+            Console.WriteLine($"{Name}을 처지했습니다!");
+            if (r.Next(1, 101) <= 15)
+            {
+                Player.Instance.Inventory.AddItem(new Potion(20f));
 
+                Console.WriteLine($"{Name}이 체력 포션 (20)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}이 체력 포션 (20)을 드랍했습니다.");
+            }
         }
 
         public override void OnDamaged(float dmg)

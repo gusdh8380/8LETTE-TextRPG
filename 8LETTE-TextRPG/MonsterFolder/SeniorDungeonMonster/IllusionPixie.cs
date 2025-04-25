@@ -1,7 +1,11 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
+﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
+
+namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class IllusionPixie : Monster
     {
+           Random r = new Random();
         public IllusionPixie()
         {
             Type = MonsterType.Fairy;
@@ -44,7 +48,15 @@
 
         private void OnDeath()
         {
+            Random r = new Random();
+            Console.WriteLine($"{Name}를 처지했습니다!");
+            if (r.Next(1, 101) <= 20)
+            {
+                Player.Instance.Inventory.AddItem(new Potion(20f));
 
+                Console.WriteLine($"{Name}가 체력 포션 (20)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (20)을 드랍했습니다.");
+            }
         }
 
         public override void OnDamaged(float dmg)

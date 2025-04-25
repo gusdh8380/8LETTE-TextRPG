@@ -24,10 +24,11 @@ namespace _8LETTE_TextRPG
             Instance = this;
 
             _quests.Add(new Quest("죽여도 끝이 없는 언데드 몬스터",
-                "언데드 몬스터 5 마리를 처치하세요.",
+                "언데드 몬스터 5 마리, 슬라임 몬스터 3마리를 처치하세요.",
                 new List<QuestGoal>
                 {
-                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5)
+                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5),
+                    new QuestGoal(QuestType.KillMonster, MonsterType.Slime.ToString(), 3)
                 },
                 new Potion("개초딩 포션", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
                 {

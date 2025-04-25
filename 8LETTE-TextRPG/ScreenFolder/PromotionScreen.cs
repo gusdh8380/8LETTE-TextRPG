@@ -39,7 +39,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             Console.WriteLine("던전의 클리어 수에 따라 승진할 수 있습니다.");
             Console.WriteLine();
 
-            if (Player.Instance.Job.PromotionType == PromotionType.Senior)
+            if (Player.Instance.Job.PromotionType == PromotionType.Director)
             {
                 Console.WriteLine("당신은 최고의 개발자가 되었습니다!!");
 
@@ -49,7 +49,8 @@ namespace _8LETTE_TextRPG.ScreenFolder
 
             if (!_hasRequest)
             {
-                _remainClear = (int)MathF.Max(5 * ((int)Player.Instance.Job.PromotionType + 1) - MonsterSpawner.Instance.ClearCount, 0);
+                _remainClear = 0; //디버깅용
+                //_remainClear = (int)MathF.Max(5 * ((int)Player.Instance.Job.PromotionType + 1) - MonsterSpawner.Instance.ClearCount, 0);
 
                 Console.WriteLine($"현재 던전 클리어 수는 {MonsterSpawner.Instance.ClearCount}회 입니다.");
                 Console.WriteLine($"다음 승진까지 남은 클리어 횟수는 {_remainClear}회 입니다.");

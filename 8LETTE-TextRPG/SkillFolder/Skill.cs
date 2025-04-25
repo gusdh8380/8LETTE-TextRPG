@@ -20,19 +20,25 @@ namespace _8LETTE_TextRPG.SkillFolder
         /// 스킬 사용 시 소모되는 MP
         /// </summary>
         public virtual float ManaCost => 10f;  // 기본값, 각 스킬별로 오버라이드 가능
+
+        /// <summary>
+        /// 디렉터 승진 시 기본 스킬 강화 계수
+        /// 1.0 = 기본, 1.8 = 디렉터 
+        /// Job.PromotionStage에 따라 JobBase가 설정
+        /// </summary>
+        public float PromotionMultiplier { get; set; }
+
         /// <summary>
         /// 현재 MP로 스킬 사용 가능 여부
         /// </summary>
         public virtual bool CanUse(Player player) => player.Mana >= ManaCost;
 
-        /// <summary>
-        /// 디렉터 승진 시 기본 스킬 강화 계수
-        /// 1.0 = 기본 1.8 = 디렉터 
-        /// Job.PromotionStage에 따라 JobBase가 설정
-        /// </summary>
-        public float PromotionMultiplier { get; set; } = 1f;
-
         public abstract bool Execute(Player player, Monster target);
+
+        public Skill()
+        {
+            PromotionMultiplier = 1f;
+        }
     }
 }
 

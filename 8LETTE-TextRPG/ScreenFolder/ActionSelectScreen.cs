@@ -34,6 +34,11 @@
 
         public override Screen? Next()
         {
+            if (MonsterSpawner.Instance.IsAllDead())
+            {
+                return BattleResultScreen.Instance;
+            }
+
             string? input = Console.ReadLine();
             switch (input)
             {

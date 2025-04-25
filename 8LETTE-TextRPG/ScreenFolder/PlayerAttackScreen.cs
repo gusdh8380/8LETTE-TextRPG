@@ -51,7 +51,10 @@ namespace _8LETTE_TextRPG.ScreenFolder
             {
                 isAttacked = false;
                 //만약 몬스터가 모두 죽었다면, 전투 결과 화면으로 이동
-                if (MonsterSpawner.Instance.IsAllDead()) return BattleResultScreen.Instance;
+                if (MonsterSpawner.Instance.IsAllDead())
+                {
+                    return BattleResultScreen.Instance;
+                }
 
                 //아니면, 몬스터 공격 화면으로 이동
                 return MonsterAttackScreen.Instance;

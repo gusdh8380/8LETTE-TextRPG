@@ -31,8 +31,8 @@ namespace _8LETTE_TextRPG.JobFolder
         {
             int lv = Player.Instance.Level.CurrentLevel;
 
-            Player.Instance.Stats.BaseAttack = BaseAttack + lv * 0.5f;
-            Player.Instance.Stats.BaseDefense = BaseDefense + lv * 0.5f;
+            Player.Instance.Stats.LevelBonusAtk += lv * 0.5f;
+            Player.Instance.Stats.LevelBonusDfs += lv * 0.5f;
 
             base.IncreaseStats();
         }

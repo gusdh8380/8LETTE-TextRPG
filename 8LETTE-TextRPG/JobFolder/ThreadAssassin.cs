@@ -81,8 +81,8 @@ namespace _8LETTE_TextRPG.JobFolder
                     break;
             }
 
-            Player.Instance.Stats.BaseAttack = BaseAttack + lv * atkMultiplier;
-            Player.Instance.Stats.BaseDefense = BaseDefense + lv * defMultiplier;
+            Player.Instance.Stats.LevelBonusAtk += lv * atkMultiplier;
+            Player.Instance.Stats.LevelBonusDfs += lv * defMultiplier;
 
             base.IncreaseStats();
         }

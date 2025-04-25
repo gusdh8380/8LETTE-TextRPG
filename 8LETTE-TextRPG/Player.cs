@@ -44,13 +44,13 @@ namespace _8LETTE_TextRPG
         {
             get
             {
-                if (Stats.BaseAttack + Inventory.EquippedAttackBonus() < 0f)
+                if (Stats.BaseAttack + Stats.LevelBonusAtk + Inventory.EquippedAttackBonus() < 0f)
                 {
                     return 0f;
                 }
                 else
                 {
-                    return Stats.BaseAttack + Inventory.EquippedAttackBonus();
+                    return Stats.BaseAttack + Stats.LevelBonusAtk + Inventory.EquippedAttackBonus();
                 }
             }
         }
@@ -58,13 +58,13 @@ namespace _8LETTE_TextRPG
         {
             get
             {
-                if (Stats.BaseDefense + Inventory.EquippedDefenseBonus() < 0f)
+                if (Stats.BaseDefense + Stats.LevelBonusDfs + Inventory.EquippedDefenseBonus() < 0f)
                 {
                     return 0f;
                 }
                 else
                 {
-                    return Stats.BaseDefense + Inventory.EquippedDefenseBonus();
+                    return Stats.BaseDefense + Stats.LevelBonusDfs + Inventory.EquippedDefenseBonus();
                 }
             }
         }
@@ -247,13 +247,15 @@ namespace _8LETTE_TextRPG
 
             _context.Job = job;
 
-            if (Health > Job.BaseHealth)
-            {
-                Health = Job.BaseHealth;
-            }
+            Stats.BaseAttack = job.BaseAttack;
+            Stats.BaseDefense = job.BaseDefense;
+            Stats.BaseHealth = job.BaseHealth;
+            Stats.BaseMP = job.BaseMP;
+            Stats.BaseCriticalChance = job.CriticalChance;
+            Stats.BaseEvasionRate = job.EvasionRate;
 
             // 디렉터에서 스킬 계수 강화
-            float enforce = (Job.PromotionType == PromotionType.Senior) ? 1.5f : 1f;
+            float enforce = (job.PromotionType == PromotionType.Senior) ? 1.5f : 1f;
             foreach (Skill skill in job.Skills)
             {
                 skill.PromotionMultiplier = enforce;

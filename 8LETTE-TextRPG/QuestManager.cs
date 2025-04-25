@@ -24,10 +24,11 @@ namespace _8LETTE_TextRPG
             Instance = this;
 
             _quests.Add(new Quest("죽여도 끝이 없는 언데드 몬스터",
-                "언데드 몬스터 5 마리를 처치하세요.",
+                "언데드 몬스터 5 마리, 슬라임 몬스터 3마리를 처치하세요.",
                 new List<QuestGoal>
                 {
-                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5)
+                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5),
+                    new QuestGoal(QuestType.KillMonster, MonsterType.Slime.ToString(), 3)
                 },
                 new Potion("개초딩 포션", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
                 {
@@ -75,6 +76,24 @@ namespace _8LETTE_TextRPG
                 }),
                 200f)
                 );
+
+            _quests.Add(new Quest("버전 업그레이드",
+               "장비도 장비지만 장인은 도구 탓을 하지 않는다.\n" +
+               "레벨 업을 하여 능력치를 올려보세요!",
+               new List<QuestGoal>
+               {
+                    new QuestGoal(QuestType.IncreaseStat,"PlayerLevel",1)
+               },
+               new EquipableItem("개사기 마우스", "테스트 퀘스트 2 클리어 보상", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
+               {
+                    { ItemEffect.Atk, 999f },
+                    { ItemEffect.Def, 999f },
+                    { ItemEffect.Hp, 999f },
+                    { ItemEffect.Critical, 999f },
+                    { ItemEffect.Evasion, 999f }
+               }),
+               500f
+           ));
         }
 
         public void Accept(Quest quest)

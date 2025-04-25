@@ -4,8 +4,7 @@ using _8LETTE_TextRPG.ScreenFolder;
 namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class SemicolonSlime : Monster
-    {
-        Random r = new Random();    
+    {  
         public SemicolonSlime()
         {
             Type = MonsterType.Slime;

@@ -4,8 +4,7 @@ using _8LETTE_TextRPG.ScreenFolder;
 namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class DependencyHydra : Monster
-    {   
-        Random r = new Random();
+    {
         public DependencyHydra()
         {
             Type = MonsterType.Dragon;

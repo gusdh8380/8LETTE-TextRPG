@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     public class LiteralSkeleton : Monster
     {
-        Random r = new Random();
         public LiteralSkeleton()
         {
             Type = MonsterType.Undead;

@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
     public class EyeBlurPhantom : Monster
     {
-        Random r = new Random();
         public EyeBlurPhantom()
         {
             Type = MonsterType.Ghost;

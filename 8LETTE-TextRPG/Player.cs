@@ -1,5 +1,7 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.JobFolder;
 using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.SkillFolder;
 using System.Diagnostics.CodeAnalysis;
 using TextRPG;
 
@@ -125,7 +127,7 @@ namespace _8LETTE_TextRPG
             }
             set
             {
-                if (value > Stats.CurMP)
+                if (value > MaxMana)
                 {
                     Stats.CurMP = MaxMana;
                 }
@@ -224,7 +226,7 @@ namespace _8LETTE_TextRPG
         public void GainExp(int exp)
         {
             bool leveledUp = Level.AddExp(exp);
-            if(leveledUp)
+            if (leveledUp)
             {
                 Job.IncreaseStats();
             }
@@ -232,27 +234,47 @@ namespace _8LETTE_TextRPG
             OnContextChanged();
         }
 
-        //승진 메소드, job 클래스를 입력 받음
-        public void Promote(JobBase job)
+        /// <summary>
+        /// 승진 메소드
+        /// </summary>
+        /// <param name="job"></param>
+        public void Promote(JobBase? job)
         {
-            //Job = job;
+            if (job == null)
+            {
+                return;
+            }
+
+            _context.Job = job;
 
             if (Health > Job.BaseHealth)
+            {
                 Health = Job.BaseHealth;
+            }
 
-            //디렉터에서 스킬 계수 강화
-            const int UptpDirector = 3;
-            float enforce = (Job.PromotionStage == UptpDirector) ? 1.5f : 1f;
-            foreach(var skill in job.Skills)
+            // 디렉터에서 스킬 계수 강화
+            float enforce = (Job.PromotionType == PromotionType.Senior) ? 1.5f : 1f;
+            foreach (Skill skill in job.Skills)
+            {
                 skill.PromotionMultiplier = enforce;
+            }
+
+            OnContextChanged();
         }
-        //버프 가져오기
+
+        /// <summary>
+        /// 버프 가져오기
+        /// </summary>
+        /// <param name="buff"></param>
         public void AddBuff(Buff buff)
         {
             _buffs.Add(buff);
         }
 
-        //버프로 인한 공격력증가 반환
+        /// <summary>
+        /// 버프로 인한 공격력증가 반환
+        /// </summary>
+        /// <returns></returns>
         public float GetBuffAttack()
         {
             float atk = Attack;
@@ -264,7 +286,11 @@ namespace _8LETTE_TextRPG
 
             return atk;
         }
-        //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
+
+        /// <summary>
+        /// 버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
+        /// </summary>
+        /// <returns></returns>
         public float GetBuffedDefense()
         {
             float def = Defense;
@@ -275,36 +301,26 @@ namespace _8LETTE_TextRPG
             return def;
         }
 
-        //Todo : 치명타, 회피 버브 적용 코드
         public float GetBuffEvasion() 
         {
             float evs = EvasionRate;
-            foreach (var buff in _buffs)
+            foreach (Buff buff in _buffs)
             {
                 evs += buff.EvasionMultiplier;
             }
-            if (evs >= 100)
-            {
-                evs = 100;
-                Console.WriteLine("이미 회피율이 100% 입니다");
-            }
 
-            return MathF.Min(evs, 100); 
+            return MathF.Min(evs * 0.01f, 1f); 
         }
+
         public float GetBuffCritical() 
         {  
             float critical = CriticalChance;
-            foreach (var buff in _buffs)
+            foreach (Buff buff in _buffs)
             {
                 critical += buff.CriticalMultiplier;  
             }
-            if(critical >= 100)
-            {
-                critical = 100;
-                Console.WriteLine("이미 치명타가 100% 입니다");
-            }
 
-            return MathF.Min(critical, 100);
+            return MathF.Min(critical * 0.01f, 1f);
         }
 
         //턴 종료 시 버프 없애기 : 스크린 클래스에서 플레이어가 공격 시 사용
@@ -401,7 +417,7 @@ namespace _8LETTE_TextRPG
         public bool TryEvade()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= GetBuffEvasion();
+            return r.NextSingle() <= GetBuffEvasion();
         }
 
         /// <summary>
@@ -411,7 +427,7 @@ namespace _8LETTE_TextRPG
         public bool TryCritical()
         {
             Random r = new Random();
-            return r.Next(1, 101) <= GetBuffCritical();
+            return r.NextSingle() <= GetBuffCritical();
         }
 
         public void OnDamaged(float dmg)

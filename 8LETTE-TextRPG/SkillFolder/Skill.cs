@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.SkillFolder
 {
     //스킬 :  추상 클래스 사용 
     //*인터페이스로 구현? -> 일단 추상 클래스로 구현함
@@ -42,10 +41,8 @@ namespace _8LETTE_TextRPG
     }
 
     //주니어 기본스킬 [야근]
-    public class YaguenSkill : Skill
+    public class Yaguen : Skill
     {
-        
-
         public override string Name => "야근";
         public override string Description => "랜덤 적 하나에게 공격력 2배의 피해를 입힙니다.";
 
@@ -65,9 +62,7 @@ namespace _8LETTE_TextRPG
 
             player.Mana -= ManaCost;
 
-            var monsters = MonsterSpawner.Instance.GetAllMonsters()
-                           .Where(m => !m.IsDead)
-                           .ToArray();
+            Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters().Where(m => !m.IsDead).ToArray();
 
             // 랜덤으로 한 마리 선택
             var rand = new Random();
@@ -98,7 +93,6 @@ namespace _8LETTE_TextRPG
     //버그워리어(미들) 버프스킬 [공격력 증가] 
     public class IncreaseAtk : Skill
     {
-
         public override string Name => "공격력 증가"; //Todo : 스킬명 수정이 필요할 것 같습니다.
         public override string Description => " 공격력이 20% 증가합니다.";
 
@@ -126,7 +120,7 @@ namespace _8LETTE_TextRPG
                 evasionMultiplier: 1,
                 turns: -1,//전투가 끝날 때 까지 유지하기 위해 의미 없는 값 대입
                 duration: DurationType.UntilBattleEnd// 전투가 끝날때 까지
-                );
+            );
 
 
 
@@ -158,7 +152,7 @@ namespace _8LETTE_TextRPG
 
             var monsters = MonsterSpawner.Instance.GetAllMonsters();
             float Atk = Player.Instance.Attack;
-            float rawDamage = ((float)Math.Ceiling(Atk * 0.3f)) * PromotionMultiplier;
+            float rawDamage = (float)Math.Ceiling(Atk * 0.3f) * PromotionMultiplier;
 
             foreach (var monster in monsters)
             {

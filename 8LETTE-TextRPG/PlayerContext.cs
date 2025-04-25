@@ -2,6 +2,7 @@
 using _8LETTE_TextRPG;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using _8LETTE_TextRPG.JobFolder;
 
 namespace TextRPG
 {
@@ -47,6 +48,15 @@ namespace TextRPG
             {
                 { ItemEffect.Hp, 30f }
             }));
+            Inventory.AddItem(new EquipableItem(Guid.NewGuid().ToString(), "테스트 아이템1", "모든 스탯이 5000 증가합니다. (장비타입: 안경)", 500f, EquipmentType.Glasses, new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Atk, 5000f },
+                { ItemEffect.Def, 5000f },
+                { ItemEffect.Hp, 5000f },
+                { ItemEffect.Critical, 5000f },
+                { ItemEffect.Evasion, 5000f },
+                { ItemEffect.MP, 5000f },
+            }));
             Inventory.AddItem(new EquipableItem(Guid.NewGuid().ToString(), "테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Atk, -5000f },
@@ -54,6 +64,7 @@ namespace TextRPG
                 { ItemEffect.Hp, -5000f },
                 { ItemEffect.Critical, -5000f },
                 { ItemEffect.Evasion, -5000f },
+                { ItemEffect.MP, -5000f },
             }));
 
             EquippedItems = new Dictionary<EquipmentType, string?>
@@ -75,8 +86,10 @@ namespace TextRPG
             Stats.BaseEvasionRate = Job.EvasionRate;
 
             Stats.BaseMP = Job.BaseMP;
+            Stats.CurMP = Stats.BaseMP;
 
             Gold = 1500f;
+            IsDead = false;
         }
 
         public void Save()

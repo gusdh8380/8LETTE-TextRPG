@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class IllusionPixie : Monster
     {
-           Random r = new Random();
         public IllusionPixie()
         {
             Type = MonsterType.Fairy;

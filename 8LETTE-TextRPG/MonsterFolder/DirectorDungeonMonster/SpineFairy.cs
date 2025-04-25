@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
     class SpineFairy : Monster
     {
-        Random r = new Random();
         public SpineFairy()
         {
             Type = MonsterType.Fairy;

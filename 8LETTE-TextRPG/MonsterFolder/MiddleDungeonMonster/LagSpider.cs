@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     public class LagSpider : Monster
     {
-           Random r = new Random();
         public LagSpider()
         {
             Type = MonsterType.Spider;

@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class ConflictDragon : Monster
     {
-        Random r = new Random();    
         public ConflictDragon()
         {
             Type = MonsterType.Dragon;

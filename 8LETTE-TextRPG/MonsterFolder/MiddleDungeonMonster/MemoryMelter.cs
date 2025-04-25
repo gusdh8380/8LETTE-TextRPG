@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     class MemoryMelter : Monster
     {
-           Random r = new Random();
         public MemoryMelter()
         {
             Type = MonsterType.Slime;

@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
     public class CollaborationDestroyer : Monster
     {
-        Random r = new Random();
         public CollaborationDestroyer()
         {
             Type = MonsterType.Humanoid;

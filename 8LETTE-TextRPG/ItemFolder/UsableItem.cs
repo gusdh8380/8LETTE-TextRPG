@@ -46,7 +46,7 @@ namespace _8LETTE_TextRPG.ItemFolder
                             sb.Append(" ");
                             break;
                         case ItemEffect.Hp:
-                            sb.Append("체력 ");
+                            sb.Append("HP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -59,6 +59,12 @@ namespace _8LETTE_TextRPG.ItemFolder
                             break;
                         case ItemEffect.Evasion:
                             sb.Append("회피 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.MP:
+                            sb.Append("MP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -96,6 +102,9 @@ namespace _8LETTE_TextRPG.ItemFolder
                         break;
                     case ItemEffect.Evasion:
                         Player.Instance.Stats.BaseEvasionRate += effectPair.Value;
+                        break;
+                    case ItemEffect.MP:
+                        Player.Instance.Mana += effectPair.Value;
                         break;
                     default:
                         break;

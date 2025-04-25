@@ -1,12 +1,14 @@
-﻿namespace _8LETTE_TextRPG.ScreenFolder
+﻿using _8LETTE_TextRPG.JobFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class PromotionScreen : Screen
     {
         public static readonly PromotionScreen Instance = new PromotionScreen();
 
-        private int remainClear;
-        private JobBase? selectedJob = null;
-        private bool hasRequest = false;
+        private int _remainClear;
+        private JobBase? _selectedJob = null;
+        private bool _hasRequest = false;
 
         private void ShowPromotionList()
         {
@@ -22,10 +24,8 @@
 
         private void PrintCongratulatePromotion()
         {
-            Player.Instance.Promote(selectedJob);
-
             Console.WriteLine("축하합니다~!!");
-            Console.WriteLine($"{selectedJob.Name}으로 승진하였습니다!!\n");
+            Console.WriteLine($"{_selectedJob?.Name}으로 승진하였습니다!!\n");
 
             PrintAnyKeyInstruction();
         }
@@ -39,7 +39,7 @@
             Console.WriteLine("던전의 클리어 수에 따라 승진할 수 있습니다.");
             Console.WriteLine();
 
-            if(Player.Instance.Job.PromotionStage == 3)
+            if (Player.Instance.Job.PromotionType == PromotionType.Senior)
             {
                 Console.WriteLine("당신은 최고의 개발자가 되었습니다!!");
 
@@ -47,27 +47,32 @@
                 return;
             }
 
-            if (!hasRequest)
+            if (!_hasRequest)
             {
-                remainClear = 5 * (Player.Instance.Job.PromotionStage + 1) - MonsterSpawner.Instance.ClearCount;
-                if (remainClear < 0) remainClear = 0;
+                _remainClear = (int)MathF.Max(5 * ((int)Player.Instance.Job.PromotionType + 1) - MonsterSpawner.Instance.ClearCount, 0);
+
                 Console.WriteLine($"현재 던전 클리어 수는 {MonsterSpawner.Instance.ClearCount}회 입니다.");
-                Console.WriteLine($"다음 승진까지 남은 클리어 횟수는 {remainClear}회 입니다.");
+                Console.WriteLine($"다음 승진까지 남은 클리어 횟수는 {_remainClear}회 입니다.");
                 Console.WriteLine();
 
-                if (remainClear == 0) PrintNumAndString(1, "승진 요청");
+                if (_remainClear == 0)
+                {
+                    PrintNumAndString(1, "승진 요청");
+                }
+
                 PrintNumAndString(0, "돌아가기");
 
                 PrintUserInstruction();
             }
             else
             {
-                if(selectedJob == null)
+                if (_selectedJob == null)
                 {
                     ShowPromotionList();
                 }
                 else
                 {
+                    Player.Instance.Promote(_selectedJob);
                     PrintCongratulatePromotion();
                 }
             }
@@ -75,69 +80,64 @@
 
         public override Screen? Next()
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
 
-            if(Player.Instance.Job.PromotionStage == 3)
+            if (Player.Instance.Job.PromotionType == PromotionType.Director)
             {
                 return TownScreen.Instance;
             }
 
-            if (!hasRequest)
+            if (!_hasRequest)
             {
-                if (input == "0") return TownScreen.Instance;
-                else if (input == "1" && remainClear == 0)
+                if (input == "0")
                 {
-                    if(Player.Instance.Job.PromotionStage != 0)
+                    return TownScreen.Instance;
+                }
+                else if (input == "1" && _remainClear == 0)
+                {
+                    if (Player.Instance.Job.PromotionType != PromotionType.Junior)
                     {
-                        switch (selectedJob)
+                        switch (Player.Instance.Job)
                         {
-                            case BugWarrior_Middle:
-                                selectedJob = new BugWarrior_Senior();
+                            case BugWarrior:
+                                _selectedJob = new BugWarrior(Player.Instance.Job.PromotionType + 1);
                                 break;
-                            case MemoryKnight_Middle:
-                                selectedJob = new MemoryKnight_Senior();
+                            case MemoryKnight:
+                                _selectedJob = new MemoryKnight(Player.Instance.Job.PromotionType + 1);
                                 break;
-                            case ThreadAssassin_Middle:
-                                selectedJob = new ThreadAssassin_Senior();
+                            case ThreadAssassin:
+                                _selectedJob = new ThreadAssassin(Player.Instance.Job.PromotionType + 1);
                                 break;
-                            case ExceptionHunter_Middle:
-                                selectedJob = new ExceptionHunter_Senior();
-                                break;
-                            case BugWarrior_Senior:
-                                selectedJob = new BugWarrior_Director();
-                                break;
-                            case MemoryKnight_Senior:
-                                selectedJob = new MemoryKnight_Director();
-                                break;
-                            case ThreadAssassin_Senior:
-                                selectedJob = new ThreadAssassin_Director();
-                                break;
-                            case ExceptionHunter_Senior:
-                                selectedJob = new ExceptionHunter_Director();
+                            case ExceptionHunter:
+                                _selectedJob = new ExceptionHunter(Player.Instance.Job.PromotionType + 1);
                                 break;
                         }
                     }
-                    hasRequest = true;
+
+                    _hasRequest = true;
                 }
-                else _isRetry = true;
+                else
+                {
+                    _isRetry = true;
+                }
             }
             else
             {
-                if (Player.Instance.Job.PromotionStage == 0)
+                if (Player.Instance.Job.PromotionType == PromotionType.Junior)
                 {
                     switch (input)
                     {
                         case "1":
-                            selectedJob = new BugWarrior_Middle();
+                            _selectedJob = new BugWarrior(PromotionType.Middle);
                             break;
                         case "2":
-                            selectedJob = new MemoryKnight_Middle();
+                            _selectedJob = new MemoryKnight(PromotionType.Middle);
                             break;
                         case "3":
-                            selectedJob = new ThreadAssassin_Middle();
+                            _selectedJob = new ThreadAssassin(PromotionType.Middle);
                             break;
                         case "4":
-                            selectedJob = new ExceptionHunter_Middle();
+                            _selectedJob = new ExceptionHunter(PromotionType.Middle);
                             break;
                         default:
                             _isRetry = true;
@@ -146,7 +146,7 @@
                 }
                 else
                 {
-                    hasRequest = false;
+                    _hasRequest = false;
                 }
             }
 

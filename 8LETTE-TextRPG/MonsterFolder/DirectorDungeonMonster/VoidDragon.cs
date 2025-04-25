@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster
 {
     class VoidDragon : Monster
     {
-        Random r = new Random();
         public VoidDragon()
         {
             Type = MonsterType.Dragon;

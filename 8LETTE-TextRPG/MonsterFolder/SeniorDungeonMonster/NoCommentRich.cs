@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
     class NoCommentRich : Monster
     {
-        Random r  = new Random();
         public NoCommentRich()
         {
             Type = MonsterType.Undead;

@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
     class OverturningGolem : Monster
     {
-        Random r = new Random();
         public OverturningGolem()
         {
             Type = MonsterType.Humanoid;

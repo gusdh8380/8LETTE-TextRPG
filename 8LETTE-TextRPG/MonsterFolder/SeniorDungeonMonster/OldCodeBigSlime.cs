@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster
 {
     class OldCodeBigSlime : Monster
     {
-        Random r = new Random();
         public OldCodeBigSlime()
         {
             Type = MonsterType.Slime;

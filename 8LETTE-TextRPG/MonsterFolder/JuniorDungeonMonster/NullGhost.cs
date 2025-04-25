@@ -5,8 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class NullGhost : Monster
     {
-
-        Random r = new Random();
         public NullGhost()
         {
             Type = MonsterType.Ghost;

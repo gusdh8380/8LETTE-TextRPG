@@ -5,9 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class LoopZombie : Monster
     {
-
-        Random r = new Random();
-
         public LoopZombie()
         {
             Type = MonsterType.Undead;

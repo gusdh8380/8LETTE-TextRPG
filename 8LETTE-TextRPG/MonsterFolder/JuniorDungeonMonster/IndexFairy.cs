@@ -5,8 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class IndexFairy : Monster
     {
-
-        Random r = new Random();
         public IndexFairy()
         {
             Type = MonsterType.Fairy;
@@ -18,7 +16,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
             Defense = 3f;
             GoldReward = 175;
         }
-        //
 
         protected override void DefineStates()
         {

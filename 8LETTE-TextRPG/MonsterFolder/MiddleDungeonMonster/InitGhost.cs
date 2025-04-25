@@ -5,7 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
     public class InitGhost : Monster
     {
-        Random r = new Random();    
         public InitGhost()
         {
             Type = MonsterType.Ghost;

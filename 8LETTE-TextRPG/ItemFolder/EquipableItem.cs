@@ -47,7 +47,7 @@ namespace _8LETTE_TextRPG.ItemFolder
                             sb.Append(" ");
                             break;
                         case ItemEffect.Hp:
-                            sb.Append("최대체력 ");
+                            sb.Append("최대HP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -60,6 +60,12 @@ namespace _8LETTE_TextRPG.ItemFolder
                             break;
                         case ItemEffect.Evasion:
                             sb.Append("회피 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.MP:
+                            sb.Append("최대MP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");

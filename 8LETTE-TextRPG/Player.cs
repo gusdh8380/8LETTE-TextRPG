@@ -262,10 +262,6 @@ namespace _8LETTE_TextRPG
             OnContextChanged();
         }
 
-        /// <summary>
-        /// 버프 가져오기
-        /// </summary>
-        /// <param name="buff"></param>
         public void AddBuff(Buff buff)
         {
             _buffs.Add(buff);

@@ -39,7 +39,7 @@ namespace _8LETTE_TextRPG.JobFolder
                     {
                         new Yaguen(),
                         new IncreaseEvasion(),
-                        new Counterattack()
+                        new CounterAttack()
                     };
                     break;
                 case PromotionType.Director:
@@ -54,7 +54,7 @@ namespace _8LETTE_TextRPG.JobFolder
                     {
                         new Yaguen(),
                         new IncreaseEvasion(),
-                        new Counterattack()
+                        new CounterAttack()
                     };
                     break;
             }

@@ -4,6 +4,8 @@
     {
         public static readonly BattleResultScreen Instance = new BattleResultScreen();
 
+        public Action? PrintDropItem;
+
         //전투의 결과를 출력
         public void BattleResult()
         {
@@ -42,7 +44,9 @@
 
                 Console.WriteLine("[클리어 보상]");
                 Console.WriteLine($"골  드 : {MonsterSpawner.Instance.PreviousGold} -> {Player.Instance.Gold}");
-                //Console.WriteLine($"포  션 : {}");
+                PrintDropItem?.Invoke();
+
+                PrintDropItem = null;
             }
         }
 

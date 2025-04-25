@@ -1,4 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
 
 namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 {
@@ -47,16 +48,14 @@ namespace _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster
 
         private void OnDeath()
         {
-            Console.WriteLine($"{Name}을(를) 처지했습니다!");
-            if (r.Next(1, 101) <= 100)//30% 확률로 아래 아이템을 드랍
+            Random r = new Random();
+            Console.WriteLine($"{Name}를 처지했습니다!");
+            if (r.Next(1, 101) <= 25)
             {
-                Player.Instance.Inventory.AddItem(new Potion("테스트 물약 f(30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
-                 {
-                     { ItemEffect.Hp, 30f }
-                 }));
+                Player.Instance.Inventory.AddItem(new Potion(15f));
 
-                Console.WriteLine($"{Name}이(가) 테스트 물약을 드랍했습니다.");
-
+                Console.WriteLine($"{Name}가 체력 포션 (15)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (15)을 드랍했습니다.");
             }
         }
 

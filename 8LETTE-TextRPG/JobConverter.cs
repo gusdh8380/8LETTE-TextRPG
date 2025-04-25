@@ -44,7 +44,7 @@ namespace _8LETTE_TextRPG
                     job = new ExceptionHunter(promotionType);
                     break;
                 default:
-                    throw new JsonSerializationException($"Unknown ItemType: {jobType}");
+                    throw new JsonSerializationException($"Unknown Job Type: {jobType}");
             }
 
             return job;

@@ -5,6 +5,7 @@
         public static readonly RestScreen Instance = new RestScreen();
 
         private Rest _rest;
+        private bool _isRested = false;
 
         public RestScreen()
         {
@@ -28,8 +29,24 @@
 
             Console.WriteLine();
 
-            PrintNumAndString(1, "휴식하기");
-            PrintNumAndString(0, "나가기");
+            if (_isRested)
+            {
+                if (_rest.TryRest())
+                {
+                    Console.WriteLine("충분히 휴식했습니다!\n");
+                }
+                else
+                {
+                    Console.WriteLine("골드가 부족합니다.\n");
+                }
+
+                PrintNumAndString(0, "나가기");
+            }
+            else
+            {
+                PrintNumAndString(1, "휴식하기");
+                PrintNumAndString(0, "나가기");
+            }
 
             PrintUserInstruction();
         }
@@ -40,20 +57,11 @@
             switch (input)
             {
                 case "0":
+                    _isRested = false;
                     return TownScreen.Instance;
                 case "1":
-                    if (_rest.TryRest())
-                    {
-                        Console.WriteLine("충분히 휴식했습니다!");
-                        Console.ReadKey();
-                    }
-                    else
-                    {
-                        Console.WriteLine("골드가 부족합니다.");
-                        Console.ReadKey();
-                    }
-
-                    return TownScreen.Instance;
+                    _isRested = true;
+                    return this;
                 default:
                     _isRetry = true;
                     return this;

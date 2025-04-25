@@ -7,7 +7,16 @@ namespace _8LETTE_TextRPG
         private List<Item> _items = new List<Item>();
         private Dictionary<string, bool> _itemPurchasedDict = new Dictionary<string, bool>(); // 아이템 아이디, 구매 여부
 
-        public Item[] GetAllItems() => _items.ToArray();
+        public Item[] GetItemsOfType(EquipmentType? equipmentType)
+        {
+           if(equipmentType != null)
+                return _items
+                    .OfType<EquipableItem>()
+                    .Where(item => item.EquipmentType == equipmentType)
+                    .ToArray();
+           else
+                return _items.OfType<Potion>().ToArray();
+        }
 
         public Shop()
         {
@@ -170,36 +179,27 @@ namespace _8LETTE_TextRPG
             }
         }
 
-        public void ShowItems(bool isNum = false)
+        public void ShowItems(EquipmentType? equipmentType)
         {
-            Console.WriteLine("[상점 목록]");
-            foreach (Item item in _items)
-            {
-                string sold = !_itemPurchasedDict[item.Id] ? item.Price.ToString() + " G" : "구매완료";
+            Item[] items = GetItemsOfType(equipmentType);
 
-                Console.Write("- {0}", isNum ? (_items.IndexOf(item) + 1).ToString() + " " : "");
-                Console.WriteLine($"{item.Name} | {item.GetEffectName()}| {item.Description} | {sold}");
+            Console.WriteLine("[판매 목록]");
+            for (int i = 0; i < items.Length; i++)
+            {
+                string sold = !_itemPurchasedDict[items[i].Id] ? items[i].Price.ToString() + " G" : "구매완료";
+                Console.WriteLine($"- {i + 1}. {items[i].Name} | {items[i].GetEffectName()}| {items[i].Description} | {sold}");
             }
         }
 
-        public void BuyItem(Item item)
+        public int BuyItem(Item item)
         {
-            if (_itemPurchasedDict[item.Id])
-            {
-                Console.WriteLine($"{item.Name}은(는) 이미 구매한 항목입니다.");
-                return;
-            }
-            if (Player.Instance.Gold < item.Price)
-            {
-                Console.WriteLine($"{item.Name}은(는) 돈이 부족하여 살 수 없습니다.");
-                return;
-            }
-            _itemPurchasedDict[item.Id] = true;
+            if (_itemPurchasedDict[item.Id]) return 2;
+            if (Player.Instance.Gold < item.Price) return 0;
             
+            _itemPurchasedDict[item.Id] = true;
             Player.Instance.Gold -= item.Price;
             Player.Instance.Inventory.AddItem(item);
-
-            Console.WriteLine($"{item.Name}을(를) 구매했습니다.");
+            return 1;
         }
 
         /// <summary>
@@ -220,8 +220,6 @@ namespace _8LETTE_TextRPG
 
             Player.Instance.Inventory.RemoveItem(playerItem);
             Player.Instance.Gold += (float)Math.Round(playerItem.Price * 0.85);
-
-            Console.WriteLine($"{playerItem.Name}을(를) 판매했습니다.");
         }
     }
 }

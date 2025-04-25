@@ -19,14 +19,14 @@ namespace _8LETTE_TextRPG
 
         public ShopContext()
         {
+            serializerSettings.Converters.Add(new StringEnumConverter());
+
             Items = new List<Item>();
             ItemPurchasedDict = new Dictionary<string, bool>();
         }
 
         public void Initialize()
         {
-            serializerSettings.Converters.Add(new StringEnumConverter());
-
             //마우스 아이템
             Items.Add(new EquipableItem(Guid.NewGuid().ToString(), "잠X리 마우스", "VXN 사의 미친 가성비 마우스. 초경량 마우스로 매우 가볍다.", 950f,
                 EquipmentType.Mouse, new Dictionary<ItemEffect, float>

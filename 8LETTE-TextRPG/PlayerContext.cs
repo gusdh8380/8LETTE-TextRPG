@@ -21,10 +21,13 @@ namespace TextRPG
         public Inventory? Inventory;
         public Dictionary<EquipmentType, string?>? EquippedItems;
 
-        public void Initialize(string name, JobBase job)
+        public PlayerContext()
         {
             serializerSettings.Converters.Add(new StringEnumConverter());
+        }
 
+        public void Initialize(string name, JobBase job)
+        {
             Name = name;
             Job = job;
             Level = new Level();

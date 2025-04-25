@@ -18,13 +18,13 @@ namespace _8LETTE_TextRPG
 
         public QuestContext()
         {
+            serializerSettings.Converters.Add(new StringEnumConverter());
+
             Quests = new List<Quest>();
         }
 
         public void Initialize()
         {
-            serializerSettings.Converters.Add(new StringEnumConverter());
-
             Quests.Add(new Quest(Guid.NewGuid().ToString(), "죽여도 끝이 없는 언데드 몬스터",
                 "끝없이 살아나는 언데드 버그 몬스터!\n" +
                 "언데드 몬스터 5 마리를 처치해 주세요!",

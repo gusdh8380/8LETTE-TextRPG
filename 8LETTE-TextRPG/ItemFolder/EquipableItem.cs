@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,22 +12,23 @@ namespace _8LETTE_TextRPG.ItemFolder
         public EquipmentType EquipmentType { get; set; }
         public bool IsEquipped { get; set; }
 
-        public EquipableItem(string name, string desc, float price, EquipmentType equipmentType, Dictionary<ItemEffect, float> effectDict)
+        public EquipableItem(string id, string name, string desc, float price, EquipmentType equipmentType, Dictionary<ItemEffect, float> effects)
         {
+            Id = id;
             Name = name;
             Description = desc;
 
             Price = price;
             ItemType = ItemType.Equipment;
 
-            EffectDict = effectDict;
+            Effects = effects;
             EquipmentType = equipmentType;
         }
 
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in Effects)
             {
                 if (effectPair.Value != 0f)
                 {
@@ -81,9 +83,9 @@ namespace _8LETTE_TextRPG.ItemFolder
             Player.Instance.EquippedItems[EquipmentType] = Id;
 
             // 현재 체력이 최대체력보다 많아지는 거 방지
-            if (Player.Instance.Health > Player.Instance.Job.BaseHealth)
+            if (Player.Instance.Health > Player.Instance.MaxHealth)
             {
-                Player.Instance.Health = Player.Instance.Job.BaseHealth;
+                Player.Instance.Health = Player.Instance.MaxHealth;
             }
 
             QuestManager.Instance?.SendProgress(QuestType.EquipItem, "장비 장착해보기", 1);

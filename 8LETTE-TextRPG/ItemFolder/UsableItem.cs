@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,17 +7,21 @@ using System.Threading.Tasks;
 
 namespace _8LETTE_TextRPG.ItemFolder
 {
-    class Potion : Item, IUsable
+    class UsableItem : Item, IUsable
     {
-        public Potion(string name, string desc, float price, Dictionary<ItemEffect, float> effectDict)
+        public UseType UseType { get; set; }
+
+        public UsableItem(string id, string name, string desc, float price, UseType useType, Dictionary<ItemEffect, float> effects)
         {
+            Id = id;
             Name = name;
             Description = desc;
 
             Price = price;
             ItemType = ItemType.Usable;
 
-            EffectDict = effectDict;
+            UseType = useType;
+            Effects = effects;
         }
 
         public Potion(float hpBonus)
@@ -36,7 +41,7 @@ namespace _8LETTE_TextRPG.ItemFolder
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in Effects)
             {
                 if (effectPair.Value != 0f)
                 {
@@ -87,24 +92,24 @@ namespace _8LETTE_TextRPG.ItemFolder
 
         public void Use()
         {
-            foreach (KeyValuePair<ItemEffect, float> effectPair in EffectDict)
+            foreach (KeyValuePair<ItemEffect, float> effectPair in Effects)
             {
                 switch (effectPair.Key)
                 {
                     case ItemEffect.Atk:
-                        Player.Instance.PotionBonusAttack += effectPair.Value;
+                        Player.Instance.Stats.BaseAttack += effectPair.Value;
                         break;
                     case ItemEffect.Def:
-                        Player.Instance.PotionBonusDefense += effectPair.Value;
+                        Player.Instance.Stats.BaseDefense += effectPair.Value;
                         break;
                     case ItemEffect.Hp:
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:
-                        Player.Instance.PotionBonusCritical += effectPair.Value;
+                        Player.Instance.Stats.BaseCriticalChance += effectPair.Value;
                         break;
                     case ItemEffect.Evasion:
-                        Player.Instance.PotionBonusEvasion += effectPair.Value;
+                        Player.Instance.Stats.BaseEvasionRate += effectPair.Value;
                         break;
                     default:
                         break;
@@ -113,6 +118,8 @@ namespace _8LETTE_TextRPG.ItemFolder
 
             QuestManager.Instance?.SendProgress(QuestType.UseItem, "포션 마시기", 1);
             Player.Instance.Inventory.RemoveItem(this);
+
+            Player.Instance.OnContextChanged();
         }
     }
 }

@@ -6,18 +6,7 @@ namespace _8LETTE_TextRPG
     {
         static void Main(string[] args)
         {
-
-            IntroScreen.ShowIntro();
-            Console.Clear();
-            //이름 입력
-            Console.WriteLine("이름을 입력해주세요.");
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write("\n>> ");
-            Console.ResetColor();
-            string? userName = Console.ReadLine();
-            userName = string.IsNullOrEmpty(userName) ? "8LETTE" : userName;
-
-            new Player(userName, new Junior());
+            new Player();
 
             Screen? current = TownScreen.Instance;
             while (current != null)

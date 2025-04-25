@@ -13,16 +13,16 @@
             {
                 if (hpBounus > 0f)
                 {
-                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} (+{hpBounus})");
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} (+{hpBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth} ({hpBounus})");
+                    Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth} ({hpBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.Job.BaseHealth}");
+                Console.WriteLine($"체  력 : {Player.Instance.Health} / {Player.Instance.MaxHealth}");
             }
 
             float mpBounus = Player.Instance.Inventory.EquippedMpBonus();
@@ -48,16 +48,16 @@
             {
                 if (atkBounus > 0f)
                 {
-                    Console.WriteLine($"공격력 : {Player.Instance.TotalAttack} (+{atkBounus})");
+                    Console.WriteLine($"공격력 : {Player.Instance.Attack} (+{atkBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"공격력 : {Player.Instance.TotalAttack} ({atkBounus})");
+                    Console.WriteLine($"공격력 : {Player.Instance.Attack} ({atkBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"공격력 : {Player.Instance.TotalAttack}");
+                Console.WriteLine($"공격력 : {Player.Instance.Attack}");
             }
 
             float defBounus = Player.Instance.Inventory.EquippedDefenseBonus();
@@ -65,16 +65,16 @@
             {
                 if (defBounus > 0f)
                 {
-                    Console.WriteLine($"방어력 : {Player.Instance.TotalDefense} (+{defBounus})");
+                    Console.WriteLine($"방어력 : {Player.Instance.Defense} (+{defBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"방어력 : {Player.Instance.TotalDefense} ({defBounus})");
+                    Console.WriteLine($"방어력 : {Player.Instance.Defense} ({defBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"방어력 : {Player.Instance.TotalDefense}");
+                Console.WriteLine($"방어력 : {Player.Instance.Defense}");
             }
 
             float criticalBonus = Player.Instance.Inventory.EquippedCriticalBonus();
@@ -82,16 +82,16 @@
             {
                 if (criticalBonus > 0f)
                 {
-                    Console.WriteLine($"치명타 : {Player.Instance.TotalCriticalChance} (+{criticalBonus}) %");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} (+{criticalBonus}) %");
                 }
                 else
                 {
-                    Console.WriteLine($"치명타 : {Player.Instance.TotalCriticalChance} ({criticalBonus}) %");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} ({criticalBonus}) %");
                 }
             }
             else
             {
-                Console.WriteLine($"치명타 : {Player.Instance.TotalCriticalChance} %");
+                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} %");
             }
 
             float evasionBonus = Player.Instance.Inventory.EquippedEvasionBonus();
@@ -99,16 +99,16 @@
             {
                 if (evasionBonus > 0f)
                 {
-                    Console.WriteLine($"회  피 : {Player.Instance.TotalEvasionRate} (+{evasionBonus}) %");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} (+{evasionBonus})%");
                 }
                 else
                 {
-                    Console.WriteLine($"회  피 : {Player.Instance.TotalEvasionRate} ({evasionBonus}) %");
+                    Console.WriteLine($"회  피 : {Player.Instance.EvasionRate} ({evasionBonus})%");
                 }
             }
             else
             {
-                Console.WriteLine($"회  피 : {Player.Instance.TotalEvasionRate} %");
+                Console.WriteLine($"회  피 : {Player.Instance.EvasionRate}%");
             }
 
             Console.WriteLine();

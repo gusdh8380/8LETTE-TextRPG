@@ -11,84 +11,54 @@ namespace _8LETTE_TextRPG
         [NotNull]
         public static QuestManager Instance
         {
-            get => _instance;
-            private set => _instance = value ?? throw new ArgumentNullException("QuestManager Instance is required.");
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new QuestManager();
+                }
+
+                return _instance;
+            }
+            private set
+            {
+                _instance = value;
+            }
         }
 
-        private List<Quest> _quests = new List<Quest>();
+        private QuestContext _context;
 
-        public List<Quest> GetAllQuests() => _quests;
+        public Quest[] GetAllQuests() => _context.Quests.ToArray();
 
         public QuestManager()
         {
-            Instance = this;
-
-            _quests.Add(new Quest("죽여도 끝이 없는 언데드 몬스터",
-                "끝없이 살아나는 언데드 버그 몬스터!\n" +
-                "언데드 몬스터 5 마리를 처치해 주세요!",
-                new List<QuestGoal>
-                {
-                    new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5),
-                    new QuestGoal(QuestType.KillMonster, MonsterType.Slime.ToString(), 3)
-                },
-                new Potion("개초딩 포션", "테스트 퀘스트 1 클리어 보상", 0f, new Dictionary<ItemEffect, float>
-                {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
-            );
-
-            _quests.Add(new Quest("코딩은 장비빨!",
-                "좋은 환경은 오랫동안 코딩할 수 있게 만들어줍니다.\n" +
-                "인벤토리에서 코딩에 관한 장비를 장착해 보세요!",
-                new List<QuestGoal>
-                {
-                    new QuestGoal(QuestType.EquipItem, "장비 장착해보기", 1)
-                },
-                new EquipableItem("개사기 마우스", "테스트 퀘스트 2 클리어 보상", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
-                {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
-            );
-
-            _quests.Add(new Quest("코딩은 체력 싸움!",
-                "체력이 있어야 코딩도 수월하게 할 수 있습니다..\n" +
-                "인벤토리에서 포션 한 개를 마셔 보세요!",
-                new List<QuestGoal>
-                {
-                    new QuestGoal(QuestType.UseItem, "포션 마시기", 1)
-                },
-                rewardGold: 200f)
-                );
-
-            _quests.Add(new Quest("버전 업그레이드",
-               "장비도 장비지만 장인은 도구 탓을 하지 않는다.\n" +
-               "레벨 업을 하여 능력치를 올려보세요!",
-               new List<QuestGoal>
-               {
-                    new QuestGoal(QuestType.IncreaseStat,"레벨 업",1)
-               },
-               rewardGold: 500f)
-            );
+            QuestContext? context = QuestContext.Load();
+            if (context == null)
+            {
+                _context = new QuestContext();
+                _context.Initialize();
+            }
+            else
+            {
+                _context = context;
+            }
         }
 
         public void Accept(Quest quest)
         {
             quest.State = QuestState.InProgress;
+            _context.Save();
         }
 
-        public void SendProgress(QuestType type, string target, int amount = 1)
+        /// <summary>
+        /// 퀘스트 진행 업데이트
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="target"></param>
+        /// <param name="amount"></param>
+        public void SendProgress(QuestType type, string? target = null, int amount = 1)
         {
-            foreach (Quest quest in _quests)
+            foreach (Quest quest in _context.Quests)
             {
                 foreach (QuestGoal goal in quest.Goals)
                 {
@@ -97,9 +67,12 @@ namespace _8LETTE_TextRPG
                         continue;
                     }
 
-                    if (goal.Type == type && goal.Target == target)
+                    if (goal.Type == type)
                     {
-                        goal.CurrentAmount += amount;
+                        if (string.IsNullOrEmpty(goal.Target) || goal.Target == target)
+                        {
+                            goal.CurrentAmount += amount;
+                        }
                     }
                 }
 
@@ -108,6 +81,8 @@ namespace _8LETTE_TextRPG
                     quest.State = QuestState.Completed;
                 }
             }
+
+            _context.Save();
         }
 
         public void ClaimReward(Quest quest)
@@ -128,6 +103,7 @@ namespace _8LETTE_TextRPG
             }
 
             quest.State = QuestState.Rewarded;
+            _context.Save();
         }
     }
 }

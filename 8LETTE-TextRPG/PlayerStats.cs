@@ -1,0 +1,20 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _8LETTE_TextRPG
+{
+    [Serializable]
+    public class PlayerStats
+    {
+        public float BaseHealth;
+        public float CurHealth;
+        public float BaseAttack;
+        public float BaseDefense;
+        public float BaseCriticalChance;
+        public float BaseEvasionRate;
+    }
+}

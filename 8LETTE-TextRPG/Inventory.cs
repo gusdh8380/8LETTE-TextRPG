@@ -1,4 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using Newtonsoft.Json;
 
 namespace _8LETTE_TextRPG
 {
@@ -11,12 +12,13 @@ namespace _8LETTE_TextRPG
     //UI 콘솔 출력은 제외했습니다.(스크린 담당)
 
 
-
+    [Serializable]
     public class Inventory
     {
         /// <summary>
         /// 내부 아이템 List
         /// </summary>
+        [JsonProperty("Items")]
         private readonly List<Item> _items = new List<Item>();
 
 
@@ -46,7 +48,7 @@ namespace _8LETTE_TextRPG
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Atk, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.Atk, out float value))
                 {
                     atk += value;
                 }
@@ -61,7 +63,7 @@ namespace _8LETTE_TextRPG
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Def, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.Def, out float value))
                 {
                     def += value;
                 }
@@ -76,7 +78,7 @@ namespace _8LETTE_TextRPG
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Hp, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.Hp, out float value))
                 {
                     hp += value;
                 }
@@ -105,7 +107,7 @@ namespace _8LETTE_TextRPG
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Critical, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.Critical, out float value))
                 {
                     critical += value;
                 }
@@ -120,7 +122,7 @@ namespace _8LETTE_TextRPG
             EquipableItem[] items = _items.OfType<EquipableItem>().Where(x => x.IsEquipped).ToArray();
             foreach (EquipableItem item in items)
             {
-                if (item.EffectDict.TryGetValue(ItemEffect.Evasion, out float value))
+                if (item.Effects.TryGetValue(ItemEffect.Evasion, out float value))
                 {
                     evasion += value;
                 }
@@ -149,16 +151,24 @@ namespace _8LETTE_TextRPG
             }
 
             item.Equip();
+
+            QuestManager.Instance?.SendProgress(QuestType.EquipItem, ((EquipableItem)item).EquipmentType.ToString(), 1);
+            Player.Instance.OnContextChanged();
         }
 
         public void Unequip(IEquipable item)
         {
             item.Unequip();
+
+            Player.Instance.OnContextChanged();
         }
 
         public void Use(IUsable item)
         {
             item.Use();
+
+            QuestManager.Instance?.SendProgress(QuestType.UseItem, ((UsableItem)item).UseType.ToString(), 1);
+            Player.Instance.OnContextChanged();
         }
 
         public enum PrintState
@@ -177,8 +187,8 @@ namespace _8LETTE_TextRPG
                 return;
             }
 
-            Item[] equipableItems = _items.FindAll((x) => x.ItemType == ItemType.Equipment).ToArray();
-            Item[] usableItems = _items.FindAll((x) => x.ItemType == ItemType.Usable).ToArray();
+            Item[] equipableItems = GetItemsOfType(ItemType.Equipment);
+            Item[] usableItems = GetItemsOfType(ItemType.Usable);
 
             switch (state)
             {

@@ -51,7 +51,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
                 _selectedItem = items[num - 1];
                 if (_selectedItem is IUsable usableItem)
                 {
-                    usableItem.Use();
+                    Player.Instance.Inventory.Use(usableItem);
                 }
             }
             else

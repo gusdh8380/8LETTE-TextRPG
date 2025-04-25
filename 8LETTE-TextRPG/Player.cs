@@ -1,6 +1,7 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
 using System.Diagnostics.CodeAnalysis;
+using TextRPG;
 
 namespace _8LETTE_TextRPG
 {
@@ -15,165 +16,185 @@ namespace _8LETTE_TextRPG
     /// </summary>
     public class Player
     {
-        // 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
+        /// <summary>
+        /// 초기화용. 외부 클래스에서 인스턴스 사용 시 CS8602 경고 뜨는 것 방지
+        /// </summary>
         private static Player? _instance;
 
-        // 플레이어 인스턴스
+        /// <summary>
+        /// 플레이어 인스턴스
+        /// </summary>
         [NotNull]
         public static Player Instance
         {
-            get => _instance; // 경고가 안 없어져요ㅗㅗㅗㅗㅗㅗㅗㅗ
-            private set => _instance = value ?? throw new ArgumentNullException("Player Instance is required.");
+            get => _instance ?? throw new NullReferenceException();
+            private set => _instance = value;
         }
 
-        public string Name { get; }
-        public JobBase Job { get; private set; }
-        public Level Level { get; set; }
+        private PlayerContext _context;
 
-        //공격력 수정 : 전직 시 기존 공격력 유지를 위해
-        public float PotionBonusAttack { get; set; } = 0f;
-        public float LevelBonusAttack { get; set; } = 0f; // 레벨업 추가 능력치
-        public float JobBaseAttack => Job.BaseAttack + PotionBonusAttack;// 직업 초기 값
-        public float TotalAttack => JobBaseAttack + LevelBonusAttack + Inventory.EquippedAttackBonus();
+        public string Name => _context.Name ?? throw new NullReferenceException();
+        public JobBase Job => _context.Job ?? throw new NullReferenceException();
+        public Level Level => _context.Level ?? throw new NullReferenceException();
+        public PlayerStats Stats => _context.Stats ?? throw new NullReferenceException();
 
-        // 방어력 수정 : 전직 시 기존 방어력 유지를 위해
-        public float PotionBonusDefense { get; set; } = 0f;
-        public float LevelBonusDefense { get; set; } = 0f; // 레벨업 추가 능력치
-        public float JobBaseDefense => Job.BaseDefense + PotionBonusDefense; // 직업 초기 값
-        public float TotalDefense => JobBaseDefense + LevelBonusDefense + Inventory.EquippedDefenseBonus();
-
-        //치명 & 회피
-        public float PotionBonusCritical { get; set; } = 0f;
-        public float TotalCriticalChance => Job.CriticalChance + PotionBonusCritical + Inventory.EquippedCriticalBonus();
-        public float PotionBonusEvasion { get; set; } = 0f;
-        public float TotalEvasionRate => Job.EvasionRate + PotionBonusEvasion + Inventory.EquippedEvasionBonus();
-
-        //마나
-        private float _manaPoint;
-        public float ManaPoint
+        public float Attack
         {
             get
             {
-                return _manaPoint;
-            }
-            set
-            {
-                if (value > Job.BaseHealth)
+                if (Stats.BaseAttack + Inventory.EquippedAttackBonus() < 0f)
                 {
-                    _manaPoint = Job.BaseMP;
-                }
-                else if (value <= 0)
-                {
-                    _manaPoint = 0f;
-
+                    return 0f;
                 }
                 else
                 {
-                    _manaPoint = value;
+                    return Stats.BaseAttack + Inventory.EquippedAttackBonus();
                 }
             }
         }
-            
-
-        private float _health;
+        public float Defense
+        {
+            get
+            {
+                if (Stats.BaseDefense + Inventory.EquippedDefenseBonus() < 0f)
+                {
+                    return 0f;
+                }
+                else
+                {
+                    return Stats.BaseDefense + Inventory.EquippedDefenseBonus();
+                }
+            }
+        }
+        public float MaxHealth
+        {
+            get
+            {
+                if (Stats.BaseHealth + Inventory.EquippedHpBonus() < 1f)
+                {
+                    return 1f;
+                }
+                else
+                {
+                    return Stats.BaseHealth + Inventory.EquippedHpBonus();
+                }
+            }
+        }
         public float Health
         {
             get
             {
-                return _health;
+                return Stats.CurHealth;
             }
             set
             {
-                if (value > Job.BaseHealth)
+                if (value > MaxHealth)
                 {
-                    _health = Job.BaseHealth;
+                    Stats.CurHealth = MaxHealth;
                 }
                 else if (value <= 0)
                 {
-                    _health = 0f;
+                    Stats.CurHealth = 0f;
                     Death();
                 }
                 else
                 {
-                    _health = value;
+                    Stats.CurHealth = value;
                 }
             }
         }
 
-        public float Gold { get; set; }
-        public bool IsDead { get; private set; }
+        public float Gold
+        {
+            get => _context.Gold ?? throw new NullReferenceException();
+            set => _context.Gold = value;
+        }
+        public bool IsDead => _context.IsDead ?? throw new NullReferenceException();
+
+        public float CriticalChance
+        {
+            get
+            {
+                if (Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus() < 0f)
+                {
+                    return 0f;
+                }
+                else if (Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus() > 100f)
+                {
+                    return 100f;
+                }
+                else
+                {
+                    return Stats.BaseCriticalChance + Inventory.EquippedCriticalBonus();
+                }
+            }
+        }
+        public float EvasionRate
+        {
+            get
+            {
+                if (Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus() < 0f)
+                {
+                    return 0f;
+                }
+                else if (Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus() > 100f)
+                {
+                    return 100f;
+                }
+                else
+                {
+                    return Stats.BaseEvasionRate + Inventory.EquippedEvasionBonus();
+                }
+            }
+        }
 
         //인벤토리
-        public Inventory Inventory { get; private set; }
-        public Dictionary<EquipmentType, string?> EquippedItems { get; private set; } // 장착 타입, 아이템 아이디
+        public Inventory Inventory => _context.Inventory ?? throw new ArgumentNullException("Inventory is not defined.");
+
+        public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new ArgumentNullException("EquippedItems is not defined.");
 
         //스킬
         private List<Buff> _buffs = new List<Buff>();
         public IEnumerable<Skill> PassiveReflectSkill => Job.Skills.Where(s => s.Type == SkillType.Passive);
 
-        //방어 계수
-        public const float DefenseConstant = 50f;
-
-        public Player(string name, JobBase job)
+        public Player()
         {
             Instance = this;
-            Name = name;
-            Job = job;
-            Level = new Level();
 
-            Inventory = new Inventory();
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+            PlayerContext? context = PlayerContext.Load();
+            if (context == null)
             {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new Potion("회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, 30f }
-            }));
-            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, -5000f },
-                { ItemEffect.Def, -5000f },
-                { ItemEffect.Hp, -5000f },
-                { ItemEffect.Critical, -5000f },
-                { ItemEffect.Evasion, -5000f },
-            }));
-            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, 5000f },
-                { ItemEffect.Def, 5000f },
-                { ItemEffect.Hp, 5000f },
-                { ItemEffect.Critical, 5000f },
-                { ItemEffect.Evasion, 5000f },
-            }));
+                //이름 입력
+                Console.WriteLine("이름을 입력해주세요.");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("\n>> ");
+                Console.ResetColor();
+                string? userName = Console.ReadLine();
+                userName = string.IsNullOrEmpty(userName) ? "8LETTE" : userName;
 
-            EquippedItems = new Dictionary<EquipmentType, string?>()
+                _context = new PlayerContext();
+                _context.Initialize(userName, new Junior());
+            }
+            else
             {
-                { EquipmentType.Mouse, null },
-                { EquipmentType.Keyboard, null },
-                { EquipmentType.Monitor, null },
-                { EquipmentType.Chair, null },
-                { EquipmentType.Desk, null },
-                { EquipmentType.Glasses, null }
-            };
+                _context = context;
+            }
+        }
 
-            Health = job.BaseHealth;
-            ManaPoint = job.BaseMP;
-
-            Gold = 1500f;
+        public void OnContextChanged()
+        {
+            _context.Save();
         }
 
         public void GainExp(int exp)
         {
             bool leveledUp = Level.AddExp(exp);
-            if (leveledUp)
+            if(leveledUp)
             {
-                Job.IncreaseStats(this);
+                IncreaseStats();
             }
+
+            OnContextChanged();
         }
 
         //전직 메소드, job 클래스를 입력 받음
@@ -199,7 +220,7 @@ namespace _8LETTE_TextRPG
         //버프로 인한 공격력증가 반환
         public float GetBuffAttack()
         {
-            float atk = TotalAttack;
+            float atk = Attack;
 
             foreach (var buff in _buffs)
             {
@@ -211,7 +232,7 @@ namespace _8LETTE_TextRPG
         //버프된 방어력, 몬스터의 데미지 부분에 이 함수 호출
         public float GetBuffedDefense()
         {
-            float def = TotalDefense;
+            float def = Defense;
             foreach (var buff in _buffs)
             {
                 def *= buff.DefenseMultiplier;
@@ -222,7 +243,7 @@ namespace _8LETTE_TextRPG
         //Todo : 치명타, 회피 버브 적용 코드
         public float GetBuffEvasion() 
         {
-            float evs = TotalEvasionRate;
+            float evs = EvasionRate;
             foreach (var buff in _buffs)
             {
                 evs += buff.EvasionMultiplier;
@@ -237,7 +258,7 @@ namespace _8LETTE_TextRPG
         }
         public float GetBuffCritical() 
         {  
-            float critical = TotalCriticalChance;
+            float critical = CriticalChance;
             foreach (var buff in _buffs)
             {
                 critical += buff.CriticalMultiplier;  
@@ -274,11 +295,11 @@ namespace _8LETTE_TextRPG
         {
             _buffs.RemoveAll(b => b.Duration == DurationType.UntilBattleEnd);
         }
-
+            
         //방어력에 따른 데미지 감면 로직 구현
         public float ApplyDefenseReduction(float Damage, float Defense)
         {
-            float k = DefenseConstant / (DefenseConstant + Defense);
+            float k = 50f / (50f + Defense);
             float mitigate = Damage * k;
             mitigate = (float)Math.Ceiling(mitigate);
             return Math.Max(1, mitigate);
@@ -292,7 +313,7 @@ namespace _8LETTE_TextRPG
         {
             Random r = new Random();
 
-            float varirance = (float)Math.Ceiling(TotalAttack * 0.1f);
+            float varirance = (float)Math.Ceiling(Attack * 0.1f);
 
             //공격력 버프 적용, 버프가 없으면 기본 공격력 적용
             float atk = GetBuffAttack();
@@ -358,6 +379,17 @@ namespace _8LETTE_TextRPG
             return r.Next(1, 101) <= GetBuffCritical();
         }
 
+        //플레이어 레벨업 시 능력치 수치 추가 메소드
+        public void IncreaseStats()
+        {
+            Stats.BaseAttack += 0.5f;
+            Stats.BaseDefense += 1f;
+
+            QuestManager.Instance.SendProgress(QuestType.IncreaseStat);
+
+            OnContextChanged();
+        }
+
         public void OnDamaged(float dmg)
         {
             if (IsDead)
@@ -366,11 +398,15 @@ namespace _8LETTE_TextRPG
             }
 
             Health -= dmg;
+
+            OnContextChanged();
         }
 
         public void Death()
         {
-            IsDead = true;
+            _context.IsDead = true;
+
+            OnContextChanged();
         }
     }
 }

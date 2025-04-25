@@ -274,26 +274,28 @@ namespace _8LETTE_TextRPG
                 
                 damage = (float)Math.Ceiling(damage * 1.6);
                 damage = ApplyDefenseReduction(damage, target.Defense);
+                Console.WriteLine($"{Name}의 공격!");
+                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
 
                 //데미지 계산 처리는 몬스터 클래스에서
                 target.OnDamaged(damage);
 
-                Console.WriteLine($"{Name}의 공격!");
-                Console.WriteLine($"Lv.{target.Level} {target.Name}을 공격.  {damage}의 데미지 - 치명타 공격!!");
+               
             }
             else
             {
                 //데미지 계산 처리는 몬스터 클래스에서
+                Console.WriteLine($"{Name}의 공격!");
+                Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
                 damage = ApplyDefenseReduction(damage, target.Defense);
                 target.OnDamaged(damage);
 
-                Console.WriteLine($"{Name}의 공격!");
-                Console.WriteLine($"Lv.{target.Level} {target.Name}에게 {damage}의 데미지를 입혔습니다.");
+               
             }
 
             if (target.IsDead)
-            {
-                Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
+            {   
+                //Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
                 GainExp(target.Level);
                 //만일 몬스터 별로 경험치가 다르게 구현해서
                 //속성을 추가해서 파라미터로 받아오게 하면

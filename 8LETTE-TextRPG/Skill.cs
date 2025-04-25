@@ -37,10 +37,9 @@ namespace _8LETTE_TextRPG
         /// </summary>
         public float PromotionMultiplier { get; set; } = 1f;
 
-        public abstract void Execute(Player player, Monster target);
+        public abstract bool Execute(Player player, Monster target);
 
     }
-
 
     //주니어 기본스킬 [야근]
     public class YaguenSkill : Skill
@@ -56,12 +55,12 @@ namespace _8LETTE_TextRPG
 
 
         //스킬 실행 로직
-        public override void Execute(Player player, Monster _)
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -91,6 +90,7 @@ namespace _8LETTE_TextRPG
                 //Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
                 Player.Instance.GainExp(chosen.Level);
             }
+            return true;
         }
     }
 
@@ -108,12 +108,12 @@ namespace _8LETTE_TextRPG
 
 
         //스킬 실행 로직
-        public override void Execute(Player player, Monster target)
+        public override bool Execute(Player player, Monster target)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -132,9 +132,9 @@ namespace _8LETTE_TextRPG
 
             Player.Instance.AddBuff(buff);
 
+            return true;
         }
     }
-
 
     public class DebugStrike : Skill
     {
@@ -146,12 +146,12 @@ namespace _8LETTE_TextRPG
         public override float ManaCost => 15f;
 
         //몬스터 전체를 공격하는 스킬이기에, 몬스터 파라마터는 무시
-        public override void Execute(Player player, Monster _)
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -174,6 +174,7 @@ namespace _8LETTE_TextRPG
                     Player.Instance.GainExp(monster.Level);
                 }
             }
+            return true;
         }
     }
     #endregion
@@ -188,12 +189,12 @@ namespace _8LETTE_TextRPG
         public override EffectType Effect => EffectType.Buff;
         public override float ManaCost => base.ManaCost;
 
-        public override void Execute(Player player, Monster _)
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (필요 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -211,6 +212,7 @@ namespace _8LETTE_TextRPG
 
             Player.Instance.AddBuff(buff);
 
+            return true;
         }
     }
 
@@ -226,13 +228,13 @@ namespace _8LETTE_TextRPG
 
 
         //스킬 실행 로직
-        public override void Execute(Player player, Monster target)
+        public override bool Execute(Player player, Monster target)
         {
 
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -258,6 +260,7 @@ namespace _8LETTE_TextRPG
                 //Gain(target.Exp);
             }
 
+            return true;
         }
     }
     #endregion
@@ -273,12 +276,12 @@ namespace _8LETTE_TextRPG
 
         public override float ManaCost => base.ManaCost;
 
-        public override void Execute(Player player, Monster _)
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -294,6 +297,7 @@ namespace _8LETTE_TextRPG
                );
             Player.Instance.AddBuff(buff);
 
+            return true;
         }
     }
 
@@ -306,7 +310,7 @@ namespace _8LETTE_TextRPG
         public override EffectType Effect => EffectType.Damage;
         public override float ManaCost => 15f;
 
-        public override void Execute(Player player, Monster monster)
+        public override bool Execute(Player player, Monster monster)
         {
             float rawDamage = player.TotalAttack * 0.5f * PromotionMultiplier;
             float finalDamage = player.ApplyDefenseReduction(rawDamage, monster.Defense);
@@ -322,7 +326,8 @@ namespace _8LETTE_TextRPG
                 player.GainExp(monster.Level);
 
             }
-              
+            
+            return true;
         }
     }
     #endregion
@@ -337,12 +342,12 @@ namespace _8LETTE_TextRPG
         public override EffectType Effect => EffectType.Buff;
         public override float ManaCost => base.ManaCost;
 
-        public override void Execute(Player player, Monster _)
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -358,6 +363,7 @@ namespace _8LETTE_TextRPG
                );
             Player.Instance.AddBuff(buff);
 
+            return true;
         }
     }
 
@@ -371,12 +377,12 @@ namespace _8LETTE_TextRPG
         public override EffectType Effect => EffectType.Damage;
         public override float ManaCost => 15f;
 
-        public override void Execute(Player player, Monster monster)
+        public override bool Execute(Player player, Monster monster)
         {
             if (!CanUse(player))
             {
-                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {player.ManaPoint})");
-                return;
+                Console.WriteLine($"MP가 부족하여 '{Name}' 스킬을 사용할 수 없습니다. (현재 MP: {ManaCost})");
+                return false;
             }
 
             player.ManaPoint -= ManaCost;
@@ -386,10 +392,7 @@ namespace _8LETTE_TextRPG
                           .Where(m => !m.IsDead)
                           .ToList();
             //적의 절반을 무작위로 공격
-
             int total = m.Count;
-            if (total == 0) return;
-
             int half = (int)Math.Ceiling(total / 2.0);
 
             var r = new Random();
@@ -400,7 +403,6 @@ namespace _8LETTE_TextRPG
             float dmg;
             foreach (var mon in selected)
             {
-
                 if (player.TryCritical())
                 {
                     dmg = (float)Math.Ceiling(rawDamage * 1.6);
@@ -408,7 +410,6 @@ namespace _8LETTE_TextRPG
 
                     Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
                     mon.OnDamaged(dmg);
-                    
                 }
                 else 
                 {
@@ -416,7 +417,6 @@ namespace _8LETTE_TextRPG
 
                     Console.WriteLine($"Lv.{mon.Level} {mon.Name}에게 {dmg}의 피해를 입혔습니다.");
                     mon.OnDamaged(dmg);
-                   
                 }
                 
                 if (mon.IsDead)
@@ -424,9 +424,9 @@ namespace _8LETTE_TextRPG
                    // Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
                     player.GainExp(mon.Level);
                 }
-
-
             }
+
+            return true;
         }
 
         #endregion

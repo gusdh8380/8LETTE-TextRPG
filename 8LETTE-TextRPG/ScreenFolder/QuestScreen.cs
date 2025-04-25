@@ -24,11 +24,11 @@
 
             foreach (QuestGoal goal in _quests[_userInput].Goals)
             {
-                Console.WriteLine($"- {goal.CurrentAmount} / {goal.RequiredAmount}");
-                Console.WriteLine();
+                Console.Write($"{goal.Target.ToString()}");
+                Console.WriteLine($" - {goal.CurrentAmount} / {goal.RequiredAmount}");
             }
 
-            Console.WriteLine("- 보상");
+            Console.WriteLine("\n- 보상");
             Console.WriteLine(_quests[_userInput].RewardItem?.Name);
             Console.WriteLine(_quests[_userInput].RewardGold + "G");
             Console.WriteLine();

@@ -1,7 +1,12 @@
-﻿namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
+﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.ScreenFolder;
+
+namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class IndexFairy : Monster
     {
+
+        Random r = new Random();
         public IndexFairy()
         {
             Type = MonsterType.Fairy;
@@ -45,7 +50,15 @@
 
         private void OnDeath()
         {
+            Random r = new Random();
+            Console.WriteLine($"{Name}를 처지했습니다!");
+            if (r.Next(1, 101) <= 20)
+            {
+                Player.Instance.Inventory.AddItem(new Potion(10f));
 
+                Console.WriteLine($"{Name}가 체력 포션 (10)을 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (10)을 드랍했습니다.");
+            }
         }
 
         public override void OnDamaged(float dmg)

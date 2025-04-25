@@ -151,6 +151,16 @@ namespace _8LETTE_TextRPG
                 { ItemEffect.Evasion, 5000f },
             }));
 
+            EquippedItems = new Dictionary<EquipmentType, string?>()
+            {
+                { EquipmentType.Mouse, null },
+                { EquipmentType.Keyboard, null },
+                { EquipmentType.Monitor, null },
+                { EquipmentType.Chair, null },
+                { EquipmentType.Desk, null },
+                { EquipmentType.Glasses, null }
+            };
+
             Health = job.BaseHealth;
             ManaPoint = job.BaseMP;
 

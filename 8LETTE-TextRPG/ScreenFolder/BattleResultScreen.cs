@@ -42,6 +42,7 @@
 
                 Console.WriteLine("[클리어 보상]");
                 Console.WriteLine($"골  드 : {MonsterSpawner.Instance.PreviousGold} -> {Player.Instance.Gold}");
+                //Console.WriteLine($"포  션 : {}");
             }
         }
 

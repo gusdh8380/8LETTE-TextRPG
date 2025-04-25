@@ -50,13 +50,12 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
             Console.WriteLine($"{Name}을(를) 처지했습니다!");
             if (r.Next(1, 101) <= 100)//30% 확률로 아래 아이템을 드랍
             {
-                Player.Instance.Inventory.AddItem(new Potion("테스트 물약g (30)", "사용 시 HP를 30 회복합니다.", 100f, new Dictionary<ItemEffect, float>
+                Player.Instance.Inventory.AddItem(new Potion("체력 포션 (10)", "사용 시 HP를 10 회복합니다.", 40f, new Dictionary<ItemEffect, float>
                  {
-                     { ItemEffect.Hp, 30f }
+                     { ItemEffect.Hp, 10f }
                  }));
 
-                Console.WriteLine($"{Name}이(가) 테스트 물약을 드랍했습니다.");
-
+                Console.WriteLine($"{Name}이(가) 체력 포션 (10)을 드랍했습니다.");
             }
         }
 

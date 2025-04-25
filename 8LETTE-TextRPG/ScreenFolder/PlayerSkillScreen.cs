@@ -1,10 +1,13 @@
-﻿namespace _8LETTE_TextRPG.ScreenFolder
+﻿using _8LETTE_TextRPG.MonsterFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class PlayerSkillScreen : Screen
     {
         public static readonly PlayerSkillScreen Instance = new PlayerSkillScreen();
 
         private bool isAttacked = false;
+        private bool hasMana;
         private int userInput = -1;
 
         private void ShowSkillList()
@@ -43,7 +46,8 @@
             }
             else
             {
-                Player.Instance.Job.Skills.ToArray()[userInput].Execute(Player.Instance, null);
+                Monster monster = MonsterSpawner.Instance.GetAllMonsters().Where(m => m.IsDead == false).ToArray()[0];
+                hasMana = Player.Instance.Job.Skills.ToArray()[userInput].Execute(Player.Instance, monster);
 
                 PrintAnyKeyInstruction();
             }
@@ -54,6 +58,11 @@
             string? input = Console.ReadLine();
             if (isAttacked)
             {
+                if (!hasMana)
+                {
+                    isAttacked = false;
+                    return this;
+                }
                 isAttacked = false;
                 //만약 몬스터가 모두 죽었다면, 전투 결과 화면으로 이동
                 if (MonsterSpawner.Instance.IsAllDead()) return BattleResultScreen.Instance;
@@ -68,9 +77,8 @@
             }
             else if (int.TryParse(input, out int num))
             {
-                //플레이어의 스킬 번호를 벗어나거나 마력이 부족하면 아래 실행
                 Skill[] skills = Player.Instance.Job.Skills.ToArray();
-                if (num < 1 || num > skills.Length) //|| Player.Instane.MP < skills[num - 1].MP
+                if (num < 1 || num > skills.Length)
                 {
                     _isRetry = true;
                     return this;

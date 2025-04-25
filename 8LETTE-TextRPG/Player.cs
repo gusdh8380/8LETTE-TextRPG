@@ -115,16 +115,14 @@ namespace _8LETTE_TextRPG
                 { ItemEffect.Critical, -5000f },
                 { ItemEffect.Evasion, -5000f },
             }));
-
-            EquippedItems = new Dictionary<EquipmentType, string?>
+            Inventory.AddItem(new EquipableItem("테스트 아이템2", "모든 스탯이 5000 깎입니다. (장비타입: 책상)", 500f, EquipmentType.Desk, new Dictionary<ItemEffect, float>
             {
-                { EquipmentType.Mouse, null },
-                { EquipmentType.Keyboard, null },
-                { EquipmentType.Monitor, null },
-                { EquipmentType.Chair, null },
-                { EquipmentType.Desk, null },
-                { EquipmentType.Glasses, null }
-            };
+                { ItemEffect.Atk, 5000f },
+                { ItemEffect.Def, 5000f },
+                { ItemEffect.Hp, 5000f },
+                { ItemEffect.Critical, 5000f },
+                { ItemEffect.Evasion, 5000f },
+            }));
 
             Health = job.BaseHealth;
 
@@ -137,6 +135,7 @@ namespace _8LETTE_TextRPG
             if (leveledUp)
             {
                 Job.IncreaseStats(this);
+
             }
 
         }

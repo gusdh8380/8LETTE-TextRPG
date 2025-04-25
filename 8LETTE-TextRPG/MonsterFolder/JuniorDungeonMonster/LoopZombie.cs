@@ -5,9 +5,6 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
 {
     class LoopZombie : Monster
     {
-
-        Random r = new Random();
-
         public LoopZombie()
         {
             Type = MonsterType.Undead;
@@ -51,13 +48,17 @@ namespace _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster
         private void OnDeath()
         {
             Random r = new Random();
-            Console.WriteLine($"{Name}를 처지했습니다!");
-            if (r.Next(1, 101) <= 15)
+            Console.WriteLine($"{Name}을(를) 처지했습니다!");
+            if (r.NextSingle() <= 0.15f)
             {
-                Player.Instance.Inventory.AddItem(new UsableItem(10f));
+                Item droppedItem = new UsableItem(Guid.NewGuid().ToString(), "체력 포션 (10)", "사용 시 HP를 10 회복합니다.", 40f, UseType.Potion, new Dictionary<ItemEffect, float>
+                {
+                    { ItemEffect.Hp, 10 }
+                });
+                Player.Instance.Inventory.AddItem(droppedItem);
 
-                Console.WriteLine($"{Name}가 체력 포션 (10)을 드랍했습니다.");
-                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}가 체력 포션 (10)을 드랍했습니다.");
+                Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
+                BattleResultScreen.Instance.PrintDropItem += () => Console.WriteLine($"{Name}(이)가 {droppedItem.Name}을(를) 드랍했습니다.");
             }
         }
 

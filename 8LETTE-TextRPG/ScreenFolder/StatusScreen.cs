@@ -26,9 +26,9 @@
             }
 
             float mpBounus = Player.Instance.Inventory.EquippedMpBonus();
-            if (hpBounus != 0f)
+            if (mpBounus != 0f)
             {
-                if (hpBounus > 0f)
+                if (mpBounus > 0f)
                 {
                     Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} (+{mpBounus})");
                 }
@@ -82,11 +82,11 @@
             {
                 if (criticalBonus > 0f)
                 {
-                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} (+{criticalBonus}) %");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} (+{criticalBonus})%");
                 }
                 else
                 {
-                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} ({criticalBonus}) %");
+                    Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} ({criticalBonus})%");
                 }
             }
             else
@@ -127,6 +127,8 @@
             Console.WriteLine($"{Player.Instance.Name} ({Player.Instance.Job.Name})");
 
             PrintBonusStatus();
+
+            Console.WriteLine($"전투불능 : {Player.Instance.IsDead}");
 
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 

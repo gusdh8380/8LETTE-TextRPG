@@ -15,7 +15,9 @@ namespace _8LETTE_TextRPG
         public float BaseMP;
         public float CurMP;
         public float BaseAttack;
+        public float LevelBonusAtk;
         public float BaseDefense;
+        public float LevelBonusDfs;
         public float BaseCriticalChance;
         public float BaseEvasionRate;
     }

@@ -12,7 +12,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
         private void ShowAttackList()
         {
             //몬스터 객체를 불러와서 입력 번호와 정보를 출력
-            MonsterSpawner.Instance.ShowMonsterInfo(true);
+            DungeonManager.Instance.ShowMonsterInfo(true);
 
             //플레이어의 필요한 정보(레벨, 이름, 직업, 체력)를 출력
             Console.WriteLine("[내 정보]");
@@ -38,7 +38,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             }
             else
             {
-                Player.Instance.AttackTo(MonsterSpawner.Instance.GetAllMonsters()[userInput]);
+                Player.Instance.AttackTo(DungeonManager.Instance.GetAllMonsters()[userInput]);
 
                 PrintAnyKeyInstruction();
             }
@@ -51,7 +51,10 @@ namespace _8LETTE_TextRPG.ScreenFolder
             {
                 isAttacked = false;
                 //만약 몬스터가 모두 죽었다면, 전투 결과 화면으로 이동
-                if (MonsterSpawner.Instance.IsAllDead()) return BattleResultScreen.Instance;
+                if (DungeonManager.Instance.IsAllDead())
+                {
+                    return BattleResultScreen.Instance;
+                }
 
                 //아니면, 몬스터 공격 화면으로 이동
                 return MonsterAttackScreen.Instance;
@@ -63,7 +66,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             }
             else if (int.TryParse(input, out int num))
             {
-                Monster[] monsters = MonsterSpawner.Instance.GetAllMonsters();
+                Monster[] monsters = DungeonManager.Instance.GetAllMonsters();
                 if (num < 1 || num > monsters.Length || monsters[num - 1].IsDead)
                 {
                     _isRetry = true;

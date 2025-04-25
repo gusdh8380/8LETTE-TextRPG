@@ -24,22 +24,6 @@ namespace _8LETTE_TextRPG.ItemFolder
             Effects = effects;
         }
 
-        public UsableItem(float hpBonus)
-        {
-            Id = Guid.NewGuid().ToString();
-            Name = $"체력 포션 ({hpBonus})";
-            Description = $"사용 시 HP를 {hpBonus} 회복합니다.";
-
-            Price = hpBonus * 3 + 10;
-            ItemType = ItemType.Usable;
-
-            UseType = UseType.Potion;
-            Effects = new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Hp, hpBonus }
-            };
-        }
-
         public override string GetEffectName()
         {
             StringBuilder sb = new StringBuilder();
@@ -62,7 +46,7 @@ namespace _8LETTE_TextRPG.ItemFolder
                             sb.Append(" ");
                             break;
                         case ItemEffect.Hp:
-                            sb.Append("체력 ");
+                            sb.Append("HP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -75,6 +59,12 @@ namespace _8LETTE_TextRPG.ItemFolder
                             break;
                         case ItemEffect.Evasion:
                             sb.Append("회피 ");
+                            sb.Append(effectPair.Value > 0f ? "+" : "");
+                            sb.Append(effectPair.Value);
+                            sb.Append(" ");
+                            break;
+                        case ItemEffect.MP:
+                            sb.Append("MP ");
                             sb.Append(effectPair.Value > 0f ? "+" : "");
                             sb.Append(effectPair.Value);
                             sb.Append(" ");
@@ -105,6 +95,11 @@ namespace _8LETTE_TextRPG.ItemFolder
                         Player.Instance.Stats.BaseDefense += effectPair.Value;
                         break;
                     case ItemEffect.Hp:
+                        if (Player.Instance.IsDead)
+                        {
+                            Player.Instance.IsDead = false;
+                        }
+
                         Player.Instance.Health += effectPair.Value;
                         break;
                     case ItemEffect.Critical:
@@ -112,6 +107,9 @@ namespace _8LETTE_TextRPG.ItemFolder
                         break;
                     case ItemEffect.Evasion:
                         Player.Instance.Stats.BaseEvasionRate += effectPair.Value;
+                        break;
+                    case ItemEffect.MP:
+                        Player.Instance.Mana += effectPair.Value;
                         break;
                     default:
                         break;

@@ -10,7 +10,7 @@
 
             PrintTitle("전투!! - 몬스터의 공격");
 
-            MonsterSpawner.Instance.AttackPlayer();
+            DungeonManager.Instance.AttackPlayer();
 
             PrintAnyKeyInstruction();
         }

@@ -161,6 +161,16 @@ namespace _8LETTE_TextRPG
         {
             item.Unequip();
 
+            if (Player.Instance.Health > Player.Instance.MaxHealth)
+            {
+                Player.Instance.Health = Player.Instance.MaxHealth;
+            }
+
+            if (Player.Instance.Mana > Player.Instance.MaxMana)
+            {
+                Player.Instance.Mana = Player.Instance.MaxMana;
+            }
+
             Player.Instance.OnContextChanged();
         }
 

@@ -28,12 +28,25 @@
 ## 🗂️ 파일 구조
 ```plaintext
 8LETTE-TextRPG/
+ ├── ContextFolder/
+      ├── DungeonContext.cs
+      └── Item Converter.cs
+      └── ...
  ├── ItemFolder/
  │    ├── EquipableItem.cs
+ │    └── ...
+ ├──  JobFolder/
+ │    ├── BugWarrior.cs
+ │    └── JobBase
  │    └── ...
  ├── MonsterFolder/
  │    ├── DirectorDungeonMonster/
  │    ├── JuniorDungeonMonster/
+ │    └── ...
+ │    └── Monster.cs
+ │    └── MonsterType.cs
+ ├── QuestFolder
+ │    ├── Quest.cs
  │    └── ...
  ├── ScreenFolder/
  │    ├── ActionSelectScreen.cs
@@ -41,12 +54,12 @@
  ├── SkillFolder/
  │     ├── CounterAttack.cs
  │     └── ...
- ├── Buff.cs
+ ├── DungeonManager.cs
+ ├── DungeonType.cs
  ├── Inventory.cs
  ├── Level.cs
- ├── Player.cs
- ├── QuestManager.cs
- └── MainGame.cs
+ ├── MainGame.cs
+ └── Player.cs
 ```
 
 ## 🧙‍♂️ 개발자 메모

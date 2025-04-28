@@ -1,9 +1,9 @@
-﻿using _8LETTE_TextRPG.ItemFolder;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.JobFolder;
 using _8LETTE_TextRPG.MonsterFolder;
 using _8LETTE_TextRPG.SkillFolder;
 using System.Diagnostics.CodeAnalysis;
-using TextRPG;
 
 namespace _8LETTE_TextRPG
 {

@@ -1,4 +1,6 @@
-﻿using _8LETTE_TextRPG.SkillFolder;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using _8LETTE_TextRPG.QuestFolder;
+using _8LETTE_TextRPG.SkillFolder;
 using Newtonsoft.Json;
 
 namespace _8LETTE_TextRPG.JobFolder

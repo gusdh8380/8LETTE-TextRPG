@@ -1,14 +1,8 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TextRPG;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ContextFolder
 {
     class ShopContext
     {

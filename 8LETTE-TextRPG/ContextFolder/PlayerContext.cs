@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using _8LETTE_TextRPG.JobFolder;
 
-namespace TextRPG
+namespace _8LETTE_TextRPG.ContextFolder
 {
     [Serializable]
     class PlayerContext

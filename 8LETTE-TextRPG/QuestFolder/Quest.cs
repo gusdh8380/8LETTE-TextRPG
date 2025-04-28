@@ -1,7 +1,7 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using Newtonsoft.Json;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.QuestFolder
 {
     [Serializable]
     class Quest

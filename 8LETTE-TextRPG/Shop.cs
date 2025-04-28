@@ -1,4 +1,5 @@
-﻿using _8LETTE_TextRPG.ItemFolder;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using _8LETTE_TextRPG.ItemFolder;
 
 namespace _8LETTE_TextRPG
 {

@@ -1,4 +1,5 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
+using _8LETTE_TextRPG.QuestFolder;
 using Newtonsoft.Json;
 
 namespace _8LETTE_TextRPG

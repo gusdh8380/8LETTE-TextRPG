@@ -1,3 +1,5 @@
+using _8LETTE_TextRPG.QuestFolder;
+
 namespace _8LETTE_TextRPG.MonsterFolder
 {
     public abstract class Monster

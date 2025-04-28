@@ -9,14 +9,16 @@ namespace _8LETTE_TextRPG
 
         public Item[] GetItemsOfType(EquipmentType? equipmentType)
         {
-           if(equipmentType != null)
-                return _context.Items
-                    .OfType<EquipableItem>()
-                    .Where(item => item.EquipmentType == equipmentType)
-                    .ToArray();
-           else
-                return _context.Items.OfType<UsableItem>().ToArray();
+            if (equipmentType != null)
+            {
+                return _context.Items.FindAll(item => item is IEquipable equipable && equipable.EquipmentType == equipmentType).ToArray();
+            }
+            else
+            {
+                return _context.Items.FindAll(item => item is IUsable).ToArray();
+            }
         }
+
         public Item[] GetAllItems() => _context.Items?.ToArray() ?? throw new NullReferenceException();
 
         public Shop()

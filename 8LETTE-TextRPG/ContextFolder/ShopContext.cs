@@ -157,21 +157,26 @@ namespace _8LETTE_TextRPG.ContextFolder
             }));
 
             //테스트용 아이템
-            Items.Add(new EquipableItem(Guid.NewGuid().ToString(), "테스트", "테스트용 아이템 (장비타입: 모니터).", 999f,
-                EquipmentType.Monitor, new Dictionary<ItemEffect, float>
-            {
-                { ItemEffect.Atk, 999f },
-                { ItemEffect.Def, 999f },
-                { ItemEffect.Hp, 999f },
-                { ItemEffect.Critical, 999f },
-                { ItemEffect.Evasion, 999f },
-            }));
+            //Items.Add(new EquipableItem(Guid.NewGuid().ToString(), "테스트", "테스트용 아이템 (장비타입: 모니터).", 999f,
+            //    EquipmentType.Monitor, new Dictionary<ItemEffect, float>
+            //{
+            //    { ItemEffect.Atk, 999f },
+            //    { ItemEffect.Def, 999f },
+            //    { ItemEffect.Hp, 999f },
+            //    { ItemEffect.Critical, 999f },
+            //    { ItemEffect.Evasion, 999f },
+            //}));
 
             //포션
             Items.Add(new UsableItem(Guid.NewGuid().ToString(), "회복 물약 (30)", "사용 시 HP를 30 회복합니다.", 100f, UseType.Potion,
                 new Dictionary<ItemEffect, float>
             {
                 { ItemEffect.Hp, 30f }
+            }));
+            Items.Add(new UsableItem(Guid.NewGuid().ToString(), "회복 물약 (100)", "사용 시 HP를 100 회복합니다.", 500f, UseType.Potion,
+                new Dictionary<ItemEffect, float>
+            {
+                { ItemEffect.Hp, 100f }
             }));
 
             foreach (Item item in Items)

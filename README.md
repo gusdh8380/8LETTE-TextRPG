@@ -7,13 +7,12 @@
 ![image](https://github.com/user-attachments/assets/5814e742-44dc-4258-8bf3-97e7e0a5da26)
 
 ## 🖥️ 설치 및 실행 방법
-1. 이 저장소를 클론하거나 다운로드합니다.
-2. Visual Studio 또는 Rider 등의 IDE로 프로젝트를 엽니다.
-3. 필요한 경우 NuGet 패키지 관리에서 `Newtonsoft.Json` 패키지를 설치합니다.
-4. `8LETTE-TextRPG.csproj`를 빌드한 후 실행합니다.
+![image](https://github.com/user-attachments/assets/a5cc4159-a1ba-4bf3-b05f-4a02f08378f7)
+1. Releases에서 가장 최근 버전을 들어갑니다.
+2. 해당 버전의 .zip 파일을 압축 해제 후 .exe 파일을 플레이하면 됩니다!
 
 ## 🎮 조작 방법
-- 텍스트 입력을 통해 메뉴 탐색 및 전투, 장비 관리,아이템 사용
+- 텍스트 입력을 통해 메뉴 탐색 및 전투, 장비 관리, 아이템 사용
 
 ## ✨ 주요 기능
 - 전직/승급 시스템 (버그 워리어, 메모리 나이트, 스레드 어쌔신, 익셉션 헌터)

@@ -33,13 +33,9 @@ namespace _8LETTE_TextRPG.ContextFolder
                 {
                     new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5)
                 },
-                new UsableItem(Guid.NewGuid().ToString(), "개초딩 포션", "밸런스를 고려하지 않은 사기적인 포션이다.", 0f, UseType.Potion, new Dictionary<ItemEffect, float>
+                new UsableItem(Guid.NewGuid().ToString(), "마나 포션", "마나를 10 채워주는 포션이다.", 0f, UseType.Potion, new Dictionary<ItemEffect, float>
                 {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
+                    { ItemEffect.MP, 10f },
                 }))
             );
 
@@ -50,13 +46,9 @@ namespace _8LETTE_TextRPG.ContextFolder
                 {
                     new QuestGoal(QuestType.EquipItem)
                 },
-                new EquipableItem(Guid.NewGuid().ToString(), "개사기 마우스", "밸런스를 고려하지 않은 사기적인 마우스이다.", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
+                new EquipableItem(Guid.NewGuid().ToString(), "나무 의자", "장시간 앉아 있기는 불편한 삐걱거리는 나무 의자이다.", 0f, EquipmentType.Chair, new Dictionary<ItemEffect, float>
                 {
-                    { ItemEffect.Atk, 999f },
-                    { ItemEffect.Def, 999f },
-                    { ItemEffect.Hp, 999f },
-                    { ItemEffect.Critical, 999f },
-                    { ItemEffect.Evasion, 999f }
+                    { ItemEffect.Def, 1f },
                 }))
             );
 

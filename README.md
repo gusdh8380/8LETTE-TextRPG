@@ -4,6 +4,9 @@
 - **8LETTE-TextRPG**는 프로그래머들의 세계를 모티브로 한 텍스트 기반 RPG 게임입니다.
 - 플레이어는 "에잇!레인저"의 일원이 되어 몬스터를 무찌르고, 장비를 강화하며 성장해나갑니다.
 
+![image](https://github.com/user-attachments/assets/ea231a9c-1afc-49d7-a667-f0905d4d83df)
+
+
 ## 🖥️ 설치 및 실행 방법
 1. 이 저장소를 클론하거나 다운로드합니다.
 2. Visual Studio 또는 Rider 등의 IDE로 프로젝트를 엽니다.

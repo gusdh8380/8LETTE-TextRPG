@@ -116,9 +116,7 @@ namespace _8LETTE_TextRPG.ItemFolder
                 }
             }
 
-            QuestManager.Instance?.SendProgress(QuestType.UseItem, "포션 마시기", 1);
             Player.Instance.Inventory.RemoveItem(this);
-
             Player.Instance.OnContextChanged();
         }
     }

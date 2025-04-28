@@ -43,11 +43,12 @@ namespace _8LETTE_TextRPG.SkillFolder
                 monster.OnDamaged(fianlDamage);
 
 
-                if (monster.IsDead)
-                {
-                    Player.Instance.GainExp(monster.Level);
-                }
+                //if (monster.IsDead)
+                //{
+                //    Player.Instance.GainExp(monster.Level);
+                //}
             }
+
             return true;
         }
     }

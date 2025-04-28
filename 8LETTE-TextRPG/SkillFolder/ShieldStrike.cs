@@ -10,7 +10,7 @@ namespace _8LETTE_TextRPG.SkillFolder
     public class ShieldStrike : Skill
     {
         public override string Name => "방패치기";
-        public override string Description => " 방어력의 100% 피해를 입힙니다.";
+        public override string Description => " 몬스터 전체에게 방어력의 100% 피해를 입힙니다.";
 
         public override SkillType Type => SkillType.Active;
         public override SkillEffectType Effect => SkillEffectType.Damage;
@@ -18,8 +18,8 @@ namespace _8LETTE_TextRPG.SkillFolder
         public override float ManaCost => 15f;
 
 
-        //스킬 실행 로직
-        public override bool Execute(Player player, Monster target)
+        //몬스터 전체를 공격하는 스킬이기에, 몬스터 파라마터는 무시
+        public override bool Execute(Player player, Monster _)
         {
             if (!CanUse(player))
             {
@@ -29,23 +29,26 @@ namespace _8LETTE_TextRPG.SkillFolder
 
             player.Mana -= ManaCost;
 
+            Console.WriteLine($"{player.Name}이(가) '{Name}' 스킬을 사용했습니다!");
+            Monster[] monsters = DungeonManager.Instance.GetAllMonsters();
+
             //데미지 = 플레이어 기본 공격력*2 *{(디렉터 강화 계수) = 기본값 1, 디렉터는 1.5}
             float damage = Player.Instance.Defense * PromotionMultiplier;
-
-            // 아래 코드에서 몬스터 방어력에 따른 데미지 계산 로직 추가
-            float finalDamege = Player.Instance.ApplyDefenseReduction(damage, target.Defense);
-            Console.WriteLine($"{player.Name}이(가) '방패치기' 스킬을 사용했습니다!");
-            Console.WriteLine($"{target.Name}에게 {damage}의 피해를 입혔습니다!");
-
-            target.OnDamaged(finalDamege);
-
-            if (target.IsDead)
+            foreach (Monster monster in monsters)
             {
-                // Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                Player.Instance.GainExp(target.Level);
-                //만일 몬스터 별로 경험치가 다르게 구현해서
-                //속성을 추가해서 파라미터로 받아오게 하면
-                //Gain(target.Exp);
+                if (monster.IsDead)
+                {
+                    continue;
+                }
+
+                float fianlDamage = Player.Instance.ApplyDefenseReduction(damage, monster.Defense);
+                Console.WriteLine($"Lv.{monster.Level} {monster.Name}에게 {fianlDamage}의 데미지를 입혔습니다.");
+                monster.OnDamaged(fianlDamage);
+
+                //if (monster.IsDead)
+                //{
+                //    Player.Instance.GainExp(monster.Level);
+                //}
             }
 
             return true;

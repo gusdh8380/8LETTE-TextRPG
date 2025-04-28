@@ -91,7 +91,7 @@
             }
             else
             {
-                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} %");
+                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance}%");
             }
 
             float evasionBonus = Player.Instance.Inventory.EquippedEvasionBonus();

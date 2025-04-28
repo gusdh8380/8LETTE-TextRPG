@@ -191,8 +191,8 @@ namespace _8LETTE_TextRPG
         }
 
         //인벤토리
-        public Inventory Inventory => _context.Inventory ?? throw new ArgumentNullException("Inventory is not defined.");
-        public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new ArgumentNullException("EquippedItems is not defined.");
+        public Inventory Inventory => _context.Inventory ?? throw new NullReferenceException();
+        public Dictionary<EquipmentType, string?> EquippedItems => _context.EquippedItems ?? throw new NullReferenceException();
 
         //스킬
         private List<Buff> _buffs = new List<Buff>();
@@ -215,6 +215,8 @@ namespace _8LETTE_TextRPG
 
                 _context = new PlayerContext();
                 _context.Initialize(userName, new Junior());
+
+                OnContextChanged();
             }
             else
             {
@@ -259,7 +261,7 @@ namespace _8LETTE_TextRPG
             Stats.BaseEvasionRate = job.EvasionRate;
 
             // 디렉터에서 스킬 계수 강화
-            float enforce = (job.PromotionType == PromotionType.Senior) ? 1.5f : 1f;
+            float enforce = (job.PromotionType == PromotionType.Director) ? 1.5f : 1f;
             foreach (Skill skill in job.Skills)
             {
                 skill.PromotionMultiplier = enforce;
@@ -300,6 +302,7 @@ namespace _8LETTE_TextRPG
             {
                 def *= buff.DefenseMultiplier;
             }
+
             return def;
         }
 
@@ -402,14 +405,14 @@ namespace _8LETTE_TextRPG
                
             }
 
-            if (target.IsDead)
-            {   
-                //Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
-                GainExp(target.Level);
-                //만일 몬스터 별로 경험치가 다르게 구현해서
-                //속성을 추가해서 파라미터로 받아오게 하면
-                //Gain(target.Exp);
-            }
+            //if (target.IsDead)
+            //{   
+            //    //Console.WriteLine($"\n{target.Name}을(를) 처치했습니다!");
+            //    GainExp(target.Level);
+            //    //만일 몬스터 별로 경험치가 다르게 구현해서
+            //    //속성을 추가해서 파라미터로 받아오게 하면
+            //    //Gain(target.Exp);
+            //}
         }
 
         /// <summary>

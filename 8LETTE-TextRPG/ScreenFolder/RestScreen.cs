@@ -18,6 +18,12 @@
 
             PrintTitle("휴식하기");
 
+            bool rested = false;
+            if (_isRested)
+            {
+                rested = _rest.TryRest();
+            }
+
             Console.WriteLine($"이곳에서 {_rest.Price}G를 지불하고 휴식할 수 있습니다.");
             Console.WriteLine("휴식 시 HP, MP가 모두 회복되며, 전투불능 상태가 해제됩니다.\n");
 
@@ -31,7 +37,7 @@
 
             if (_isRested)
             {
-                if (_rest.TryRest())
+                if (rested)
                 {
                     Console.WriteLine("충분히 휴식했습니다!\n");
                 }

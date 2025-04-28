@@ -32,15 +32,14 @@ namespace _8LETTE_TextRPG
                 {
                     new QuestGoal(QuestType.KillMonster, MonsterType.Undead.ToString(), 5)
                 },
-                new UsableItem(Guid.NewGuid().ToString(), "개초딩 포션", "테스트 퀘스트 1 클리어 보상", 0f, UseType.Potion, new Dictionary<ItemEffect, float>
+                new UsableItem(Guid.NewGuid().ToString(), "개초딩 포션", "밸런스를 고려하지 않은 사기적인 포션이다.", 0f, UseType.Potion, new Dictionary<ItemEffect, float>
                 {
                     { ItemEffect.Atk, 999f },
                     { ItemEffect.Def, 999f },
                     { ItemEffect.Hp, 999f },
                     { ItemEffect.Critical, 999f },
                     { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
+                }))
             );
 
             Quests.Add(new Quest(Guid.NewGuid().ToString(), "코딩은 장비빨!",
@@ -50,15 +49,14 @@ namespace _8LETTE_TextRPG
                 {
                     new QuestGoal(QuestType.EquipItem)
                 },
-                new EquipableItem(Guid.NewGuid().ToString(), "개사기 마우스", "테스트 퀘스트 2 클리어 보상", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
+                new EquipableItem(Guid.NewGuid().ToString(), "개사기 마우스", "밸런스를 고려하지 않은 사기적인 마우스이다.", 0f, EquipmentType.Mouse, new Dictionary<ItemEffect, float>
                 {
                     { ItemEffect.Atk, 999f },
                     { ItemEffect.Def, 999f },
                     { ItemEffect.Hp, 999f },
                     { ItemEffect.Critical, 999f },
                     { ItemEffect.Evasion, 999f }
-                }),
-                5000f)
+                }))
             );
 
             Quests.Add(new Quest(Guid.NewGuid().ToString(), "코딩은 체력 싸움!",
@@ -73,7 +71,7 @@ namespace _8LETTE_TextRPG
 
             Quests.Add(new Quest(Guid.NewGuid().ToString(), "버전 업그레이드",
                "장비도 장비지만 장인은 도구 탓을 하지 않는다.\n" +
-               "레벨 업을 하여 능력치를 올려보세요!",
+               "레벨 업, 전직을 통해 능력치를 올려보세요!",
                new List<QuestGoal>
                {
                     new QuestGoal(QuestType.IncreaseStat)

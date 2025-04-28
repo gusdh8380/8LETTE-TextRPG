@@ -14,7 +14,7 @@ namespace _8LETTE_TextRPG.SkillFolder
 
         public override SkillType Type => SkillType.Passive;
         public override SkillEffectType Effect => SkillEffectType.Damage;
-        public override float ManaCost => 15f;
+        public override float ManaCost => 0f;
 
         public override bool Execute(Player player, Monster monster)
         {
@@ -26,12 +26,12 @@ namespace _8LETTE_TextRPG.SkillFolder
 
 
 
-            if (monster.IsDead)
-            {
-                //Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
-                player.GainExp(monster.Level);
+            //if (monster.IsDead)
+            //{
+            //    //Console.WriteLine($"\n{monster.Name}을(를) 처치했습니다!");
+            //    player.GainExp(monster.Level);
 
-            }
+            //}
 
             return true;
         }

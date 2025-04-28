@@ -60,6 +60,11 @@ namespace _8LETTE_TextRPG
         {
             foreach (Quest quest in _context.Quests)
             {
+                if (quest.State != QuestState.InProgress)
+                {
+                    continue;
+                }
+
                 foreach (QuestGoal goal in quest.Goals)
                 {
                     if (goal.IsCompleted)

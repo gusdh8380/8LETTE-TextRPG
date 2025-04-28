@@ -17,7 +17,7 @@
 
             if (_isCannotEnteredDungeon)
             {
-                Console.WriteLine("전투불능 상태에서는 던전에 입장할 수 없습니다.");
+                Console.WriteLine("전투불능 상태에서는 던전에 입장할 수 없습니다.\n");
             }
 
             PrintNumAndString(1, "상태 보기");

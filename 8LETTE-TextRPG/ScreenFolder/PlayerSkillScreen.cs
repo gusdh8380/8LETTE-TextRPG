@@ -24,7 +24,7 @@ namespace _8LETTE_TextRPG.ScreenFolder
             Console.WriteLine();
 
             //번호와 함께 플레이어의 스킬 정보를 출력
-            Skill[] skills = Player.Instance.Job.Skills.ToArray();
+            Skill[] skills = Player.Instance.Job.Skills.FindAll(x => x.Type == SkillType.Active).ToArray();
             for (int i = 0; i < skills.Length; i++)
             {
                 Console.WriteLine($"{i + 1}. {skills[i].Name} - MP {skills[i].ManaCost}");

@@ -45,11 +45,11 @@ namespace _8LETTE_TextRPG.SkillFolder
 
             chosen.OnDamaged(finalDamege);
 
-            if (chosen.IsDead)
-            {
-                //Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
-                Player.Instance.GainExp(chosen.Level);
-            }
+            //if (chosen.IsDead)
+            //{
+            //    //Console.WriteLine($"\n{chosen.Name}을(를) 처치했습니다!");
+            //    Player.Instance.GainExp(chosen.Level);
+            //}
 
             return true;
         }

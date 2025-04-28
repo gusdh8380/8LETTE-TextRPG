@@ -57,11 +57,11 @@ namespace _8LETTE_TextRPG.SkillFolder
                     mon.OnDamaged(dmg);
                 }
 
-                if (mon.IsDead)
-                {
-                    // Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
-                    player.GainExp(mon.Level);
-                }
+                //if (mon.IsDead)
+                //{
+                //    // Console.WriteLine($"\n{mon.Name}을(를) 처치했습니다!");
+                //    player.GainExp(mon.Level);
+                //}
             }
 
             return true;

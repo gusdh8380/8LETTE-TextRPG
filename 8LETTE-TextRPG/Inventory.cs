@@ -153,7 +153,7 @@ namespace _8LETTE_TextRPG
 
             item.Equip();
 
-            QuestManager.Instance?.SendProgress(QuestType.EquipItem, ((EquipableItem)item).EquipmentType.ToString(), 1);
+            QuestManager.Instance?.SendProgress(QuestType.EquipItem, item.EquipmentType.ToString(), 1);
             Player.Instance.OnContextChanged();
         }
 
@@ -178,7 +178,7 @@ namespace _8LETTE_TextRPG
         {
             item.Use();
 
-            QuestManager.Instance?.SendProgress(QuestType.UseItem, ((UsableItem)item).UseType.ToString(), 1);
+            QuestManager.Instance?.SendProgress(QuestType.UseItem, item.UseType.ToString(), 1);
             Player.Instance.OnContextChanged();
         }
 

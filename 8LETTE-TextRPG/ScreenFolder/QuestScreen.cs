@@ -24,13 +24,21 @@
 
             foreach (QuestGoal goal in _quests[_userInput].Goals)
             {
-                Console.Write($"{goal.Target.ToString()}");
-                Console.WriteLine($" - {goal.CurrentAmount} / {goal.RequiredAmount}");
+                //Console.Write($"{goal.Target?.ToString().ToUpper()}"); // Target이 null인 경우가 있어서 주석처리
+                Console.WriteLine($"- {goal.CurrentAmount} / {goal.RequiredAmount}");
             }
 
             Console.WriteLine("\n- 보상");
-            Console.WriteLine(_quests[_userInput].RewardItem?.Name);
-            Console.WriteLine(_quests[_userInput].RewardGold + "G");
+            if (_quests[_userInput].RewardItem != null)
+            {
+                Console.WriteLine(_quests[_userInput].RewardItem?.Name);
+            }
+
+            if (_quests[_userInput].RewardGold != 0f)
+            {
+                Console.WriteLine(_quests[_userInput].RewardGold + "G");
+            }
+
             Console.WriteLine();
 
             switch (_quests[_userInput].State)

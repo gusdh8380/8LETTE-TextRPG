@@ -171,6 +171,8 @@ namespace _8LETTE_TextRPG.MonsterFolder
         protected virtual void Death()
         {
             CurState = State.Dead;
+
+            Player.Instance.GainExp(Level);
             Player.Instance.Gold += GoldReward;
             QuestManager.Instance?.SendProgress(QuestType.KillMonster, Type.ToString(), 1);
         }

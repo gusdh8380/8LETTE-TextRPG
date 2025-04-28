@@ -30,16 +30,16 @@
             {
                 if (mpBounus > 0f)
                 {
-                    Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} (+{mpBounus})");
+                    Console.WriteLine($"마  나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} (+{mpBounus})");
                 }
                 else
                 {
-                    Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} ({mpBounus})");
+                    Console.WriteLine($"마  나 : {Player.Instance.Mana} / {Player.Instance.MaxMana} ({mpBounus})");
                 }
             }
             else
             {
-                Console.WriteLine($"마 나 : {Player.Instance.Mana} / {Player.Instance.MaxMana}");
+                Console.WriteLine($"마  나 : {Player.Instance.Mana} / {Player.Instance.MaxMana}");
             }
 
 
@@ -91,7 +91,7 @@
             }
             else
             {
-                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance} %");
+                Console.WriteLine($"치명타 : {Player.Instance.CriticalChance}%");
             }
 
             float evasionBonus = Player.Instance.Inventory.EquippedEvasionBonus();
@@ -128,7 +128,7 @@
 
             PrintBonusStatus();
 
-            Console.WriteLine($"전투불능 : {Player.Instance.IsDead}");
+            Console.WriteLine($"생  존 : {(Player.Instance.IsDead ? "치료 필요..." : "전투 가능!!")}");
 
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 

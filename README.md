@@ -29,21 +29,22 @@
 ```plaintext
 8LETTE-TextRPG/
  ├── ContextFolder/
-      ├── DungeonContext.cs
-      └── Item Converter.cs
-      └── ...
+ │    ├── DungeonContext.cs
+ │    ├── Item Converter.cs
+ │    └── ...
  ├── ItemFolder/
  │    ├── EquipableItem.cs
  │    └── ...
  ├──  JobFolder/
  │    ├── BugWarrior.cs
- │    └── JobBase
+ │    ├── JobBase.cx
  │    └── ...
  ├── MonsterFolder/
  │    ├── DirectorDungeonMonster/
  │    ├── JuniorDungeonMonster/
- │    └── ...
- │    └── Monster.cs
+ │    ├── MiddleDungeonMonster/
+ │    ├── SeniorDungeonMonster/
+ │    ├── Monster.cs
  │    └── MonsterType.cs
  ├── QuestFolder
  │    ├── Quest.cs
@@ -59,8 +60,10 @@
  ├── Inventory.cs
  ├── Level.cs
  ├── MainGame.cs
- └── Player.cs
- └── ...
+ ├── Player.cs
+ ├── PlayerStat.cs
+ ├── Rest.cs
+ └── Shop.cs
 ```
 
 ## 🧙‍♂️ 개발자 메모

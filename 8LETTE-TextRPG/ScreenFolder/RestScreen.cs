@@ -5,6 +5,7 @@
         public static readonly RestScreen Instance = new RestScreen();
 
         private Rest _rest;
+        private bool _isSelectedRest = false;
         private bool _isRested = false;
 
         public RestScreen()
@@ -20,9 +21,10 @@
 
             bool isAlreadyMax = Player.Instance.Health == Player.Instance.MaxHealth && Player.Instance.Mana == Player.Instance.MaxMana && !Player.Instance.IsDead;
             bool canRest = Player.Instance.Gold >= _rest.Price;
-            if (_isRested && !isAlreadyMax && canRest)
+            if (_isSelectedRest && !isAlreadyMax && canRest)
             {
                 _rest.StartRest();
+                _isRested = true;
             }
 
             Console.WriteLine($"이곳에서 {_rest.Price}G를 지불하고 휴식할 수 있습니다.");
@@ -36,19 +38,22 @@
 
             Console.WriteLine();
 
-            if (_isRested)
+            if (_isSelectedRest)
             {
-                if (isAlreadyMax)
+                if (_isRested)
                 {
-                    Console.WriteLine("이미 완전히 회복된 상태입니다.\n");
-                }
-                else if (!canRest)
-                {
-                    Console.WriteLine("골드가 부족합니다.\n");
+                    Console.WriteLine("충분히 휴식했습니다!\n");
                 }
                 else
                 {
-                    Console.WriteLine("충분히 휴식했습니다!\n");
+                    if (isAlreadyMax)
+                    {
+                        Console.WriteLine("이미 완전히 회복된 상태입니다.\n");
+                    }
+                    else if (!canRest)
+                    {
+                        Console.WriteLine("골드가 부족합니다.\n");
+                    }
                 }
 
                 PrintNumAndString(0, "나가기");
@@ -69,19 +74,18 @@
             {
                 case "0":
                     _isRested = false;
+                    _isSelectedRest = false;
                     return TownScreen.Instance;
                 case "1":
-                    if (_isRested)
+                    if (_isRested || _isSelectedRest)
                     {
-                        _isRested = false;
                         _isRetry = true;
                         return this;
                     }
 
-                    _isRested = true;
+                    _isSelectedRest = true;
                     return this;
                 default:
-                    _isRested = false;
                     _isRetry = true;
                     return this;
             }

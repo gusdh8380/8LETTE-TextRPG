@@ -144,7 +144,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
 
                 //몬스터 정보 출력
                 Console.WriteLine($"Lv. {Level} {Name} 의 공격!");
-                Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+                Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.");
 
                 // 카운터 패시브스킬이 있다면 모두 실행
                 foreach (var refl in target.PassiveReflectSkill)
@@ -164,7 +164,7 @@ namespace _8LETTE_TextRPG.MonsterFolder
                 if (FinalHp < 0) { FinalHp = 0; }
                 //캐릭터 정보 출력
                 Console.WriteLine($"Lv.{target.Level.CurrentLevel} {target.Name}");
-                Console.WriteLine($"HP {target.Health} -> {FinalHp}\n");
+                Console.WriteLine($"HP {target.Health} -> {FinalHp}");
 
                 target.OnDamaged(damage);
             }

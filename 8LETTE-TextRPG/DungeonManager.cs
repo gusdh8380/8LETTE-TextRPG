@@ -4,6 +4,7 @@ using _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster;
+using _8LETTE_TextRPG.ScreenFolder;
 using System.Diagnostics.CodeAnalysis;
 
 namespace _8LETTE_TextRPG
@@ -164,6 +165,8 @@ namespace _8LETTE_TextRPG
         /// </summary>
         public void AttackPlayer()
         {
+            Console.WriteLine("");
+
             for (int i = 0; i < MonsterCount; i++) 
             {
                 if (_monsters[i].IsDead)
@@ -171,7 +174,18 @@ namespace _8LETTE_TextRPG
                     continue;
                 }
 
+                Console.SetCursorPosition(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top - 1);
+                Console.Write(new string(' ', Console.BufferWidth));
+                Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
+
                 _monsters[i].CurState = Monster.State.Attack;
+
+                if(i == MonsterCount - 1)
+                {
+                    continue;
+                }
+                TownScreen.Instance.PrintAnyKeyInstruction();
+                Console.ReadKey();
             }
         }
 

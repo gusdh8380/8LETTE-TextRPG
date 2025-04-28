@@ -9,11 +9,11 @@
             Price = price;
         }
 
-        public bool TryRest()
+        public void StartRest()
         {
-            if (Player.Instance.Gold < Price)
+            if (Player.Instance.Gold < Price || Player.Instance.Health == Player.Instance.MaxHealth && Player.Instance.Mana == Player.Instance.MaxMana && !Player.Instance.IsDead)
             {
-                return false;
+                return;
             }
 
             Player.Instance.Gold -= Price;
@@ -22,8 +22,6 @@
             Player.Instance.Mana = Player.Instance.MaxMana;
 
             Player.Instance.OnContextChanged();
-
-            return true;
         }
     }
 }

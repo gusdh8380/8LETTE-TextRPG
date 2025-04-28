@@ -128,7 +128,7 @@
 
             PrintBonusStatus();
 
-            Console.WriteLine($"생  존 : {(Player.Instance.IsDead ? "치료 필요..." : "전투 가능!!")}");
+            Console.WriteLine($"상  태 : {(Player.Instance.IsDead ? "치료 필요..." : "전투 가능!!")}");
 
             Console.WriteLine($"골  드 : {Player.Instance.Gold}G");
 

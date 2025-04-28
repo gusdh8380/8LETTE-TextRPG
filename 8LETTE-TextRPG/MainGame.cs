@@ -6,6 +6,7 @@ namespace _8LETTE_TextRPG
     {
         static void Main(string[] args)
         {
+            IntroScreen.ShowIntro();
             new Player();
 
             Screen? current = TownScreen.Instance;

@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _8LETTE_TextRPG.JobFolder;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ContextFolder
 {
     class JobConverter : JsonConverter<JobBase>
     {

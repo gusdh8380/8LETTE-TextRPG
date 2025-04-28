@@ -1,4 +1,6 @@
-﻿namespace _8LETTE_TextRPG.ScreenFolder
+﻿using _8LETTE_TextRPG.QuestFolder;
+
+namespace _8LETTE_TextRPG.ScreenFolder
 {
     internal class QuestScreen : Screen
     {

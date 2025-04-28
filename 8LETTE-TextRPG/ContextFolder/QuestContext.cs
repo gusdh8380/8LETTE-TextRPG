@@ -1,5 +1,6 @@
 ﻿using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
+using _8LETTE_TextRPG.QuestFolder;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ContextFolder
 {
     class QuestContext
     {

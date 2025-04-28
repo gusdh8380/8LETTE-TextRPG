@@ -1,9 +1,9 @@
-﻿using _8LETTE_TextRPG.MonsterFolder;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using _8LETTE_TextRPG.MonsterFolder;
 using _8LETTE_TextRPG.MonsterFolder.DirectorDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.JuniorDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.MiddleDungeonMonster;
 using _8LETTE_TextRPG.MonsterFolder.SeniorDungeonMonster;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace _8LETTE_TextRPG

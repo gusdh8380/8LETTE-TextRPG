@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.ContextFolder
 {
     class DungeonContext
     {

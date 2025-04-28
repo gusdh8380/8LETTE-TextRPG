@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;

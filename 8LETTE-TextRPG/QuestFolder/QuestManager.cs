@@ -1,8 +1,9 @@
-﻿using _8LETTE_TextRPG.ItemFolder;
+﻿using _8LETTE_TextRPG.ContextFolder;
+using _8LETTE_TextRPG.ItemFolder;
 using _8LETTE_TextRPG.MonsterFolder;
 using System.Diagnostics.CodeAnalysis;
 
-namespace _8LETTE_TextRPG
+namespace _8LETTE_TextRPG.QuestFolder
 {
     class QuestManager
     {

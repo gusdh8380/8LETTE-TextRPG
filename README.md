@@ -3,7 +3,7 @@
 ## 🛡️ 프로젝트 소개
 - **8LETTE-TextRPG**는 프로그래머들의 세계를 모티브로 한 텍스트 기반 RPG 게임입니다.
 - 플레이어는 "에잇!레인저"의 일원이 되어 몬스터를 무찌르고, 장비를 강화하며 성장해나갑니다.
-- 팀원을 참여한 프로젝트
+- 팀원으로 참여한 프로젝트
 - [8LETTE 팀 노션 바로가기](https://torpid-stamp-e35.notion.site/8LETTE-1e0662ebba1c80958206d8ec12ee2e40?pvs=4)
 
 ![image](https://github.com/user-attachments/assets/5814e742-44dc-4258-8bf3-97e7e0a5da26)
